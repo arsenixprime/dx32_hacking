@@ -26,3 +26,10 @@ The AUF Board has:
 * 8x 24V DC Outputs. 7x Low Side. 1x High Side.
 * 4x AC Outputs
 * 2x LEDs, D11 and D12
+
+## Reverse Engineering Documentation
+
+* [PROTOCOL_NOTES.md](PROTOCOL_NOTES.md) — Serial protocol between BMDC, AUF, and TLAUF. Covers UART configuration, packet formats, ISA I/O port map, dual-port RAM layout, 68030 memory map, and the TLAUF TX command protocol (VMC vs non-VMC modes).
+* [HOMING_SEQUENCE.md](HOMING_SEQUENCE.md) — How the carousel homes on startup. Traces the full call chain from drive-ready detection through the task dispatcher to the pocket-send protocol that commands the TLAUF to move to pocket 1.
+* [TOOL_CHANGE_STATE_MACHINE.md](TOOL_CHANGE_STATE_MACHINE.md) — Non-VMC tool change step machine. Documents the outer state machine (subroutine call stack) and inner step machine (carousel seek, orient, rotate) that runs when the BMDC directly controls motor outputs.
+* [AUF_PACKET_FORMAT.md](AUF_PACKET_FORMAT.md) — Detailed AUF packet encoding/decoding. Covers the nibble packing for short and long packets, input debounce logic, and output bit assignments.

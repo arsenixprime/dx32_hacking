@@ -181,7 +181,10 @@ Driven by `FUN_00012328` at 0x12328. Uses function pointer table.
 
 ## TLAUF — Tool Change I/O (Port B)
 
-The TLAUF board is an **I/O expander** for tool change mechanics — 8 outputs (7 used) and 8 inputs (6 used), plus non-volatile memory (read/written by BMDC, not important for DIY). All tool change sequencing logic lives in the BMDC firmware. The BMDC sets/clears individual output bits and reads individual input bits via the `'&'` short packets.
+The TLAUF board handles tool change mechanics. It has 7 AC outputs and 6 inputs, plus non-volatile memory. **There are two distinct control modes** depending on machine configuration:
+
+- **VMC mode** (`DAT_0000c547` bit 0 == 0): The BMDC sends high-level pocket number commands to the TLAUF via a structured command protocol. The TLAUF's HC11 microcontroller handles carousel motor control internally and reports current pocket position back.
+- **Non-VMC mode** (`DAT_0000c545` bit 1 set): The BMDC directly controls individual output bits via `'&'` short packets. All motor sequencing logic runs on the BMDC.
 
 ### TLAUF Physical I/O (from schematic)
 
@@ -208,15 +211,116 @@ The TLAUF board is an **I/O expander** for tool change mechanics — 8 outputs (
 | ACOUT5 | Tool Unclamp |
 | ACOUT6 | Air Blast |
 
-### Data Flow
+### TLAUF TX Command Protocol (VMC Mode)
 
-The TLAUF receives outputs via `'&'` short packets (3 nibbles at 0x308f), built by the shared short TX command table (`FUN_000138be`). This is a separate data path from `_DAT_000031f4` (which goes to the AUF).
+In VMC mode, the BMDC communicates with the TLAUF using a structured command protocol layered on top of the `'&'` short packets. The protocol is managed by a state machine at `FUN_000136fa` (0x136fa) with a jump table at 0x138f4.
+
+#### Protocol Variables
 
 ```
-Tool change state machine (DAT_00003c54, states 0-7)
-  → TLAUF outputs via '&' short packet (5 bytes) on UART Port B
-  → AUF outputs (stop pin, low gear, etc.) via ')' long packet on UART Port A
+DAT_00003260  - TX command state (low nibble = type 0-15, bit 7 = send pending)
+DAT_00003261  - TX status flags (bit 7 = ready, bit 6 = ack, bit 0 = error)
+DAT_00003269  - Direct byte payload (for command type 1)
+DAT_0000326a  - Protocol builder output nibble
+DAT_0000326c  - Data command byte (for command type 3)
+DAT_0000326d  - Data payload nibble (for command type 3)
 ```
+
+#### Command Types
+
+| Type | Description | Payload | Used For |
+|------|-------------|---------|----------|
+| 1 | Direct byte | `DAT_00003269` | Arm motor control (clamp/unclamp) |
+| 2 | Heartbeat | None | Keep-alive between data commands |
+| 3 | Data command | `DAT_0000326c` (cmd) + `DAT_0000326d` (data) | Pocket number commands |
+| 4 | State restore | Internal | Protocol reset (part 1) |
+| 5 | State reset | Internal | Protocol reset (part 2) |
+| 10 | CW motor | Sets CW bit in `DAT_0000326a` | **Never triggered in code** |
+| 11 | CCW motor | Sets CCW bit in `DAT_0000326a` | **Never triggered in code** |
+
+**Note:** Command types 10 and 11 (direct CW/CCW motor control) exist in the jump table but are never invoked. This confirms the BMDC does not send raw motor commands; it uses pocket number commands instead.
+
+#### TX Send Sequence
+
+To send a command, the firmware:
+1. Sets `DAT_00003260` = command_type | 0x80 (sets send pending bit)
+2. Calls `FUN_0002c9c6` (yield) in a loop
+3. Waits for bit 7 of `DAT_00003260` to clear (send complete)
+4. The protocol builder reads the command type, constructs nibbles in `DAT_0000326a`, and `FUN_00013d32` sends them as a 3-nibble short packet via UART Port B
+
+#### Pocket Number Command Protocol (0x2e2ee)
+
+The function at 0x2e2ee sends a target pocket number (in D0) to the TLAUF:
+
+```
+Input: D0 = target pocket number (1-24)
+
+Step 1: Send high nibble
+    DAT_0000326d = (D0 >> 4) & 0xF     ; high nibble of pocket
+    DAT_0000326c = 0x07                  ; command byte: "pocket high"
+    DAT_00003260 = 0x83                  ; command type 3, send pending
+    [wait for send complete]
+
+Step 2: Heartbeat
+    DAT_00003260 = 0x82                  ; command type 2, send pending
+    [wait for send complete]
+
+Step 3: Send low nibble
+    DAT_0000326d = D0 & 0xF             ; low nibble of pocket
+    DAT_0000326c = 0x08                  ; command byte: "pocket low"
+    DAT_00003260 = 0x83                  ; command type 3, send pending
+    [wait for send complete]
+
+Step 4: Heartbeat
+    DAT_00003260 = 0x82                  ; command type 2, send pending
+    [wait for send complete]
+
+Step 5: Poll until TLAUF confirms arrival
+    loop:
+        call FUN_0002e3a6()              ; read current pocket from TLAUF
+        if current_pocket == target:
+            return                        ; done
+        if timeout exceeded:
+            TRAP 0xe (error)
+```
+
+**FUN_0002e3a6** reads the current pocket from TLAUF long RX parameters:
+```c
+return (DAT_00003277 << 4) | DAT_00003278;  // bytes 7-8 of TLAUF RX
+```
+
+#### Arm Motor Control (VMC Mode)
+
+The arm clamp/unclamp motor is controlled via command type 1 using `DAT_00003269`:
+
+```
+Arm motor on + CW:   DAT_00003269 bits 5,6 set via FUN_0002f1f6
+Arm motor on + CCW:  DAT_00003269 bits 5,6 set (different combination)
+Arm motor off:       DAT_00003269 bits cleared
+
+Send: DAT_00003260 = 0x81 (command type 1, send pending)
+```
+
+Direct bit writes to DAT_00003269 at FUN_0002ee9a (0x2eeca):
+- Bit 0: motor on
+- Bit 1: CW direction
+- Bit 2: CCW direction
+
+### TLAUF RX Data (VMC Mode)
+
+The TLAUF reports status back via the `'&'` RX packets. In VMC mode, the long RX parameters include:
+
+| Parameter | Variable | Description |
+|-----------|----------|-------------|
+| Bytes 7-8 | `DAT_00003277`, `DAT_00003278` | Current pocket number (high/low nibble) |
+
+The current pocket is read by `FUN_0002e3a6`: `pocket = (DAT_00003277 << 4) | DAT_00003278`
+
+Valid pocket range: 1-24 (0x18). Values of 0 or 0xFF indicate unknown/invalid position.
+
+### Non-VMC Mode (Direct I/O)
+
+In non-VMC mode (`DAT_0000c545` bit 1 set), the BMDC directly controls output bits via `_DAT_000031f4` and `'&'` short packets, with all motor sequencing logic running on the BMDC side. See `TOOL_CHANGE_STATE_MACHINE.md` for the step-by-step sequencing in this mode.
 
 ### TLAUF Input Bits
 
@@ -235,7 +339,7 @@ Bits 6-7 unused on this machine.
 
 **Note:** The bit-to-terminal mapping above is a guess based on input number → bit number. The actual mapping depends on the TLAUF board's internal firmware and needs physical verification.
 
-### TLAUF Output Bits
+### TLAUF Output Bits (Non-VMC Direct Control)
 
 The TLAUF short TX packet carries 3 nibbles (12 bits). The proposed mapping (ACOUT terminal → packet bit) needs verification:
 
@@ -269,12 +373,15 @@ The state machine is driven by `DAT_0000aeca` (step counter, values 0x01-0x0F) a
 
 ### Key Insight for DIY Implementation
 
-The TLAUF board is purely an I/O expander over RS422. To control it from a DIY system:
+**VMC mode (recommended path for DIY):** The TLAUF HC11 microcontroller handles carousel motor control autonomously. A DIY controller only needs to:
 
-1. Send `'&'` short packets (5 bytes) at the polling rate to set 7 output bits (carousel fwd/rev, arm out/back/brake, tool unclamp, air blast)
-2. Receive `'&'` short packets (9 bytes) to read 6 input bits (tool clamped/unclamped, arm out/back, tool count, pocket 1)
-3. Implement the tool change sequencing logic in your own controller
-4. The polling cycle runs at roughly the servo rate (~500 Hz / 2ms)
+1. Implement the `'&'` short packet protocol (TX 5 bytes, RX 9 bytes) at ~500 Hz
+2. Send pocket number commands using the two-nibble protocol (cmd 0x07 = high nibble, cmd 0x08 = low nibble) via command type 3
+3. Send arm motor commands via command type 1 (`DAT_00003269` bits)
+4. Poll current pocket via TLAUF RX parameters (bytes 7-8)
+5. Implement heartbeat (command type 2) between data commands
+
+**Non-VMC mode (more complex):** The controller must directly drive all 7 output bits and implement full motor sequencing logic. See `TOOL_CHANGE_STATE_MACHINE.md`.
 
 ---
 

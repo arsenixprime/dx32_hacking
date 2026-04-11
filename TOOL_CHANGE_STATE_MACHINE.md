@@ -1,6 +1,8 @@
-# Tool Change State Machine
+# Tool Change State Machine (Non-VMC / Direct I/O Mode)
 
 ## Overview
+
+**Note:** This document describes the **non-VMC** tool change path where the BMDC directly controls carousel motor outputs and uses encoder-based positioning. In **VMC mode**, the BMDC instead sends target pocket numbers to the TLAUF, which handles motor control internally. See `HOMING_SEQUENCE.md` and the TLAUF TX Command Protocol section in `PROTOCOL_NOTES.md` for VMC mode details.
 
 The tool change is driven by two nested state machines:
 

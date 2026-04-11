@@ -379,7 +379,7 @@ The function also reads TLAUF short RX nibbles (0x3088-0x3089) → DAT_00003268 
 
 | Pin | Function | Param.Bit | Status |
 |-----|----------|-----------|--------|
-| TI0 | (N/C on VMC, Tool#1 on other types) | p171.b0 | N/A |
+| TI0 | Tool#1 (home sensor) | p171.b0 | Physically present; on VMC, consumed by TLAUF HC11 internally for homing/counting (not mapped to BMDC param) |
 | TI1 | Tool Count | p171.b1 | MAINTPG |
 | TI2 | Arm Out | p171.b2 | MAINTPG |
 | TI3 | Arm Back | p171.b3 | MAINTPG |
@@ -400,6 +400,48 @@ The function also reads TLAUF short RX nibbles (0x3088-0x3089) → DAT_00003268 
 | TO5 | Draw Bar | p172.b5 | MAINTPG |
 | TO6 | Air Blast | p172.b6 | MAINTPG |
 | TO7 | (N/C on VMC) | — | N/A |
+
+### TLAUF Tool Change Signal Flow in BMDC Firmware
+
+Two tool changer modes exist, controlled by `DAT_0000c545 bit 2`:
+
+**Mode 1 — Smart counting (c545 bit 2 = 0, VMC type):**
+- The TLAUF's HC11 microcontroller counts pockets internally using TI0 (Tool#1) and TI1 (Tool Count)
+- The TLAUF returns the **current pocket number (1–24)** via long RX parameters at nibble index 7-8 of the parameter array (`DAT_00003270[]`)
+- BMDC reads this via `FUN_0002e3a6` (0x2e3a6): `DAT_00003278 | DAT_00003277 << 4`, validated 1–24
+- Stored in `_DAT_00004096` (current tool pocket) and `_DAT_01200554` (reported to DOS PC)
+- TI0/TI1 are consumed by the HC11 locally — the BMDC never reads them as individual signals
+- This is why MAINTPG shows TI0 as "N/C" on VMC: it's not mapped to a BMDC parameter because the TLAUF HC11 uses it internally for homing/counting
+- Homing is handled by the TLAUF HC11: on startup, it rotates the carousel until TI0 (Tool#1) is detected, resets its internal counter to 1, and reports that to the BMDC
+
+**Mode 2 — Raw bit mapping (c545 bit 2 = 1, other machine types):**
+- TLAUF long RX bits are individually mapped: `DAT_0000324c._1_1_` bits → `DAT_00003268` (arm/clamp) and `DAT_000031e9` (TI0, TI1)
+- The BMDC reads Tool#1 and Tool Count as individual signals and counts pockets itself
+- Pocket number is NOT read from TLAUF params in this mode (`DAT_0000af04 = 0`)
+
+**TLAUF short RX (both modes):**
+- 0x3088-0x3089 → `DAT_00003268` (8 bits: TI0-TI7)
+- Bits 0x04-0x20 (TI2-TI7: arm/clamp states) are checked in tool change loops regardless of mode
+- Bits 0x01-0x02 (TI0, TI1) are present but never read from DAT_00003268 by BMDC firmware
+
+**BMDC carousel state machine** (`DAT_0000aeca` states):
+- State 1: Start rotation
+- State 3: Reset position (home reference point)
+- State 4: Enable tool changes
+- State 5: Reverse direction
+- States 6/8/9: Approach movements
+- State 7: Complete/reset
+
+**Protocol parser table** (at 0x12368, 20 bytes per entry):
+
+| Step | Function | Count | Buffer | Nibble base | Purpose |
+|------|----------|-------|--------|-------------|---------|
+| 1 | 0x13cf6 | 35 | 0x3014 (AUF TX) | 0x3064 | AUF TX |
+| 2 | 0x13d32 | 38 | 0x303c (TLAUF TX) | 0x308f | TLAUF TX |
+| 3 | 0x13a88 | 35 | 0x3000 (AUF RX) | 0x305d | AUF RX |
+| 4 | 0x13a88 | 38 | 0x3028 (TLAUF RX) | 0x3088 | TLAUF RX |
+| 5 | 0x13d14 | 41 | 0x3014 (AUF TX) | 0x3077 | AUF TX long |
+| 6-8 | various | — | — | — | Processing + FUN_00012592 |
 
 ---
 
