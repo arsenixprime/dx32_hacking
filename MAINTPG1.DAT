@@ -1,0 +1,1296 @@
+[0]
+t=BMDC Executive Revision Level
+
+[1]
+t=Lo-Speed (below breakpoint) Acceleration
+d=The amount by which velocity is increased at each iteration of the Interpolator if acceleration is required and velocity is below breakpoint.
+
+[2]
+t=Hi-Speed (above breakpoint) Acceleration
+d=The amount by which velocity is increased at each iteration of the Interpolator if acceleration is required and velocity is above breakpoint.
+
+[3]
+t=Acceleration Break-Point
+d=Velocity below which Low-Speed-Acceleration value is used and above which High-Speed-Acceleration value is used.
+
+[4]
+t=Deceleration
+d=The amount by which velocity is decreased at each iteration of the Interpolator.
+
+[150]
+t=Machine Faults Word
+b0=Axis Drive Fault
+b1=Spindle Controller Fault
+b2=Auxiliary Controller Fault
+b3=Tool Changer Fault
+b4=BMDC Fault
+b5=Power Not Enabled Fault
+b6=Spindle Not Enabled Fault
+b7=Axis Limit Fault
+
+[151]
+t=Axis Limits Word
+b0=X Axis Limit Fault
+b1=Y Axis Limit Fault
+b2=Z Axis Limit Fault
+b3=W(Rotary) Axis Limit Fault
+b4=S(Spindle) Axis Limit Fault
+
+[152]
+t=Auxiliary Limits Word
+b0=Emergency Stop
+b1=Spindle Motor Overload
+b2=Spindle Motor Over-Heated
+b3=Perimeter Door Guard
+
+[153]
+t=Drive Faults Word
+b0=X Axis Drive Fault
+b1=Y Axis Drive Fault
+b2=Z Axis Drive Fault
+b3=W(Rotary) Axis Drive Fault
+b4=S(Spindle) Axis Drive Fault
+
+[154]
+t=Machine Status Word
+b0=Axis Drives
+b1=Rotary Table Brake
+b2=Rotary Axis Active
+b3=Perimeter Door Guard
+
+[155]
+t=Home Switch Word
+b0=X Axis Home Switch
+b1=Y Axis Home Switch
+b2=Z Axis Home Switch
+b3=W(Rotary) Axis Home
+b4=S(Spindle) Axis Home
+b7=Touch-Probe Switch
+
+[156]
+t=Option Status Word
+b0=Pallet finish signal
+b8=Low Air Switch
+b9=Low Lube Switch
+b10=Index In (Inhib)
+b11=Index Out (Reset)
+b12=Robot Ready
+b13=Laser Ready
+b14=Lube Pressure Switch
+b15=External Reset
+
+[157]
+t=Unimplemented
+
+[158]
+t=Back-End Switch Status Word
+b8=Chuck Inward
+b16=Tool Eject PB
+b17=Tool Carousel Forward PB
+b18=Tool Carousel Reverse PB
+b19=Operator Pedal Switch
+b20=Select X Axis for jog
+b21=Select Y Axis for jog
+b22=Select Z Axis for jog
+b23=Select W Axis for jog
+b24=Spindle Off PB/Handle
+b25=Spn. Enable PB/Handle
+b26=Spn. Fwd. PB/Handle
+b27=Spn. Rev. PB/Handle
+b28=Hold PB
+b29=Cycle-Start PB
+b30=Jog(+)PB
+b31=Jog(-)PB
+
+[159]
+t=Front-End Switch Status Word
+b0=EzPath Lathe 'Mode' Switch 
+
+[160]
+t=Machine Command Word
+b0=Enable Axis Drive Amps
+b1=Release Rotary Axis Brake
+b2=Door Guard Shot-Pin In
+b3=Spindle Chuck Out ON=out
+b4=Spindle Chuck In 
+b6=Enable Z Axis Drive
+b7=Limit Override
+
+[161]
+t=Option Command Word
+b0=Pallet load
+b1=Pallet unload
+b8=Work Light
+b9=Lube Pump
+b10=Mist coolant
+b11=Flood coolant
+b12=Indexer
+b13=Swarf Conveyor Fwd
+b14=Swarf Conveyor Rev
+b15=External Reset
+
+[162]
+t=Unimplemented
+
+[163]
+t=Spindle Command Word
+b0=Spindle Xmsn Pin 
+b1=Spindle Xmsn Low Gear
+b2=Spindle Xmsn High Gear
+b8=Spindle Drive
+b9=Spindle High Gear
+b10=Spindle Forward
+b11=Spindle Reverse
+b12=Spindle Speed increase
+b13=Spindle Speed decrease
+b14=Spindle Off Light
+b15=Spindle Brake
+
+[164]
+t=Spindle Status Word
+b0=Spindle Ready
+b1=Spindle At Zero Speed
+b2=Spindle At Speed
+b3=Spindle Home
+b4=Spindle Brake
+b5=Spindle Low Gear Swt.
+b6=Spindle High Gear Swt.
+b7=Xmsn Shot Pin in Carrier Swt.
+
+[165]
+t=Spindle Speed Command Word
+d=The desired spindle speed, in RPM.
+
+[166]
+t=Tool-Changer Command Word
+b0=- See Documentation -
+b1=- See Documentation -
+b2=- See Documentation -
+b3=- See Documentation -
+b7=Command Valid Bit
+
+[167]
+t=Tool-Changer Status Register
+b0=Fault Status Active
+b1=NOVRAM Checksum Error
+b2=ACFAIL
+b3=ESTOP
+b4=Normal Status Active
+b5=Command Aborted
+b6=High-Level Command in Progress (Busy)
+b7=High-Level Command Done
+
+[168]
+t=Tool-Changer Control Register
+b4=High Level Command resent (3rd try)
+b5=High Level Command resent
+b6=Busy received for high level command
+b7=High Level Command sent
+
+[169]
+t=Desired Tool Register
+d=The tool-number to be used by the next hi-level tool-changer command.
+
+[170]
+t=Carousel Position Register
+d=The current (usually empty) pocket in the tool-changer magazine.
+
+[171]
+t=TLAUF Input Register
+b0=Tool Number One Swt.
+b1=Tool Counting Swt.
+b2=Tool Arm Out Swt.
+b3=Tool Arm Back Swt.
+b4=Tool Unclamped Swt.
+b5=Spindle Clamped
+b6=Tool Arm Down
+b7=Tool Arm Up
+
+[172]
+t=TLAUF Output Register
+b0=Brake Release
+b1=Tool Arm Out
+b2=Tool Arm Back
+b3=Tool Carousel Forward
+b4=Tool Carousel Reverse
+b5=Draw Bar
+b6=Air Blast
+b7=Tool Arm Down
+
+[173]
+t=NV RAM Write Address Register
+
+[174]
+t=NV RAM Write Data Register
+
+[175]
+t=NV RAM Address Register
+d=Used by the AUF Driver software
+
+[176]
+t=NV RAM Pointer Register
+d=Used by the AUF Driver software to address the shadow RAM.
+
+[177]
+t=NV RAM Data Register - Nybble 0
+
+[178]
+t=NV RAM Data Register - Nybble 1
+
+[179]
+t=NV RAM Data Register - Nybble 2
+
+[180]
+t=NV RAM Data Register - Nybble 3
+
+[181]
+t=NV RAM Data Register - Nybble 4
+
+[182]
+t=NV RAM Data Register - Nybble 5
+
+[183]
+t=NV RAM Data Register - Nybble 6
+b0=- See Documentation -
+b1=- See Documentation -
+b3=Input Polarity ( 0=High, 1=Low )
+
+[184]
+t=NV RAM Data Register - Nybble 7
+
+[185]
+t=NV RAM Data Register - Nybble 8
+
+[186]
+t=NV RAM Data Register - Nybble 9
+
+[187]
+t=NV RAM Data Register - Nybble 10
+
+[188]
+t=NV RAM Data Register - Nybble 11
+
+[189]
+t=NV RAM Data Register - Nybble 12
+
+[190]
+t=NV RAM Data Register - Nybble 13
+
+[191]
+t=NV RAM Data Register - Nybble 14
+
+[192]
+t=NV RAM Data Register - Nybble 15
+
+[193]
+t=Spindle Ramp Up Max Time
+d=Maximum time (in seconds) allowed for the spindle to rampup to speed before a spindle time-out message is posted.
+
+[194]
+t=Spindle Shot-pin Switch Make Max Time
+d=Maximum time (in seconds) allowed for the spindle shot-pin switch to change state before a shot-pin extend/retract failure message is posted.
+
+[195]
+t=Spindle Switch Settling In Max Time
+d=Maximum time (in seconds) allowed that the spindle in-gear and shot-pin switches must stay at state before it is considered a good make.
+
+[196]
+t=Spindle Range Switch Make Max Time
+d=Maximum time (in seconds) allowed for the spindle Hi/Low range switch to change state.
+
+[197]
+t=Gear settling-in Max Time
+d=Maximum time (in seconds) for the requested spindle gear to settle into place.
+
+[198]
+t=Shot-pin settling-in Max Time
+d=Maximum time (in seconds) for the spindle shot-pin to be inserted all the way into the carrier plate.
+
+[199]
+t=Backing out/in Max Time
+d=Maximum time (in seconds) allowed for the carrier plate to back out of a stuck position.
+
+[200]
+t=Maximum Number of Retries
+d=Maximum number of re-tries attempted before a Hi/Low range switch failure message is posted.
+
+[201]
+t=Maximum Shifting Torque
+d=Maximum allowable shifting torque, expressed as spindle load, above which the next retry is attempted immediately.
+
+[202]
+t=Spndl Temp Gain
+d=Spindle temperature correction scale factor in inches/degree or millimeters/degree centigrade.
+
+[203]
+t=Number of GPAUF Boards
+d=The number of GPAUF boards in the system.  This must be set to zero when no GPAUFs are installed.
+    
+[204]
+t=GPAUF Use
+b0=GPAUF(s) Usage
+b1=Axis Drives
+b2=Spindle Routine
+b3=Limit Switch
+b4=Limit Status
+b5=Lube Routine
+b6=Door Guard
+b7=Rotary Axis
+b8=Coolant Routine
+b9=Chip Conveyor
+b10=Aux Start Button
+b11=Aux Hold Switch
+b12=Indexing Table
+b13=Select Switch
+b14=Air Pressure
+b15=PLC
+b16=Tool Eject
+b17=Tool Changer
+
+[205]
+t=Z Brake Timer
+d=The number of 12 ms time periods between drives on and Z brake release.
+
+[206]
+t=Unimplemented
+
+[207]
+t=Unimplemented
+
+[208]
+t=Unimplemented
+
+[209]
+t=Unimplemented
+
+[210]
+t=Unimplemented
+
+[211]
+t=Unimplemented
+
+[212]
+t=Unimplemented
+
+[213]
+t=Unimplemented
+
+[214]
+t=Unimplemented
+
+[215]
+t=Unimplemented
+
+[216]
+t=Unimplemented
+
+[217]
+t=Unimplemented
+
+[218]
+t=Unimplemented
+
+[219]
+t=Unimplemented
+
+[220]
+t=Analog Input #1 - Feedrate Override Value
+d=This is the Feedrate Override value, in percent.  It may be from an Analog Input or from the Operator Control Interface software.
+
+[221]
+t=Analog Input #2 - Spindle Speed Feedback
+d=This is used for crude spindle speed sensing, as in the Air-Motor Spindle.
+
+[222]
+t=Analog Input #3 - JoyStick Pot #1 (X)
+d=This input is intended to be used to interface to an Analog Joystick.
+
+[223]
+t=Analog Input #4 - JoyStick Pot #2 (Y)
+d=This input is intended to be used to interface to an Analog Joystick.
+
+[224]
+t=Analog Input #5 - JoyStick Pot #3 (Z)
+d=This input is intended to be used to interface to an Analog Joystick.
+
+[225]
+t=Analog Input #6 - JoyStick Pot #4 (C)
+d=This input is intended to be used to interface to an Analog Joystick.
+
+[226]
+t=Analog Input #7 - JoyStick Pot #5 (S)
+d=This input is intended to be used to interface to an Analog Joystick.
+
+[227]
+t=Axis #1 (X) Following Error
+d=The amount of lag between the commanded and actual positions in Servo.
+
+[228]
+t=Axis #2 (Y) Following Error
+d=The amount of lag between the commanded and actual positions in Servo.
+
+[229]
+t=Axis #3 (Z) Following Error
+d=The amount of lag between the commanded and actual positions in Servo.
+
+[230]
+t=Axis #4 (C) Following Error
+d=The amount of lag between the commanded and actual positions in Servo.
+
+[231]
+t=Axis #5 (S) Following Error
+d=The amount of lag between the commanded and actual positions in Servo.
+
+[232]
+t=Axis #1 (X) DAC Value
+d=The actual value in the Axis DAC for this axis.
+
+[233]
+t=Axis #2 (Y) DAC Value
+d=The actual value in the Axis DAC for this axis.
+
+[234]
+t=Axis #3 (Z) DAC Value
+d=The actual value in the Axis DAC for this axis.
+
+[235]
+t=Axis #4 (C) DAC Value
+d=The actual value in the Axis DAC for this axis.
+
+[236]
+t=Axis #5 (S) DAC Value
+d=The actual value in the Axis DAC for this axis.
+
+[237]
+t=Axis #1 (X) DAC Offset
+d=The actual value in the Axis DAC for this axis.
+
+[238]
+t=Axis #2 (Y) DAC Offset
+d=The actual value in the Axis DAC for this axis.
+
+[239]
+t=Axis #3 (Z) DAC Offset
+d=The actual value in the Axis DAC for this axis.
+
+[240]
+t=Axis #4 (C) DAC Offset
+d=The actual value in the Axis DAC for this axis.
+
+[241]
+t=Axis #5 (S) DAC Offset
+d=The actual value in the Axis DAC for this axis.
+
+[242]
+t=Spindle up-to-speed timer
+d=Time (in seconds) for the spindle to ramp up to the shifting speed during a gear change.
+
+[243]
+t=Spindle shot-pin make timer
+d=Time (in seconds) for the spindle shot-pin switch to change state before a shot-pin extend/retract failure message is posted.
+
+[244]
+t=Settling-in timer
+d=Time (in seconds) that the spindle in-gear and shot-pin switches must stay at state before it is considered a good make.
+
+[245]
+t=Spindle range switch make timer
+d=Time (in seconds) for the spindle Hi/Low range switch to change state.
+
+[246]
+t=Gear settling-in timer
+d=Time (in seconds) for the requested spindle gear to settle into place.
+
+[247]
+t=Shot-pin settling-in timer
+d=Time (in seconds) for the spindle shot-pin to be inserted all the way into the carrier plate.
+
+[248]
+t=Backing out/in timer
+d=Time (in seconds) for the carrier plate to back out of a "stuck" position.
+
+[249]
+t=Timer 8
+
+[250]
+t=Timer 9
+
+[251]
+t=Timer 10
+
+[252]
+t=Timer 11
+
+[253]
+t=Timer 12
+
+[254]
+t=Timer 13
+
+[255]
+t=Timer 14
+
+[256]
+t=Timer 15
+
+[257]
+t=Timer 16
+
+[258]
+t=Number of Re-tries counter
+d=Counter for the number of retries attempted before a Hi/Low range switch failure message is posted.
+
+[259]
+t=Counter 2
+
+[260]
+t=Counter 3
+
+[261]
+t=Counter 4
+
+[262]
+t=Counter 5
+
+[263]
+t=Counter 6
+
+[264]
+t=Counter 7
+
+[265]
+t=Counter 8
+
+[266]
+t=Spindle Usage Time
+d=Time that the spindle has been in use.
+
+[267]
+t=Spndl Temp Corr
+d=Spindle temperature correction.
+
+[268]
+t=Ambient Temperature
+d=Ambient Temperature in degrees celcius.
+
+[269]
+t=Spindle Head Temp
+d=Spindle Head Temperature in degrees celcius.
+
+[270]
+t=Accumulated Spindle Temperature Correction
+d=The spindle temperature correction is added to this parameter once each minute.  When this parameter exceeds 0.0004 in or 0.00102 mm, it is reset to zero.
+
+[271]
+t=Cycle Time
+d=Time from program start to program end.
+
+[272]
+t=Peck Clearance
+d=User specified chip break clearance for Z-cycles
+
+[273]
+t=X Pallet1 Clearance
+d=X-Axis Pallet 1 clearance point
+
+[274]
+t=Y Pallet1 Clearance
+d=Y-Axis Pallet 1 clearance point
+
+[275]
+t=X Pallet2 Clearance
+d=X-Axis Pallet 2 clearance point
+
+[276]
+t=Y Pallet2 Clearance
+d=Y-Axis Pallet 2 clearance point
+    
+[277]
+t=GPAUF1 Inputs 0-31
+b0=Spindle Fault
+b1=Spindle High Gear
+b2=Spindle Low Gear
+b3=Spindle Shot Pin
+b6=)Emergency Stop
+b7=)Motor Overloaded
+b8=Low Lube Level
+b9=Low Lube Pressure
+b10=Low Air Pressure
+b11=)Axis Drive Faults
+b12=)X-Axis at Limit
+b13=)Y-Axis at Limit
+b14=)Z-Axis at Limit
+b15=X-Axis Home switch
+b16=Y-Axis Home switch
+b17=Z-Axis Home switch
+b18=C-Axis Home switch
+b19=)C-Axis Drive fault
+b20=C-Axis Installed
+b21=C-Axis Brake Clamped
+b22=Indexer Out
+b23=Indexer Back
+b24=Perimeter Door Open
+b25=)Coolant Motor Overload
+b26=CR1 Status
+
+[278]
+t=GPAUF1 Inputs 32-63
+b16=Tool Eject Pushbutton
+b17=Tool Magazine Rotate PB
+b18=Tool Clamped switch
+b19=Tool Unclamped switch
+b20=Tool Arm Back
+b21=Tool Arm Out
+b22=Tool Count switch
+b23=Tool Pocket #1 switch
+
+[279]
+t=GPAUF1 Outputs 0-31
+
+[280]
+t=GPAUF1 Outputs 32-63
+b0=Spindle Safe Light
+b1=Spindle Enable Fwd
+b2=Spindle High Gear
+b3=Spindle Low Gear
+b4=Soindle Shotpin
+b6=Lube pump
+b8=Door Guard
+b9=A-Axis Brake Release
+b10=Aux Coolant (M07)
+b11=Flood Coolant (M08)
+b12=Chip Conveyor fwd (M36)
+b13=Chip Conveyor rev (M38)
+b14=Index air (M51)
+b15=Z-Axis Brake Release
+b25=Tool Air Blast Sol
+b26=Drawbar Solenoid
+b27=Tool Arm Brake
+b28=Carousel Reverse
+b29=Carousel Forward
+b30=Tool Arm Back
+b31=Tool Arm Out
+
+[281]
+t=GPAUF2 Inputs 0-31
+
+[282]
+t=GPAUF2 Inputs 32-63
+
+[283]
+t=GPAUF2 Outputs 0-31
+
+[284]
+t=GPAUF2 Outputs 32-63
+
+[285]
+t=Control Options
+b0=Rigid tapping
+b1=Tool life management
+b2=Parts counter, cycling timer
+b3=Additional M-codes
+b4=Parametric Part Programming
+b5=Digitizing
+
+[5]
+t=Spindle Acceleration
+d=The amount by which velocity is increased at each iteration of the Interpolator if acceleration is required and the 'S' axis is involved.
+
+[6]
+t=Spindle Deceleration
+d=The amount by which velocity is decreased at each iteration of the Interpolator if deceleration is required and the 'S' axis is involved.
+
+[7]
+t=Maximum Traverse Rate
+d=The maximum allowable traverse rate (positioning or cutting) for the 1st (X), 2nd (Y), and 4th (C) axes.
+
+[8]
+t=Z-Axis Traverse Rate
+d=The maximum allowable traverse rate (positioning or cutting) for the 3rd (Z) axis.
+
+[9]
+t=Homing Speed
+d=The rate at which an axis is moved while looking for an index mark.  Must be low enough to guarantee at least a 50 uS wide index pulse.
+
+[10]
+t=Accel/Decel Profile Selection
+d=0 = Normal (trapezoidal) profile using params 2 through 9.  1 = 'S'-Curve based SOLELY on parameter #1.
+
+[11]
+t=Residual Feedrate for DLT ramp
+d=The feedrate used for final positioning after end-of-move ramp-down.  The rate at which we can "stop on a dime".
+
+[12]
+t=Minimum reduction of following error per Tick
+d=A special deceleration parameter that is applied when any axis following error grows too large.
+
+[13]
+t=Portion of Jog following error used as FDRT per Tick
+d=Jog-Knob (Handwheel) uses this to calculate a speed proportional to the knob speed to minimize run-on at the end of motion.
+
+[14]
+t=Measuring Feed
+d=The feedrate at which the Touch-Probe measurements are made.
+
+[15]
+t=Probing post-hit continuation distance
+d=The distance that the Touch-Probe continues to move after a touch is registered.  This is necessary for some mechanical-switch probes.
+
+[16]
+t=Touch-Probe back-off distance
+d=The distance that the Touch-Probe retracts after a touch is registered.
+
+[17]
+t=X (1st) Axis move negative limit of travel
+d=The value, in machine coordinates, of the negative (-) limit of travel for this axis.
+
+[18]
+t=X (1st) Axis move positive limit of travel
+d=The value, in machine coordinates, of the positive (+) limit of travel for this axis.
+
+[19]
+t=Y (2nd) Axis move negative limit of travel
+d=The value, in machine coordinates, of the negative (-) limit of travel for this axis.
+
+[20]
+t=Y (2nd) Axis move positive limit of travel
+d=The value, in machine coordinates, of the positive (+) limit of travel for this axis.
+
+[21]
+t=Z (3rd) Axis move negative limit of travel
+d=The value, in machine coordinates, of the negative (-) limit of travel for this axis.
+
+[22]
+t=Z (3rd) Axis move positive limit of travel
+d=The value, in machine coordinates, of the positive (+) limit of travel for this axis.
+
+[23]
+t=C (4th) Axis move negative limit of travel
+d=The value, in machine coordinates, of the negative (-) limit of travel for this axis.
+
+[24]
+t=C (4th) Axis move positive limit of travel
+d=The value, in machine coordinates, of the positive (+) limit of travel for this axis.
+
+[25]
+t=S (5th) Axis move negative limit of travel
+d=The value, in machine coordinates, of the negative (-) limit of travel for this axis.
+
+[26] 
+t=S (5th) Axis move positive limit of travel
+d=The value, in machine coordinates, of the positive (+) limit of travel for this axis.
+
+[27]
+t=X (1st) Axis Home switch offset
+d=The distance past the Axis-Home-Switch to travel before stopping on the next Index-Mark.  NOTE: Homing ALWAYS stops ON the index mark!
+
+[28]
+t=Y (2nd) Axis Home switch offset
+d=The distance past the Axis-Home-Switch to travel before stopping on the next Index-Mark.  NOTE: Homing ALWAYS stops ON the index mark!
+
+[29]
+t=Z (3rd) Axis Home switch offset
+d=The distance past the Axis-Home-Switch to travel before stopping on the next Index-Mark.  NOTE: Homing ALWAYS stops ON the index mark!
+
+[30]
+t=C (4th) Axis Home switch offset
+d=The distance past the Axis-Home-Switch to travel before stopping on the next Index-Mark.  NOTE: Homing ALWAYS stops ON the index mark!
+
+[31]
+t=S (5th) Axis Home switch offset
+d=The distance past the Axis-Home-Switch to travel before stopping on the next Index-Mark.  NOTE: Homing ALWAYS stops ON the index mark!
+
+[32]
+t=X (1st) Axis encoder resolution
+d=The number of 10 nanometer (centa-micrometer, or CUM) units represented by each axis encoder count.  Example: 0.001 mm per count = 100 CUMs.
+
+[33]
+t=Y (2nd) Axis encoder resolution
+d=The number of 10 nanometer (centa-micrometer, or CUM) units represented by each axis encoder count.  Example: 0.001 mm per count = 100 CUMs.
+
+[34]
+t=Z (3rd) Axis encoder resolution
+d=The number of 10 nanometer (centa-micrometer, or CUM) units represented by each axis encoder count.  Example: 0.001 mm per count = 100 CUMs.
+
+[35]
+t=C (4th) Axis encoder resolution
+d=The number of micro-degree units represented by each Axis Encoder count.
+
+[36]
+t=S (5th) Axis encoder resolution
+d=The number of micro-degree units represented by each Axis Encoder count.
+
+[37]
+t=JogKnob encoder resolution
+d=The number of 10 nanometer (centa-micrometer, or CUM) units represented by each handwheel encoder count.  Example: 0.001 mm per count = 100 CUMs.
+
+[38]
+t=The 'Homing Sequence' configuration parameter
+b0=1st Axis Home
+b1=1st Axis Home Switch
+b2=Axis Home Direction
+b4=2nd Axis Home
+b5=2nd Axis Home Switch
+b6=Axis Home Direction
+b8=3rd Axis Home
+b9=3rd Axis Home Switch
+b10=Axis Home Direction
+b12=4th Axis Home
+b13=4th Axis Home Switch
+b14=Axis Home Direction
+
+[39]
+t=Dead-Band (Null Zone) for Joy-Sticks
+d=The unsigned value that is treated as 'centered' (no movement) for the Joy-Stick Analog Inputs.
+
+[40]
+t=Scale Factor for Joy-Sticks
+d=Used to scale the analog Joy-Stick inputs for the desired response.  One scale factor is used for ALL Joy-Stick inputs.
+
+[41]
+t=X (1st) Axis Applied Motor Voltage
+d=The maximum voltage that can be applied to the motor.  The Equation is Motor_Resistance * Maximum_Current.
+
+[42]
+t=Y (2nd) Axis Applied Motor Voltage
+d=The maximum voltage that can be applied to the motor.  The Equation is Motor_Resistance * Maximum_Current.
+
+[43]
+t=Z (3rd) Axis Applied Motor Voltage
+d=The maximum voltage that can be applied to the motor.  The Equation is Motor_Resistance * Maximum_Current.
+
+[44]
+t=C (4th) Axis Applied Motor Voltage
+d=The maximum voltage that can be applied to the motor.  The Equation is Motor_Resistance * Maximum_Current.
+
+[45]
+t=Spindle Velocity Filter Period 
+d=The time period over which spindle velocity is averaged.
+
+[46]
+t=Advanced Servo Options
+d=This parameter is 8 4-bit fields that enable/disable specific servo-system features.
+b0=This parameter is 
+b1=8 4-bit fields that 
+b2=enable/disable specific
+b3=servo-system features.
+
+[47]
+t=C-Axis Traverse Rate
+d=The maximum allowable traverse rate (positioning or cutting) for the 4th (C) axis.
+
+[48]
+t=Spindle Accel/Decel Rate
+d=The Open-Loop Spindle Accel/Decel rate specified in RPM per Second.  This is the rate at which speed changes occur.
+
+[49]
+t=Transmission Shift Speed
+d=The speed, in RPM at the motor shaft, at which gear changes occur.
+
+[50]
+t=In-Position Tolerance
+d=The maximum distance from exact position allowable before a move is considered done and the next move can start.
+
+[51]
+t=Following Error Shutdown Point
+d=The amount of axis following error allowed before a Following-Error Alarm is generated.
+
+[52]
+t=Maximum Following Error
+d=The amount of axis following error allowed before feedrate pro-rating occurs.
+
+[53]
+t=Maximum Spindle Slip
+d=Maximum allowable slip, expressed as a percentage of spindle speed, above which a Spindle-Stall Alarm will be generated.
+
+[54]
+t=Spindle Slip Limit
+d=Maximum allowable slip, expressed as a percentage of spindle speed, above which the feedrate will be reduced in an effort to reduce spindle loading.
+
+[55]
+t=X (1st) Axis Backlash
+d=The amount of extra motion to generate at axis reversal to take up mechanical backlash between the motor (and encoder) and the axis.
+
+[56]
+t=Y (2nd) Axis Backlash
+d=The amount of extra motion to generate at axis reversal to take up mechanical backlash between the motor (and encoder) and the axis.
+
+[57]
+t=Z (3rd) Axis Backlash
+d=The amount of extra motion to generate at axis reversal to take up mechanical backlash between the motor (and encoder) and the axis.
+
+[58]
+t=C (4th) Axis Backlash
+d=The amount of extra motion to generate at axis reversal to take up mechanical backlash between the motor (and encoder) and the axis.
+
+[59]
+t=S (5th) Axis Backlash
+d=The amount of extra motion to generate at axis reversal to take up mechanical backlash between the motor (and encoder) and the axis.
+
+[60]
+t=X (1st) Axis Velocity Gain
+d=The scale factor (gain) for the velocity command output by the Servo.  If the axis is not installed, this parameter should be zero.
+
+[61]
+t=Y (2nd) Axis Velocity Gain
+d=The scale factor (gain) for the velocity command output by the Servo.  If the axis is not installed, this parameter should be zero.
+
+[62]
+t=Z (3rd) Axis Velocity Gain
+d=The scale factor (gain) for the velocity command output by the Servo.  If the axis is not installed, this parameter should be zero.
+
+[63]
+t=C (4th) Axis Velocity Gain
+d=The scale factor (gain) for the velocity command output by the Servo.  If the axis is not installed, this parameter should be zero.
+
+[64]
+t=S (5th) Axis Velocity Gain
+d=The scale factor (gain) for the velocity command output by the Servo.  If the axis is not installed, this parameter should be zero.
+
+[65]
+t=X (1st) Axis Servo Gain
+d=The scale factor (gain) used to divide the command to create the value loaded into the axis DAC.  It is the number of right-shifts.
+
+[66]
+t=Y (2nd) Axis Servo Gain
+d=The scale factor (gain) used to divide the command to create the value loaded into the axis DAC.  It is the number of right-shifts.
+
+[67]
+t=Z (3rd) Axis Servo Gain
+d=The scale factor (gain) used to divide the command to create the value loaded into the axis DAC.  It is the number of right-shifts.
+
+[68]
+t=C (4th) Axis Servo Gain
+d=The scale factor (gain) used to divide the command to create the value loaded into the axis DAC.  It is the number of right-shifts.
+
+[69]
+t=S (5th) Axis Servo Gain
+d=The scale factor (gain) used to divide the command to create the value loaded into the axis DAC.  It is the number of right-shifts.
+
+[70]
+t=Spindle Velocity Sample Period
+d=The number of 250 usec periods to sum Spindle velocities.  Counts must be summed over time to attain the desired 1 RPM resolution.
+
+[71]
+t=Spindle Command Gain
+d=Scale factor for Spindle speed commands - formula for Spindle Gain is:  SpindleGain = (MaxDacCnt/2) x (MaxDesiredVoltage/10) x (MaxRPM/4096).
+
+[72]
+t=Spindle-Motor Minimum RPM
+d=The minimum speed of the spindle motor.  Used for calculating gear range.
+
+[73]
+t=Spindle-Motor Maximum RPM
+d=The maximum speed of the spindle motor.  Used for calculating gear range.
+
+[74]
+t=Spindle-Range #1 Maximum RPM
+d=The maximum speed of the spindle in gear range #1.  Used for calculating necessary gear range.
+
+[75]
+t=Spindle-Range #2 Maximum RPM
+d=The maximum speed of the spindle in gear range #2.  Used for calculating necessary gear range.
+
+[76]
+t=Spindle-Range #3 Maximum RPM
+d=The maximum speed of the spindle in gear range #3.  Used for calculating necessary gear range.
+
+[77]
+t=Integral Following Error Gain
+d=Used during a reversal in the direction of travel. It allows the accumulated integral following error to "slew" rapidly to a new stable state. Too large: causes bumping during reversal. Too low: swings the axis wide during reversal.
+
+[78]
+t=Change-In-Direction Counter Initializer
+d=Initializes a counter when the axes reverse direction. If non-zero, the Integral Following Error Gain is used instead of the normal gain for the integral following error term.  Too large: stability problems. Too low: bumps on reversal.
+
+[79]
+t=Normal Gain For Integral Following Error Term
+d=Main term for the position loop. If this gain is too large, the axis will oscillate slowly. If this gain is too low, the system may have excessive following errors and/or may not adjust to changing following errors quickly enough.
+
+[80]
+t=Following Error Integral Term Magnitude Limiter
+d=Limits the following error integral term "magnitude". If too low, the integral term may not grow large enough to push the axis into position. If the integral term grows too large, it masks severe mechanical problems until something breaks.
+
+[81]
+t=Integral Following Error Loss
+d=Used to "drain" the integral following error term. This term is not usually used.
+
+[82]
+t=Spindle Analog-Feedback Gain
+d=The scale factor (gain) used to divide the spindle-velocity feedback to calculate spindle RPM.
+
+[83]
+t=Lube Pump Interval
+d=The time, in seconds of axis motion, between activations of the lubrication pump.  A value of zero specifies always on.
+
+[84]
+t=Lube Pump Duration
+d=The time, in seconds, that the lubricator pump will run before the pressure test is initiated.
+
+[85]
+t=X Axis Clearance Point
+d=The position, in absolute machine coordinates, to which the X axis will move for when commanded to move to Clearance-Point (eg M22, M26, etc.).
+
+[86]
+t=Y Axis Clearance Point
+d=The position, in absolute machine coordinates, to which the Y axis will move for when commanded to move to Clearance-Point (eg M22, M26, etc.).
+
+[87]
+t=X Center-Of-Rotation for Rotary Axis
+d=Used by the control to calculate constant surface speed for rotary axis.  Value is in absolute machine coordinates.
+
+[88]
+t=Y Center-Of-Rotation for Rotary Axis
+d=Used by the control to calculate constant surface speed for rotary axis.  Value is in absolute machine coordinates.
+
+[89]
+t=Z Center-Of-Rotation for Rotary Axis
+d=Used by the control to calculate constant surface speed for rotary axis.  Value is in absolute machine coordinates.
+
+[90]
+t=Tool-Changer Number Of Tools
+d=Number of tool-pockets in tool-changer magazine.  A value of zero denotes no automatic tool-changer installed.
+
+[91]
+t=Tool-Changer Configuration
+d=0=Lo polarity, Air-Arm 'Lightning'   1=Lo polarity, Air-Arm 'Lightning'  8=Hi polarity, Motor-Arm 'Discovery' 9=Hi polarity, Motor-Arm 'Discovery'
+
+[92]
+t=Tool-Changer Orient Position
+d=Rotational offset from index-mark of spindle tool-change position.
+
+[93]
+t=Tool-Changer Z-Axis Offset
+d=Linear offset (in absolute machine coordinates) from Home position of Z-Axis tool-change position.
+
+[94]
+t=Jogging Feedrate
+d=The feedrate in effect for Jog Continuous.  This feedrate overrides the normal feedrate maximum(s) installed via parameters #7 and #8.
+
+[95]
+t=Swarf Conveyor Reversal Time
+d=The time, in seconds, that the Swarf Conveyor will run in reverse (M37) mode.
+
+[96]
+t=Tool-Changer Carousel Delay Time
+d=The number of 8.89 ms timer periods that the TLAUF board should delay before turning the Carousel Rotation Motor off.
+
+[97]
+t=Time-Out for PLC Driver
+d=The time allowed for commands to an external Programmable Logic Controller (PLC) to execute a command ('S', 'T', or 'M').
+
+[98]
+t=The 'Master' configuration parameter
+b0=Family type
+b1=Spindle type
+b2=Spnd Feedback
+b3=Species
+b4=Spnd Power Feedback
+b5=Feedrate-Override-Source
+b6=Spindle-Override-Source
+b7=Aux Function Handling
+d=This parameter consists of 8 4-bit fields that define basic machine capabilities.
+
+[99]
+t=X (1st) Axis Home Position
+d=The value, in absolute machine coordinates, loaded into the 1st (X) axis position registers at completion of Find-Home command.
+
+[100]
+t=Y (2nd) Axis Home Position
+d=The value, in absolute machine coordinates, loaded into the 2nd (Y) axis position registers at completion of Find-Home command.
+
+[101]
+t=Z (3rd) Axis Home Position
+d=The value, in absolute machine coordinates, loaded into the 3rd (Z) axis position registers at completion of Find-Home command.
+
+[102]
+t=C (4th) Axis Home Position
+d=The value, in absolute machine coordinates, loaded into the 4th (C) axis position registers at completion of Find-Home command.
+
+[103]
+t=S (5th) Axis Home Position
+d=The value, in absolute machine coordinates, loaded into the 5th (S) axis position registers at completion of Find-Home command.
+
+[104]
+t=Tool-Change Clearance
+d=The height above tool-change (tool-holder height).  The value necessary to move the Z axis DURING tool change (eg to effect tool-ejection).
+
+[105]
+t=1st (X) Axis Leadscrew Compensation
+d=A 'fractional-count' value used to implement leadscrew-length compensation.  The equation is:  leadComp = ((idealRes*ideadDist)/realDist)-idealRes.
+
+[106]
+t=2nd (Y) Axis Leadscrew Compensation
+d=A 'fractional-count' value used to implement leadscrew-length compensation.  The equation is:  leadComp = ((idealRes*ideadDist)/realDist)-idealRes.
+
+[107]
+t=3rd (Z) Axis Leadscrew Compensation
+d=A 'fractional-count' value used to implement leadscrew-length compensation.  The equation is:  leadComp = ((idealRes*ideadDist)/realDist)-idealRes.
+
+[108]
+t=4th (C) Axis Leadscrew Compensation
+d=A 'fractional-count' value used to implement leadscrew-length compensation.  The equation is:  leadComp = ((idealRes*ideadDist)/realDist)-idealRes.
+
+[109]
+t=Spindle Horsepower Limit - Power
+d=Desired power limit, in horsepower.
+
+[110]
+t=Spindle Horsepower Limit - Speed
+d=Spindle speed, in RPM, above which the Spindle-Power Limiter operates.
+
+[111]
+t=Spindle Current Sense Gain
+d=The scale factor (gain) used to divide the spindle-current feedback to calculate spindle load.
+
+[112]
+t=Axis Run-Away Test Velocity Difference
+d=The maximum allowable difference, expressed as a percentage, between DESIRED and ACTUAL velocity.
+
+[113]
+t=Axis Run-Away Test Hysteresis
+d=The maximum allowable time, expressed in 10 ms periods, that the velocity difference may be exceeded before a Run-Away Alarm is generated.
+
+[114]
+t=X (1st) Axis Differential Following Error Gain
+d=This parameter is used to scale the Differential Following Error for the PWM Drive system.
+
+[115]
+t=Y (2nd) Axis Differential Following Error Gain
+d=This parameter is used to scale the Differential Following Error for the PWM Drive system.
+
+[116]
+t=Z (3rd) Axis Differential Following Error Gain
+d=This parameter is used to scale the Differential Following Error for the PWM Drive system.
+
+[117]
+t=C (4th) Axis Differential Following Error Gain
+d=This parameter is used to scale the Differential Following Error for the PWM Drive system.
+
+[118]
+t=S (5th) Axis Differential Following Error Gain
+d=This parameter is used to scale the Differential Following Error for the PWM Drive system.
+
+[119]
+t=X (1st) Axis Following Error Gain
+d=This parameter is used to scale the Following Error for the PWM Drive system.
+
+[120]
+t=Y (2nd) Axis Following Error Gain
+d=This parameter is used to scale the Following Error for the PWM Drive system.
+
+[121]
+t=Z (3rd) Axis Following Error Gain
+d=This parameter is used to scale the Following Error for the PWM Drive system.
+
+[122]
+t=C (4th) Axis Following Error Gain
+d=This parameter is used to scale the Following Error for the PWM Drive system.
+
+[123]
+t=S (5th) Axis Following Error Gain
+d=This parameter is used to scale the Following Error for the PWM Drive system.
+
+[124]
+t=Maximum X (1st) Axis PWM Deviation
+d=The maximum deviation the PWM signal to the Amplifiers may take from the nominal PWM value required to maintain the present axis velocities.
+
+[125]
+t=Maximum Y (2nd) Axis PWM Deviation
+d=The maximum deviation the PWM signal to the Amplifiers may take from the nominal PWM value required to maintain the present axis velocities.
+
+[126]
+t=Maximum Z (3rd) Axis PWM Deviation
+d=The maximum deviation the PWM signal to the Amplifiers may take from the nominal PWM value required to maintain the present axis velocities.
+
+[127]
+t=Maximum C (4th) Axis PWM Deviation
+d=The maximum deviation the PWM signal to the Amplifiers may take from the nominal PWM value required to maintain the present axis velocities.
+
+[128]
+t=Z Axis Velocity Balance Flag
+d=This value modifies the Z axis velocity feed-forward gain for downward z axis motion.  For most machines this value should be set to zero.  For sliding head machines, such as Torque-Cut, set to 15.
+
+[129]
+t=X (1st) Axis Motor Volts Per 1000 RPM
+d=The DC axis motors Back EMF (Kev) rating in volts per 1000 RPM.
+
+[130]
+t=Y (2nd) Axis Motor Volts Per 1000 RPM
+d=The DC axis motors Back EMF (Kev) rating in volts per 1000 RPM.
+
+[131]
+t=Z (3rd) Axis Motor Volts Per 1000 RPM
+d=The DC axis motors Back EMF (Kev) rating in volts per 1000 RPM.
+
+[132]
+t=C (4th) Axis Motor Volts Per 1000 RPM
+d=The DC axis motors Back EMF (Kev) rating in volts per 1000 RPM.
+
+[133]
+t=S (5th) Axis Motor Volts Per 1000 RPM
+d=The DC axis motors Back EMF (Kev) rating in volts per 1000 RPM.
+
+[134]
+t=X (1st) Axis Encoder Lines Per Motor Revolution
+d=The number of encoder lines per motor revolution.  This value is DIFFERENT than the encoder resolution !!!!
+
+[135]
+t=Y (2nd) Axis Encoder Lines Per Motor Revolution
+d=The number of encoder lines per motor revolution.  This value is DIFFERENT than the encoder resolution !!!!
+
+[136]
+t=Z (3rd) Axis Encoder Lines Per Motor Revolution
+d=The number of encoder lines per motor revolution.  This value is DIFFERENT than the encoder resolution !!!!
+
+[137]
+t=C (4th) Axis Encoder Lines Per Motor Revolution
+d=The number of encoder lines per motor revolution.  This value is DIFFERENT than the encoder resolution !!!!
+
+[138]
+t=S (5th) Axis Encoder Lines Per Motor Revolution
+d=The number of encoder lines per motor revolution.  This value is DIFFERENT than the encoder resolution !!!!
+
+[139]
+t=Bus Voltage For Pwm Amplifier
+d=The bus voltage for the PWM amplifiers is typically 120 volts DC.
+
+[140]
+t=Pwm Offset For X,Y,Z,W Axis
+d=The DC brush motors require a minimum voltage for any motion to be generated.   PwmOffset = 0.75 * Voffset * Maximum Pwm Cnt Vbus
+
+[141]
+t=Pwm Amp Load Integrator Limit
+d=This parameter sets the time constant for the digital-drive load-limiter. An alarm will be posted if the load-limit is exceeded.
+
+[142]
+t=PWM Digital Filter Constant #1
+d=The digital filter constant (shift amount) used to smooth the PWM outputs.
+
+[143]
+t=PWM Digital Filter Constant #2
+d=The digital filter constant (shift amount) used to smooth the PWM outputs.
+
+[144]
+t=PWM Digital Filter Constant #3
+d=The digital filter constant (shift amount) used to smooth the PWM outputs.
+
+[145]
+t=PWM Digital Filter Constant #4
+d=The digital filter constant (shift amount) used to smooth the PWM outputs.
+
+[146]
+t=X (1st) Axis Lead-Comp Interval
+d=The distance between compensation points.  AXIS TRAVEL DIVIDED BY LEAD COMP INTERVAL MUST BE LESS THAN OR EQUAL TO 256 !!!
+
+[147]
+t=Y (2nd) Axis Lead-Comp Interval
+d=The distance between compensation points.  AXIS TRAVEL DIVIDED BY LEAD COMP INTERVAL MUST BE LESS THAN OR EQUAL TO 256 !!!
+
+[148]
+t=Z (3rd) Axis Lead-Comp Interval
+d=The distance between compensation points.  AXIS TRAVEL DIVIDED BY LEAD COMP INTERVAL MUST BE LESS THAN OR EQUAL TO 256 !!!
+
+[149]
+t=C (4th) Axis Lead-Comp Interval
+d=The distance between compensation points.  AXIS TRAVEL DIVIDED BY LEAD COMP INTERVAL MUST BE LESS THAN OR EQUAL TO 256 !!!

@@ -1,0 +1,773 @@
+;Revision Level
+000000003.2     ; 000                                                                                                    option=ÖÅÄÖÅÇÇÅ~ÅÅo
+;
+;Lo-Speed (below breakpoint) Acceleration
+;The amount by which velocity is increased at each iteration of the
+;Interpolator if acceleration is required and velocity is below breakpoint.
+00000000762     ; 001
+;
+;Hi-Speed (above breakpoint) Acceleration
+;The amount by which velocity is increased at each iteration of the
+;Interpolator if acceleration is required and velocity is above breakpoint.
+00000000762     ; 002
+;
+;Acceleration Break-Point
+;Velocity below which Low-Speed-Acceleration value is used and above which
+;High-Speed-Acceleration value is used.
+00000008467     ; 003
+;
+;Deceleration
+;The amount by which velocity is decreased at each iteration of the
+;Interpolator if deceleration is required.
+00000000762     ; 004
+;
+;Spindle Acceleration
+;The amount by which velocity is increased at each iteration of the
+;Interpolator if acceleration is required and the 'S' axis is involved.
+00000000017     ; 005
+;
+;Spindle Deceleration
+;The amount by which velocity is decreased at each iteration of the
+;Interpolator if deceleration is required and the 'S' axis is involved.
+00000000119     ; 006
+;
+;Maximum Traverse Rate
+;The maximum allowable traverse rate (positioning or cutting) for the
+;1st (X), 2nd (Y), and 4th (C) axes.
+00000079925     ; 007
+;
+;Z-Axis Traverse Rate
+;The maximum allowable traverse rate (positioning or cutting) for the
+;3rd (Z) axis.
+00000050800     ; 008
+;
+;Homing Speed
+;The traverse rate at which an axis is moved while searching for an index mark.
+;This must be low enought to guarantee at least a 50 uS wide index pulse.
+00000006773     ; 009
+;
+;Accel/Decel Profile Selection
+;0=Normal (trapezoidal) profile using params 2 through 9.  1='S'-Curve
+;based SOLEY on parameter #1.
+00000000000     ; 010
+;
+;Residual Feedrate for DLT ramp
+;The feedrate used for final positioning after end-of-move ramp-down.  The
+;rate at which we can "stop on a dime".
+00000000169     ; 011
+;
+;Minimum reduction of following error per Tick
+;A special deceleration parameter that is applied when any axis following
+;error grows too large.
+00000000085     ; 012
+;
+;% of Jog following error used as FDRT per Tick
+;Jog-Knob (Handwhheel) uses this to calculate a speed proportional to the
+;knob speed to minimize run-on at the end of motion.
+00000000077     ; 013
+;
+;measuring feed
+;The feedrate at which the Touch-Probe measurements are made.
+00000005070     ; 014
+;
+;probing post-hit continuation distance
+;The distance that the Touch-Probe continues to move after a touch is
+;registered.  This is necessary for some mechanical-switch probes.
+00000127000     ; 015
+;
+;Touch-Probe back-off distance
+;The distance that the Touch-Probe retracts after a touch is registered.
+00000127000     ; 016
+;
+;X (1st) Axis move negative limit of travel
+;The value, in machine coordinates, of the negative (-) limit of travel for
+;this axis.
+00000000000     ; 017
+;
+;X (1st) Axis move positive limit of travel
+;The value, in machine coordinates, of the positive (+) limit of travel for
+;this axis.
+00056388000     ; 018
+;
+;Y (2nd) Axis move negative limit of travel
+;The value, in machine coordinates, of the negative (-) limit of travel for
+;this axis.
+00000000000     ; 019
+;
+;Y (2nd) Axis move positive limit of travel
+;The value, in machine coordinates, of the positive (+) limit of travel for
+;this axis.
+00041148000     ; 020
+;
+;Z (3rd) Axis move negative limit of travel
+;The value, in machine coordinates, of the negative (-) limit of travel for
+;this axis.
+-0050800000     ; 021
+;
+;Z (3rd) Axis move positive limit of travel
+;The value, in machine coordinates, of the positive (+) limit of travel for
+;this axis.
+00000508000     ; 022
+;
+;C (4th) Axis move negative limit of travel
+;The value, in machine coordinates, of the negative (-) limit of travel for
+;this axis.
+-2147483648     ; 023
+;
+;C (4th) Axis move positive limit of travel
+;The value, in machine coordinates, of the positive (+) limit of travel for
+;this axis.
+02147483647     ; 024
+;
+;S (5th) Axis move negative limit of travel
+;The value, in machine coordinates, of the negative (-) limit of travel for
+;this axis.
+-2147483648     ; 025
+;
+;S (5th) Axis move positive limit of travel
+;The value, in machine coordinates, of the positive (+) limit of travel for
+;this axis.
+02147483647     ; 026
+;
+;X (1st) Axis Home switch offset
+;The distance past the Axis-Home-Switch to travel before stopping on the next
+;Index-Mark.  NOTE: Homeing ALWAYS stops ON the index mark!
+00000299720     ; 027
+;
+;Y (2nd) Axis Home switch offset
+;The distance past the Axis-Home-Switch to travel before stopping on the next
+;Index-Mark.  NOTE: Homeing ALWAYS stops ON the index mark!
+00000299720     ; 028
+;
+;Z (3rd) Axis Home switch offset
+;The distance past the Axis-Home-Switch to travel before stopping on the next
+;Index-Mark.  NOTE: Homeing ALWAYS stops ON the index mark!
+00000185420     ; 029
+;
+;C (4th) Axis Home switch offset
+;The distance past the Axis-Home-Switch to travel before stopping on the next
+;Index-Mark.  NOTE: Homeing ALWAYS stops ON the index mark!
+00000500000     ; 030
+;
+;S (5th) Axis Home switch offset
+;The distance past the Axis-Home-Switch to travel before stopping on the next
+;Index-Mark.  NOTE: Homeing ALWAYS stops ON the index mark!
+00000000000     ; 031
+;
+;X (1st) Axis encoder resolution
+;The number of 10 nanometer (centa-micrometer, or CUM) units represented by
+;each axis encoder count.  Example: 0.001 mm per count = 100 CUMs.
+00000000050     ; 032
+;
+;Y (2nd) Axis encoder resolution
+;The number of 10 nanometer (centa-micrometer, or CUM) units represented by
+;each axis encoder count.  Example: 0.001 mm per count = 100 CUMs.
+00000000050     ; 033
+;
+;Z (3rd) Axis encoder resolution
+;The number of 10 nanometer (centa-micrometer, or CUM) units represented by
+;each axis encoder count.  Example: 0.001 mm per count = 100 CUMs.
+00000000043     ; 034
+;
+;C (4th) Axis encoder resolution
+;The number of 10 nanometer (centa-micrometer, or CUM) units represented by
+;each axis encoder count.  Example: 0.001 mm per count = 100 CUMs.
+00000000500     ; 035
+;
+;S (5th) Axis encoder resolution
+;The number of 10 nanometer (centa-micrometer, or CUM) units represented by
+;each axis encoder count.  Example: 0.001 mm per count = 100 CUMs.
+00000000180     ; 036
+;
+;JogKnob encoder resolution
+;The number of 10 nanometer (centa-micrometer, or CUM) units represented by
+;each handwheel encoder count.  Example: 0.001 mm per count = 100 CUMs.
+00000000500     ; 037
+;
+;The "Homing Sequence" parameter controls the "Find Home" routine.
+;It consists of 4 6-bit fields, 1 for each of the 4 axes that "Find Home"
+;can control, each of which is subdivided into 3 2-bit fields:
+;
+;   Each block of fields contains three elements:
+;
+;   1) Home switch bit number
+;   2) Home direction/enable, 0 = no home, 1 = normal, 2 = reverse
+;   3) Index of axis to be homed: 0=X, 1=Y, 2=Z, 3=W
+-1453277952     ; 038
+;
+;Dead-Band (Null Zone) for Joy-Sticks.
+;The unsigned value that is treated as 'centered' (no movement) for the
+;Joy-Stick Analog Inputs.
+00000000080     ; 039
+;
+;Scale Factor for Joy-Sticks.
+;Used to scale the analog Joy-Stick inputs for the desired response.  One
+;scale factor is used for ALL Joy-Stick inputs.
+00000000256     ; 040
+;
+;X (1st) Axis Applied Motor Voltage.
+;The maximum voltage that can be appllied to the motor.  The Equation is
+;Motor_Resistance * Maximum_Current.
+00000000192     ; 041
+;
+;Y (2nd) Axis Applied Motor Voltage.
+;The maximum voltage that can be appllied to the motor.  The Equation is
+;Motor_Resistance * Maximum_Current.
+00000000192     ; 042
+;
+;Z (3rd) Axis Applied Motor Voltage.
+;The maximum voltage that can be appllied to the motor.  The Equation is
+;Motor_Resistance * Maximum_Current.
+00000000224     ; 043
+;
+;C (4th) Axis Applied Motor Voltage.
+;The maximum voltage that can be appllied to the motor.  The Equation is
+;Motor_Resistance * Maximum_Current.
+00000000256     ; 044
+;
+00000000025     ; 045 (unused)
+;
+00000000000     ; 046 (unused)
+;
+;C-Axis Traverse Rate
+;The maximum allowable traverse rate (positioning or cutting) for the
+;4th (C) axis.
+00000030000     ; 047
+;
+;Spindle Accel/Decel Rate.
+;The Open-Loop Spindle Accel/Decel rate specified in RPM per Second.  This
+;is the rate at which speed changes occur.  Zero disables this feature.
+00000000000     ; 048
+;
+;Transmission Shift Speed.
+;The speed, in RPM at the motor shaft, at which gear changes occur.
+00000000015     ; 049
+;
+;In-Position Tolerance
+;The maximum distace from exact position allowable before a move is considered
+;done and the next move can start.
+00000007620     ; 050
+;
+;Maximum Following Error
+;The amount of axis following error allowed before a Following-Error Alarm is
+;generated.
+00000127000     ; 051
+;
+;Following Error Limit
+;The amount of axis following error above which the feedrate will be reduced
+;in an effort to reduce following error.
+00000025400     ; 052
+;
+;Maximum Spindle Slip
+;Maximum allowable slip, expressed as a percenatage of spindle speed, above
+;which a Spindle-Stall Alarm will be generated.
+00000000240     ; 053
+;
+;Spindle Slip Limit
+;Maximum allowable slip, expressed as a percenatage of spindle speed, above
+;which the feedrate will be reduced in an effort to reduce spindle loading.
+00000000160     ; 054
+;
+;X (1st) Axis Backlash
+;The amount of extra motion to generate at axis reversal to take up mechanical
+;backlash between the motor (and encoder) and the axis.
+00000000254     ; 055
+;
+;Y (2nd) Axis Backlash
+;The amount of extra motion to generate at axis reversal to take up mechanical
+;backlash between the motor (and encoder) and the axis.
+00000000254     ; 056
+;
+;Z (3rd) Axis Backlash
+;The amount of extra motion to generate at axis reversal to take up mechanical
+;backlash between the motor (and encoder) and the axis.
+00000000000     ; 057
+;
+;C (4th) Axis Backlash
+;The amount of extra motion to generate at axis reversal to take up mechanical
+;backlash between the motor (and encoder) and the axis.
+00000000000     ; 058
+;
+;S (5th) Axis Backlash
+;The amount of extra motion to generate at axis reversal to take up mechanical
+;backlash between the motor (and encoder) and the axis.
+00000000000     ; 059
+;
+;X (1st) Axis Velocity Gain
+;The scale factor (gain) for the velocity command output by the Servo.  If the
+;axis is not installed, this parameter should be zero.
+00000000021     ; 060
+;
+;Y (2nd) Axis Velocity Gain
+;The scale factor (gain) for the velocity command output by the Servo.  If the
+;axis is not installed, this parameter should be zero.
+00000000021     ; 061
+;
+;Z (3rd) Axis Velocity Gain
+;The scale factor (gain) for the velocity command output by the Servo.  If the
+;axis is not installed, this parameter should be zero.
+00000000050     ; 062
+;
+;C (4th) Axis Velocity Gain
+;The scale factor (gain) for the velocity command output by the Servo.  If the
+;axis is not installed, this parameter should be zero.
+00000000000     ; 063
+;
+;S (5th) Axis Velocity Gain
+;The scale factor (gain) for the velocity command output by the Servo.  If the
+;axis is not installed, this parameter should be zero.
+00000000424     ; 064
+;
+;X (1st) Axis Servo Gain
+;The scale factor (gain) used to divide the velocity command to create the
+;value loaded into the axis DAC.
+00000000007     ; 065
+;
+;Y (2nd) Axis Servo Gain
+;The scale factor (gain) used to divide the velocity command to create the
+;value loaded into the axis DAC.
+00000000007     ; 066
+;
+;Z (3rd) Axis Servo Gain
+;The scale factor (gain) used to divide the velocity command to create the
+;value loaded into the axis DAC.
+00000000008     ; 067
+;
+;C (4th) Axis Servo Gain
+;The scale factor (gain) used to divide the velocity command to create the
+;value loaded into the axis DAC.
+00000000010     ; 068
+;
+;S (5th) Axis Servo Gain
+;The scale factor (gain) used to divide the velocity command to create the
+;value loaded into the axis DAC.
+00000000009     ; 069
+;
+;Spindle Velocity Sample Period
+;The number of 250 usec periods to sum Spindle velocities.  Counts must be
+;summed over time to attain the desired 1 RPM resolution.
+00000000120     ; 070
+;
+;Spindle Command Gain
+;Scale factor for Spindle speed commands - formula for Spindle Gain is:
+;SpindleGain = (MaxDacCnt/2)x(MaxDesiredVoltage/10)x(MaxRPM/4096).
+00000020571     ; 071
+;
+;Spindle-Motor Minimum RPM
+;The minimum speed of the spindle motor.  Used for calculating gear range.
+00000000000     ; 072
+;
+;Spindle-Motor Maximum RPM
+;The maximum speed of the spindle motor.  Used for calculating gear range.
+00000006000     ; 073
+;
+;Spindle-Range #1 Maximum RPM
+;The maximum speed of the spindle in gear range #1.  Used for calculating
+;necessary gear range.
+00000001463     ; 074
+;
+;Spindle-Range #2 Maximum RPM
+;The maximum speed of the spindle in gear range #2.  Used for calculating
+;necessary gear range.
+00000006000     ; 075
+;
+;Spindle-Range #3 Maximum RPM
+;The maximum speed of the spindle in gear range #3.  Used for calculating
+;necessary gear range.
+00000000000     ; 076
+;
+;Spindle-Range #4 Maximum RPM
+;The maximum speed of the spindle in gear range #4.  Used for calculating
+;necessary gear range.
+00000000000     ; 077
+;
+;Spindle-Range #5 Maximum RPM
+;The maximum speed of the spindle in gear range #5.  Used for calculating
+;necessary gear range.
+00000000000     ; 078
+;
+;Spindle-Range #6 Maximum RPM
+;The maximum speed of the spindle in gear range #6.  Used for calculating
+;necessary gear range.
+00000000000     ; 079
+;
+;Spindle-Range #7 Maximum RPM
+;The maximum speed of the spindle in gear range #7.  Used for calculating
+;necessary gear range.
+00000000000     ; 080
+;
+;Spindle-Range #8 Maximum RPM
+;The maximum speed of the spindle in gear range #8.  Used for calculating
+;necessary gear range.
+00000000000     ; 081
+;
+;Spindle Analog-Feedback Gain
+;The scale factor (gain) used to divide the spindle-velocity feedback to
+;calculate spindle RPM.
+00000000000     ; 082
+;
+;Lube Pump Interval
+;The time, in seconds of axis motion, between activations of the lubrication
+;pump.  A value of zero specifies always on.
+00000000000     ; 083
+;
+;Lube Pump Duration
+;The time, in seconds, that the lubricator pump will run before the pressure
+;test is initiated.
+00000000000     ; 084
+;
+;X Axis Clearance Point
+;The position, in absolute machine coordinates, to which the X axis will move
+;for when commanded to move to Clearance-Point (eg M22, M26, etc.).
+00050447702     ; 085
+;
+;Y Axis Clearance Point
+;The position, in absolute machine coordinates, to which the Y axis will move
+;for when commanded to move to Clearance-Point (eg M22, M26, etc.).
+00027188033     ; 086
+;
+;X Center-Of-Rotation for Rotary Axis
+;Used by the control to calulate constant suface speed for rotary axis.
+;Value is in absolute machine coordinates.
+00000000000     ; 087
+;
+;Y Center-Of-Rotation for Rotary Axis
+;Used by the control to calulate constant suface speed for rotary axis.
+;Value is in absolute machine coordinates.
+00020336002     ; 088
+;
+;Z Center-Of-Rotation for Rotary Axis
+;Used by the control to calulate constant suface speed for rotary axis.
+;Value is in absolute machine coordinates.
+-0024108918     ; 089
+;
+;Tool-Changer Number Of Tools
+;Number of tool-pockets in tool-changer magazine.  A value of zero denotes
+;no automatic tool-changer installed.
+00000000022     ; 090
+;
+;Tool-Changer Configuration
+;XXXXPXTT where: X=unused, P=Input Polarity (1=Active Hi)
+;TT=Mechanism Type (00=Air-Arm 'Lightning', 01=Motor-Arm 'Discovery').
+00000000009     ; 091
+;
+;Tool-Changer orient position
+;Rotational offset from index-mark of spindle tool-change position.
+00000177091     ; 092
+;
+;Tool-Changer Z-Axis offset
+;Linear offset (in absolute machine coordinates) from Home position of Z-Axis
+;tool-change position.
+-0011255375     ; 093
+;
+;Jogging Feedrate
+;The feedrate in effect for Jog Continuous.  This feedrate overrides the
+;normal feedrate maximum(s) installed via parameters #7 and #8.
+00000079925     ; 094
+;
+;Spare (unassigned) parameter
+00000000000     ; 095
+;
+;Tool-Changer Carousel Delay Time
+;The number of 8.89 ms timer periods that the TLAUF board should delay before \
+;turning the Carousel Rotation Motor off.
+00000000025     ; 096
+;
+;Time-Out for PLC Driver
+;The time allowed for commands to an external Programmable Logic Controller
+;(PLC) to execute a command ('S', 'T', or 'M').
+00000000000     ; 097
+;
+;The "MASTER PARAMETER" contsists of 8 4-bit fields that are used by the
+;BMDC software to index into subroutines for handling radically different
+;implementations for the same function, such as electronic vs air-motor
+;spindle-speed control.  The eight fields are:
+;   Family
+;   Spindle Type
+;   Spindle Feedback
+;   Species
+;   Spindle Power Feedback
+;   Fields 6 through 8 reserved
+00555880992     ; 098
+;
+;X (1st) Axis Home Position
+;The value, in absolute machine coordinates, loaded into the 1st (X) axis
+;position registers at completion of Find-Home command.
+00055960010     ; 099
+;
+;Y (2nd) Axis Home Position
+;The value, in absolute machine coordinates, loaded into the 2nd (Y) axis
+;position registers at completion of Find-Home command.
+00040314880     ; 100
+;
+;Z (3rd) Axis Home Position
+;The value, in absolute machine coordinates, loaded into the 3rd (Z) axis
+;position registers at completion of Find-Home command.
+-0000183388     ; 101
+;
+;C (4th) Axis Home Position
+;The value, in absolute machine coordinates, loaded into the 4th (C) axis
+;position registers at completion of Find-Home command.
+00000000000     ; 102
+;
+;S (5th) Axis Home Position
+;The value, in absolute machine coordinates, loaded into the 5th (S) axis
+;position registers at completion of Find-Home command.
+00000000000     ; 103
+;
+;Tool-Change Clearance
+;The height above tool-change (tool-holder height).  The value necessary to
+;move the Z axis DURING tool change (eg to effect tool-ejection).
+00010160000     ; 104
+;
+;1st (X) Axis Leadscrew Compensation
+;A 'fractional-count' value used to implement leadscrew-length compensation.
+;The equation is: leadComp=((idealRes*ideadDist)/realDist)-idealRes.
+00000000517     ; 105
+;
+;2nd (Y) Axis Leadscrew Compensation
+;A 'fractional-count' value used to implement leadscrew-length compensation.
+;The equation is: leadComp=((idealRes*ideadDist)/realDist)-idealRes.
+-0000000142     ; 106
+;
+;3rd (Z) Axis Leadscrew Compensation
+;A 'fractional-count' value used to implement leadscrew-length compensation.
+;The equation is: leadComp=((idealRes*ideadDist)/realDist)-idealRes.
+00000049121     ; 107
+;
+;4th (C) Axis Leadscrew Compensation
+;A 'fractional-count' value used to implement leadscrew-length compensation.
+;The equation is: leadComp=((idealRes*ideadDist)/realDist)-idealRes.
+00000000000     ; 108
+;
+;Spindle Horsepower Limit - Power
+;Desired power limit, in horsepower.
+00000001920     ; 109
+;
+;Spindle Horsepower Limit - Speed
+;Spindle speed, in RPM, above which the Spindle-Power Limiter operates.
+00000010000     ; 110
+;
+;Spindle Current Sense Gain
+;The scale factor (gain) used to divide the spindle-current feedback to
+;calculate spindle load.
+00000000467     ; 111
+;
+;Axis Run-Away Test Velocity Difference
+;The maximum allowable difference, expressed as a percentage, between DESIRED
+;and ACTUAL velocity.
+00000001000     ; 112
+;
+;Axis Run-Away Test Hysteresis
+;The maximum allowable time, expressed in 10 ms periods, that the velocity
+;difference may be exceeded before a Run-Away Alarm is generated.
+00000000100     ; 113
+;
+;These parameters are used to scale the Differential Following Errors
+;for the PWM Drive system.
+;
+; X Axis Differential Following Error Gain
+00000000330 ; 114
+; Y Axis Differential Following Error Gain
+00000000330 ; 105
+; Z Axis Differential Following Error Gain
+00000000650 ; 116
+; W Axis Differential Following Error Gain
+00000000400 ; 117
+; S Axis Differential Following Error Gain
+00000000200 ; 118
+;
+;These parameters are used to scale the Following Errors
+;for the PWM Drive system.
+;
+; X Axis Following Error Gain
+00000000033 ; 119
+; Y Axis Following Error Gain
+00000000033 ; 120
+; Z Axis Following Error Gain
+00000000060 ; 121
+; W Axis Following Error Gain
+00000000030 ; 122
+; S Axis Following Error Gain
+00000000005 ; 123
+;
+;The "PWMax" parameters represent the maximum deviation the PWM
+;signal to the Amplifiers may take from the nominal PWM value required
+;to maintain the present axis velocities.
+;
+; Maximum X Axis PWM Deviation
+00000000130 ; 124
+; Maximum Y Axis PWM Deviation
+00000000130 ; 125
+; Maximum Z Axis PWM Deviation
+00000000160 ; 126
+; Maximum W Axis PWM Deviation
+00000000200 ; 127
+; Maximum S Axis PWM Deviation
+00000000000 ; 128
+;
+;The DC axis motors Back EMF (Kev) rating in volts per 1000 RPM is 
+;in integer format.  These parameters default to V2XT values.  These 
+;parameters may be updated from the parameter file.  These values are 
+;used to create the CntsToPwm values when the axis drive are first 
+;powered up.
+;
+; X Axis Motor Volts Per 1000 RPM 
+00000000026 ; 129
+; Y Axis Motor Volts Per 1000 RPM 
+00000000026 ; 130
+; Z Axis Motor Volts Per 1000 RPM 
+00000000043 ; 131
+; W Axis Motor Volts Per 1000 RPM 
+00000000000 ; 132
+; S Axis Motor Volts Per 1000 RPM 
+00000000000 ; 133
+;
+;The number of encoder lines per motor revolution is needed to create 
+;the CntsToPwm values when the axis drive are first powered up.  These
+;values are DIFFERENT then the encoder resolution !!!!
+;
+; X Axis Encoder Lines Per Motor Revolution
+00000002000 ; 134
+; Y Axis Encoder Lines Per Motor Revolution
+00000002000 ; 135
+; Z Axis Encoder Lines Per Motor Revolution
+00000002000 ; 136
+; W Axis Encoder Lines Per Motor Revolution
+00000010000 ; 137
+; S Axis Encoder Lines Per Motor Revolution
+00000001024 ; 138
+; 
+;The bus voltage for the Pwm amplifiers is typically 120 volts DC.
+;This parameter defaults to the value used for the V2XT class machine. 
+;
+; Bus Voltage For Pwm Amplifier
+00000000134 ; 139
+;
+;The DC brush motors require a minimum voltage for any motion to be
+;generated.   The Pwm Offset value is added to positive Pwm commands and
+;is subtracted from negative Pwm commands.  The PwmOffset eliminates most
+;of the "deadband" in the motor/ amplifier system.  The offset is set to 
+;a value that is about 75% of the actual voltage offset measured.  The 
+;equation is:   PwmOffset = 0.75 * Voffset * Maximum Pwm Cnt / Vbus
+;
+; Pwm Offset For X,Y,Z,W Axis
+00000000025 ; 140
+;
+;In order to prevent drive amplifier overheating, a software simulation of
+;motor load is continuously run to predict amplifier temperature.  This 
+;parameter (Load Integrator Limit) sets the allowable predicted temperature
+;limit, above which an alarm will be posted and the drive system shut down.
+;
+; Pwm Amp Load Integrator Limit
+00000065536 ; 141
+;
+;These parameters store the digital filter constants (shift amounts)
+;used to smooth the PWM outputs.
+;
+; Filter K For Digital Filter
+00000000008 ; 142
+; Filter K For Digital Filter
+00000000002 ; 143
+; Filter K For Digital Filter
+00000000003 ; 144
+; Filter K For Digital Filter
+00000000004 ; 145
+;
+;Incremental Leadscrew Compensation is performed at (up to) 256 places on
+;each axis.  The LeadCompInterval parameters specify the distance between
+;compensation points.  AXIS TRAVEL DIVIDED BY LEAD COMP INTERVAL MUST BE
+;LESS THAN OR EQUAL TO 256 !!!
+;
+; X-Axis Lead-Comp Interval
+00002540000 ; 146
+; Y-Axis Lead-Comp Interval
+00002540000 ; 147
+; Z-Axis Lead-Comp Interval
+00002540000 ; 148
+; W-Axis Lead-Comp Interval
+00000000000 ; 149
+;
+; The following "parameters" are actually the contents of LOGICAL, the
+; machine state (switches and commands) as mapped onto a "logical" (machine-
+; independant) bitmap.  Access to them is provided to facilitate writing
+; diagnostic aids, such as a switch-state monitor.
+;
+00000000000     ; 150 ; Machine Faults Byte
+00000000000     ; 151 ; Axis Limits Byte
+00000000000     ; 152 ; Auxiliary Limits Byte
+00000000000     ; 153 ; Drive Faults Byte
+00000000005     ; 154 ; Machine Status Byte
+00000000000     ; 155 ; Home Switch Status Byte
+00000003072     ; 156 ; Machine Options Status Byte
+00000000000     ; 157 ; User Status Byte
+00000000000     ; 158 ; Switch Status Byte #1
+00000000000     ; 159 ; Switch Status Byte #2
+00000000069     ; 160 ; Machine Command Byte #2
+00000000000     ; 161 ; Machine Options Command Byte
+00000000000     ; 162 ; User Command Bits Register
+-0000016384     ; 163 ; Spindle Command Byte
+-0000000064     ; 164 ; Spindle Status Byte
+00000000000     ; 165 ; Commanded spindle speed (RPM)
+00000000014     ; 166 ; Tool Changer #1 command register
+-0000000128     ; 167 ; Tool Changer Status
+00000000000     ; 168 ; Tool Changer Control Register
+00000000001     ; 169 ; Desired Current Tool position
+00000000001     ; 170 ; Current Tool Carrousel position
+00000000043     ; 171 ; Inputs to TLAUF
+00000000000     ; 172 ; TL1AUF output command register (for test use)
+00000000008     ; 173 ; Desired NOVRAM address
+00000000001     ; 174 ; Data to be written into NOVRAM
+00000000013     ; 175 ; NOVRAM address
+00000000000     ; 176 ; Register used by AUFDRVR to access NOVRAM
+00000000000     ; 177 ; NOVRAM byte 00
+00000000001     ; 178 ; NOVRAM byte 01
+00000000000     ; 179 ; NOVRAM byte 02
+00000000001     ; 180 ; NOVRAM byte 03
+00000000001     ; 181 ; NOVRAM byte 04
+00000000006     ; 182 ; NOVRAM byte 05
+00000000009     ; 183 ; NOVRAM byte 06
+00000000000     ; 184 ; NOVRAM byte 07
+00000000001     ; 185 ; NOVRAM byte 08
+00000000009     ; 186 ; NOVRAM byte 09
+00000000001     ; 187 ; NOVRAM byte 10
+00000000002     ; 188 ; NOVRAM byte 11
+00000000001     ; 189 ; NOVRAM byte 12
+00000000002     ; 190 ; NOVRAM byte 13
+00000000011     ; 191 ; NOVRAM byte 14
+00000000013     ; 192 ; NOVRAM byte 15
+00000000500     ; 193 ; Tool Changer #2 command register
+00000000200     ; 194 ; Tool Changer #2 Status
+00000000005     ; 195 ; Tool Changer #2 Control Register
+00000000600     ; 196 ; Desired Current Tool position
+00000000100     ; 197 ; Current Tool Carrousel position
+00000000100     ; 198 ; Inputs to TLAUF
+00000000100     ; 199 ; TL2AUF output command register (for test use)
+00000000012     ; 200 ; Desired NOVRAM address
+00000000640     ; 201 ; Data to be written into NOVRAM
+00000000000     ; 202 ; NOVRAM address
+00000000000     ; 203 ; Register used by AUFDRVR to access NOVRAM
+00000000000     ; 204 ; NOVRAM byte 00
+00000000000     ; 205 ; NOVRAM byte 01
+00000000000     ; 206 ; NOVRAM byte 02
+00000000000     ; 207 ; NOVRAM byte 03
+00000000000     ; 208 ; NOVRAM byte 04
+00000000000     ; 209 ; NOVRAM byte 05
+00000000000     ; 210 ; NOVRAM byte 06
+00000000000     ; 211 ; NOVRAM byte 07
+00000000000     ; 212 ; NOVRAM byte 08
+00000000000     ; 213 ; NOVRAM byte 09
+00000000000     ; 214 ; NOVRAM byte 10
+00000000000     ; 215 ; NOVRAM byte 11
+00000000000     ; 216 ; NOVRAM byte 12
+00000000000     ; 217 ; NOVRAM byte 13
+00000000000     ; 218 ; NOVRAM byte 14
+00000000000     ; 219 ; NOVRAM byte 15
+00000001600     ; 220 ; Feedrate Override  (%)
+00000000000     ; 221 ; Spindle speed pot.
+-0000000416     ; 222 ; X axis Joystick
+-0000000019     ; 223 ; Y axis Joystick
+-0000000030     ; 224 ; Z axis Joystick
+00000000000     ; 225 ; W axis Joystick
+00000000000     ; 226 ; S axis Joystick
+; end of param file
