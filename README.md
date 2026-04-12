@@ -33,3 +33,8 @@ The AUF Board has:
 * [HOMING_SEQUENCE.md](HOMING_SEQUENCE.md) — How the carousel homes on startup. Traces the full call chain from drive-ready detection through the task dispatcher to the pocket-send protocol that commands the TLAUF to move to pocket 1.
 * [TOOL_CHANGE_STATE_MACHINE.md](TOOL_CHANGE_STATE_MACHINE.md) — Non-VMC tool change step machine. Documents the outer state machine (subroutine call stack) and inner step machine (carousel seek, orient, rotate) that runs when the BMDC directly controls motor outputs.
 * [AUF_PACKET_FORMAT.md](AUF_PACKET_FORMAT.md) — Detailed AUF packet encoding/decoding. Covers the nibble packing for short and long packets, input debounce logic, and output bit assignments.
+
+## LinuxCNC Integration
+
+* [dx32_pktuart.comp](dx32_pktuart.comp) — LinuxCNC HAL component for communicating with AUF and TLAUF boards via Mesa PktUART over multidrop RS422. Supports `mode=0` (both), `mode=1` (AUF only), `mode=2` (TLAUF only) for independent testing. Build with `sudo halcompile --install dx32_pktuart.comp`.
+* [LINUXCNC_COMPONENT_PROMPT.md](LINUXCNC_COMPONENT_PROMPT.md) — Full specification and design document for the PktUART component, including all HAL pin definitions, protocol details, and testing strategy.

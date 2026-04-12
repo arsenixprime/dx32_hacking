@@ -17,10 +17,11 @@ The PC communicates with the BMDC via **dual-port RAM** and **ISA I/O ports**. T
 - **Register stride:** 4 bytes (32-bit aligned)
 - **Port A → AUF** (general purpose I/O)
 - **Port B → TLAUF** (tool change I/O)
-- **Baud rate:** 19200 baud (both ports)
+- **Baud rate:** 38400 baud (both ports)
+- **Duplex:** Full-duplex multidrop RS422 (separate TX/RX pairs). Trace measurements confirm RX responses begin arriving during TX transmission.
 - **Format:** 8N1 (8 data bits, no parity, 1 stop bit)
-- **ACR:** 0x6F (baud rate set A, crystal/16 timer mode)
-- **CSR:** 0xCC (19200 baud for both ports)
+- **ACR:** 0x6F (BRG Set 1 — bit 7=0, crystal/16 timer mode)
+- **CSR:** 0xCC (rate select 0xC for both TX and RX → 38400 in BRG Set 1)
 
 ### UART Register Map (68030 addresses)
 
