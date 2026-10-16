@@ -1,0 +1,526 @@
+??:000c  0:000c pub   __AHSHIFT                                
+??:0632  0:0632 pub   FISRQQ                                   
+??:0e32  0:0e32 pub   FICRQQ                                   
+??:1000  0:1000 pub   __AHINCR                                 
+??:1632  0:1632 pub   FIERQQ                                   
+??:9876  0:9876 pub   __acrtmsg                                
+??:9876  0:9876 pub   __acrtused                               
+??:9876  0:9876 pub   __fltused                                
+??:d6d6  0:d6d6 pub   __aDBdoswp                               
+1000:0000  1:0000 gproc main                                     B3T.OBJ
+1000:0000  1:0000 pub   _main                                    
+1000:00f8  1:00f8 gproc clear                                    B3T.OBJ
+1000:00f8  1:00f8 pub   _clear                                   
+1000:0118  1:0118 gproc Wait                                     B3T.OBJ
+1000:0118  1:0118 pub   _Wait                                    
+1000:014c  1:014c gproc getcntval                                B3T.OBJ
+1000:014c  1:014c pub   _getcntval                               
+1000:01a2  1:01a2 gproc check_board_type                         B3T.OBJ
+1000:01a2  1:01a2 pub   _check_board_type                        
+1000:04c6  1:04c6 gproc menudraw                                 B3T.OBJ
+1000:04c6  1:04c6 pub   _menudraw                                
+1000:05be  1:05be gproc fulltest                                 B3T.OBJ
+1000:05be  1:05be pub   _fulltest                                
+1000:08f6  1:08f6 gproc registertest                             B3T.OBJ
+1000:08f6  1:08f6 pub   _registertest                            
+1000:0a40  1:0a40 gproc dpramtest                                B3T.OBJ
+1000:0a40  1:0a40 pub   _dpramtest                               
+1000:0bb4  1:0bb4 gproc mainmemtest                              B3T.OBJ
+1000:0bb4  1:0bb4 pub   _mainmemtest                             
+1000:0c9a  1:0c9a gproc uarttest                                 B3T.OBJ
+1000:0c9a  1:0c9a pub   _uarttest                                
+1000:0d98  1:0d98 gproc analogtest                               B3T.OBJ
+1000:0d98  1:0d98 pub   _analogtest                              
+1000:0eaa  1:0eaa gproc tstloreg                                 B3T.OBJ
+1000:0eaa  1:0eaa pub   _tstloreg                                
+1000:0f7a  1:0f7a gproc tsthireg                                 B3T.OBJ
+1000:0f7a  1:0f7a pub   _tsthireg                                
+1000:104a  1:104a gproc tstadrgs                                 B3T.OBJ
+1000:104a  1:104a pub   _tstadrgs                                
+1000:1172  1:1172 gproc tst030ram                                B3T.OBJ
+1000:1172  1:1172 pub   _tst030ram                               
+1000:1400  1:1400 gproc RamPatTest                               B3T.OBJ
+1000:1400  1:1400 pub   _RamPatTest                              
+1000:1476  1:1476 gproc WriteRamAddress                          B3T.OBJ
+1000:1476  1:1476 pub   _WriteRamAddress                         
+1000:14ae  1:14ae gproc ReadRamAddress                           B3T.OBJ
+1000:14ae  1:14ae pub   _ReadRamAddress                          
+1000:14f2  1:14f2 gproc tst030dp                                 B3T.OBJ
+1000:14f2  1:14f2 pub   _tst030dp                                
+1000:1646  1:1646 gproc tst040dp                                 B3T.OBJ
+1000:1646  1:1646 pub   _tst040dp                                
+1000:17ac  1:17ac gproc tstdpram                                 B3T.OBJ
+1000:17ac  1:17ac pub   _tstdpram                                
+1000:1928  1:1928 gproc tstbothdp                                B3T.OBJ
+1000:1928  1:1928 pub   _tstbothdp                               
+1000:1a1e  1:1a1e gproc tstbothdp4                               B3T.OBJ
+1000:1a1e  1:1a1e pub   _tstbothdp4                              
+1000:1b0a  1:1b0a gproc tstanalog                                B3T.OBJ
+1000:1b0a  1:1b0a pub   _tstanalog                               
+1000:1de2  1:1de2 gproc tstanalog4                               B3T.OBJ
+1000:1de2  1:1de2 pub   _tstanalog4                              
+1000:1fb4  1:1fb4 gproc tstadcval                                B3T.OBJ
+1000:1fb4  1:1fb4 pub   _tstadcval                               
+1000:2028  1:2028 gproc tstadcval4                               B3T.OBJ
+1000:2028  1:2028 pub   _tstadcval4                              
+1000:2092  1:2092 gproc tstaxesval                               B3T.OBJ
+1000:2092  1:2092 pub   _tstaxesval                              
+1000:21da  1:21da gproc initUART                                 B3T.OBJ
+1000:21da  1:21da pub   _initUART                                
+1000:232c  1:232c gproc errorcheck                               B3T.OBJ
+1000:232c  1:232c pub   _errorcheck                              
+1000:2438  1:2438 gproc uarttst                                  B3T.OBJ
+1000:2438  1:2438 pub   _uarttst                                 
+1000:2690  1:2690 gproc multitest                                B3T.OBJ
+1000:2690  1:2690 pub   _multitest                               
+1000:2796  1:2796 gproc getadd                                   B3T.OBJ
+1000:2796  1:2796 pub   _getadd                                  
+1000:27d6  1:27d6 gproc getdat                                   B3T.OBJ
+1000:27d6  1:27d6 pub   _getdat                                  
+1000:2816  1:2816 gproc multiMEM                                 B3T.OBJ
+1000:2816  1:2816 pub   _multiMEM                                
+1000:2af6  1:2af6 gproc multiIO                                  B3T.OBJ
+1000:2af6  1:2af6 pub   _multiIO                                 
+1000:2c84  1:2c84 gproc viewer                                   B3T.OBJ
+1000:2c84  1:2c84 pub   _viewer                                  
+1000:2d84  1:2d84 gproc load_test                                B3T.OBJ
+1000:2d84  1:2d84 pub   _load_test                               
+1000:2e84  1:2e84 gproc load_run_test                            B3T.OBJ
+1000:2e84  1:2e84 pub   _load_run_test                           
+1000:3068  1:3068 gproc report_error                             B3T.OBJ
+1000:3068  1:3068 pub   _report_error                            
+1316:0002  2:0000 gproc asciihex                                 BRDBIOS.OBJ
+1316:0002  2:0000 pub   _asciihex                                
+1316:006c  2:006a gproc loadadr                                  BRDBIOS.OBJ
+1316:006c  2:006a pub   _loadadr                                 
+1316:00ce  2:00cc gproc readadr                                  BRDBIOS.OBJ
+1316:00ce  2:00cc pub   _readadr                                 
+1316:017a  2:0178 gproc readlocation                             BRDBIOS.OBJ
+1316:017a  2:0178 pub   _readlocation                            
+1316:01da  2:01d8 gproc writelocation                            BRDBIOS.OBJ
+1316:01da  2:01d8 pub   _writelocation                           
+1316:0222  2:0220 gproc readwideDP                               BRDBIOS.OBJ
+1316:0222  2:0220 pub   _readwideDP                              
+1316:0282  2:0280 gproc writewideDP                              BRDBIOS.OBJ
+1316:0282  2:0280 pub   _writewideDP                             
+1316:02ca  2:02c8 gproc incadr                                   BRDBIOS.OBJ
+1316:02ca  2:02c8 pub   _incadr                                  
+1316:0348  2:0346 gproc readloadr                                BRDBIOS.OBJ
+1316:0348  2:0346 pub   _readloadr                               
+1316:0376  2:0374 gproc readhiadr                                BRDBIOS.OBJ
+1316:0376  2:0374 pub   _readhiadr                               
+1316:03a4  2:03a2 gproc resetbrd                                 BRDBIOS.OBJ
+1316:03a4  2:03a2 pub   _resetbrd                                
+1316:03c2  2:03c0 gproc runbrd                                   BRDBIOS.OBJ
+1316:03c2  2:03c0 pub   _runbrd                                  
+1316:03e0  2:03de gproc readadc                                  BRDBIOS.OBJ
+1316:03e0  2:03de pub   _readadc                                 
+1316:041c  2:041a gproc readqdac                                 BRDBIOS.OBJ
+1316:041c  2:041a pub   _readqdac                                
+1316:0458  2:0456 gproc writedac                                 BRDBIOS.OBJ
+1316:0458  2:0456 pub   _writedac                                
+1316:0486  2:0484 gproc writeqdac                                BRDBIOS.OBJ
+1316:0486  2:0484 pub   _writeqdac                               
+1316:04d8  2:04d6 gproc write4dac                                BRDBIOS.OBJ
+1316:04d8  2:04d6 pub   _write4dac                               
+1316:056a  2:0568 gproc writesdac                                BRDBIOS.OBJ
+1316:056a  2:0568 pub   _writesdac                               
+1316:05b4  2:05b2 gproc readsdac                                 BRDBIOS.OBJ
+1316:05b4  2:05b2 pub   _readsdac                                
+1316:05f0  2:05ee gproc read4dac                                 BRDBIOS.OBJ
+1316:05f0  2:05ee pub   _read4dac                                
+1316:062e  2:062c gproc read4adc                                 BRDBIOS.OBJ
+1316:062e  2:062c pub   _read4adc                                
+1316:068e  2:068c gproc readuart                                 BRDBIOS.OBJ
+1316:068e  2:068c pub   _readuart                                
+1316:06ca  2:06c8 gproc writeuart                                BRDBIOS.OBJ
+1316:06ca  2:06c8 pub   _writeuart                               
+1316:06f8  2:06f6 gproc readio                                   BRDBIOS.OBJ
+1316:06f8  2:06f6 pub   _readio                                  
+1316:0716  2:0714 gproc writeio                                  BRDBIOS.OBJ
+1316:0716  2:0714 pub   _writeio                                 
+1389:0002  3:0000 gproc memwrite                                 MEM.OBJ
+1389:0002  3:0000 pub   _memwrite                                
+1389:005a  3:0058 gproc memread                                  MEM.OBJ
+1389:005a  3:0058 pub   _memread                                 
+1389:00c4  3:00c2 gproc DPreadAT                                 MEM.OBJ
+1389:00c4  3:00c2 pub   _DPreadAT                                
+1389:0118  3:0116 gproc DPwriteAT                                MEM.OBJ
+1389:0118  3:0116 pub   _DPwriteAT                               
+1389:0164  3:0162 gproc DPwrite030                               MEM.OBJ
+1389:0164  3:0162 pub   _DPwrite030                              
+1389:01ec  3:01ea gproc DPread030                                MEM.OBJ
+1389:01ec  3:01ea pub   _DPread030                               
+13b0:0006  4:0000 gproc viewMM                                   VIEW.OBJ
+13b0:0006  4:0000 pub   _viewMM                                  
+13c6:0002  5:0000 gproc viewDP                                   VIEWDP.OBJ
+13c6:0002  5:0000 pub   _viewDP                                  
+13e1:0004  6:0000 gproc setTimeout                               wmfncs.c
+13e1:0004  6:0000 pub   _setTimeout                              
+13e1:0054  6:0050 gproc timeout                                  wmfncs.c
+13e1:0054  6:0050 pub   _timeout                                 
+13e1:00a2  6:009e gproc wTick                                    wmfncs.c
+13e1:00a2  6:009e pub   _wTick                                   
+13e1:00f2  6:00ee gproc wait                                     wmfncs.c
+13e1:00f2  6:00ee pub   _wait                                    
+13e1:0132  6:012e gproc long68                                   wmfncs.c
+13e1:0132  6:012e pub   _long68                                  
+13e1:015a  6:0156 gproc doWinCmd                                 wmfncs.c
+13e1:015a  6:0156 pub   _doWinCmd                                
+13e1:0224  6:0220 gproc winMonIsUp                               wmfncs.c
+13e1:0224  6:0220 pub   _winMonIsUp                              
+140e:0000  7:0000 gproc BMDCisRunning                            dpcom.c
+140e:0000  7:0000 pub   _BMDCisRunning                           
+140e:0054  7:0054 gproc moveDone                                 dpcom.c
+140e:0054  7:0054 pub   _moveDone                                
+140e:0098  7:0098 gproc getROmode                                dpcom.c
+140e:0098  7:0098 pub   _getROmode                               
+140e:00c8  7:00c8 gproc setROmode                                dpcom.c
+140e:00c8  7:00c8 pub   _setROmode                               
+140e:00f6  7:00f6 gproc rdPosition                               dpcom.c
+140e:00f6  7:00f6 pub   _rdPosition                              
+140e:0606  7:0606 gproc rdFeed                                   dpcom.c
+140e:0606  7:0606 pub   _rdFeed                                  
+140e:079c  7:079c gproc rdSpindle                                dpcom.c
+140e:079c  7:079c pub   _rdSpindle                               
+140e:09b2  7:09b2 gproc doMove                                   dpcom.c
+140e:09b2  7:09b2 pub   _doMove                                  
+140e:0e30  7:0e30 gproc doDrives                                 dpcom.c
+140e:0e30  7:0e30 pub   _doDrives                                
+140e:0e66  7:0e66 gproc homeAxes                                 dpcom.c
+140e:0e66  7:0e66 pub   _homeAxes                                
+140e:0e9c  7:0e9c gproc setIncMode                               dpcom.c
+140e:0e9c  7:0e9c pub   _setIncMode                              
+140e:0ef4  7:0ef4 gproc setMetricMode                            dpcom.c
+140e:0ef4  7:0ef4 pub   _setMetricMode                           
+140e:0f4c  7:0f4c gproc setJog                                   dpcom.c
+140e:0f4c  7:0f4c pub   _setJog                                  
+140e:0f98  7:0f98 gproc wrFeedOvr                                dpcom.c
+140e:0f98  7:0f98 pub   _wrFeedOvr                               
+140e:0fd0  7:0fd0 gproc getMode                                  dpcom.c
+140e:0fd0  7:0fd0 pub   _getMode                                 
+140e:1000  7:1000 gproc setMode                                  dpcom.c
+140e:1000  7:1000 pub   _setMode                                 
+140e:1036  7:1036 gproc setFdOvr                                 dpcom.c
+140e:1036  7:1036 pub   _setFdOvr                                
+140e:106c  7:106c gproc setAxes                                  dpcom.c
+140e:106c  7:106c pub   _setAxes                                 
+140e:14d6  7:14d6 gproc wrLeadTables                             dpcom.c
+140e:14d6  7:14d6 pub   _wrLeadTables                            
+140e:154e  7:154e gproc rdProbe                                  dpcom.c
+140e:154e  7:154e pub   _rdProbe                                 
+140e:1a1c  7:1a1c gproc resetPgm                                 dpcom.c
+140e:1a1c  7:1a1c pub   _resetPgm                                
+140e:1a3e  7:1a3e gproc resetAlarm                               dpcom.c
+140e:1a3e  7:1a3e pub   _resetAlarm                              
+140e:1a60  7:1a60 gproc wrTool                                   dpcom.c
+140e:1a60  7:1a60 pub   _wrTool                                  
+140e:1d22  7:1d22 gproc rdTool                                   dpcom.c
+140e:1d22  7:1d22 pub   _rdTool                                  
+140e:1f82  7:1f82 gproc rdActvTool                               dpcom.c
+140e:1f82  7:1f82 pub   _rdActvTool                              
+140e:2186  7:2186 gproc setActvTool                              dpcom.c
+140e:2186  7:2186 pub   _setActvTool                             
+140e:21ec  7:21ec gproc getFlags                                 dpcom.c
+140e:21ec  7:21ec pub   _getFlags                                
+140e:222e  7:222e gproc setFlags                                 dpcom.c
+140e:222e  7:222e pub   _setFlags                                
+140e:2276  7:2276 gproc clrFlags                                 dpcom.c
+140e:2276  7:2276 pub   _clrFlags                                
+140e:22be  7:22be gproc clrPartPgm                               dpcom.c
+140e:22be  7:22be pub   _clrPartPgm                              
+140e:22e0  7:22e0 gproc wrPartPgm                                dpcom.c
+140e:22e0  7:22e0 pub   _wrPartPgm                               
+140e:24ac  7:24ac gproc rdPartPgmInfo                            dpcom.c
+140e:24ac  7:24ac pub   _rdPartPgmInfo                           
+140e:2544  7:2544 gproc executeBlock                             dpcom.c
+140e:2544  7:2544 pub   _executeBlock                            
+140e:262a  7:262a gproc cycleStart                               dpcom.c
+140e:262a  7:262a pub   _cycleStart                              
+140e:264c  7:264c gproc setHold                                  dpcom.c
+140e:264c  7:264c pub   _setHold                                 
+140e:266e  7:266e gproc rdMsgBuffer                              dpcom.c
+140e:266e  7:266e pub   _rdMsgBuffer                             
+140e:2742  7:2742 gproc rdTextBuffer                             dpcom.c
+140e:2742  7:2742 pub   _rdTextBuffer                            
+140e:28f8  7:28f8 gproc loadBMDC                                 dpcom.c
+140e:28f8  7:28f8 pub   _loadBMDC                                
+140e:2a18  7:2a18 gproc armProbe                                 dpcom.c
+140e:2a18  7:2a18 pub   _armProbe                                
+140e:2a4e  7:2a4e gproc getOffsets                               dpcom.c
+140e:2a4e  7:2a4e pub   _getOffsets                              
+140e:2db0  7:2db0 gproc setOffsets                               dpcom.c
+140e:2db0  7:2db0 pub   _setOffsets                              
+140e:321a  7:321a gproc getPreviewBlk                            dpcom.c
+140e:321a  7:321a pub   _getPreviewBlk                           
+140e:387e  7:387e gproc doFind                                   dpcom.c
+140e:387e  7:387e pub   _doFind                                  
+140e:38dc  7:38dc gproc setCoolant                               dpcom.c
+140e:38dc  7:38dc pub   _setCoolant                              
+140e:3912  7:3912 gproc setBreakPoint                            dpcom.c
+140e:3912  7:3912 pub   _setBreakPoint                           
+140e:395a  7:395a gproc setDryRunMaxF                            dpcom.c
+140e:395a  7:395a pub   _setDryRunMaxF                           
+140e:39b2  7:39b2 gproc setDryRunNoZ                             dpcom.c
+140e:39b2  7:39b2 pub   _setDryRunNoZ                            
+140e:3a0a  7:3a0a gproc setSlashDel                              dpcom.c
+140e:3a0a  7:3a0a pub   _setSlashDel                             
+140e:3a62  7:3a62 gproc setOptStop                               dpcom.c
+140e:3a62  7:3a62 pub   _setOptStop                              
+140e:3aba  7:3aba gproc setBOSS4mode                             dpcom.c
+140e:3aba  7:3aba pub   _setBOSS4mode                            
+140e:3b12  7:3b12 gproc probePoint                               dpcom.c
+140e:3b12  7:3b12 pub   _probePoint                              
+140e:3ec4  7:3ec4 gproc wrDNCpgmBlk                              dpcom.c
+140e:3ec4  7:3ec4 pub   _wrDNCpgmBlk                             
+140e:4062  7:4062 gproc setGuardsOff                             dpcom.c
+140e:4062  7:4062 pub   _setGuardsOff                            
+140e:40ba  7:40ba gproc installParams                            dpcom.c
+140e:40ba  7:40ba pub   _installParams                           
+140e:40dc  7:40dc gproc rdSpindleGear                            dpcom.c
+140e:40dc  7:40dc pub   _rdSpindleGear                           
+140e:411e  7:411e gproc doPcomCmd                                dpcom.c
+140e:411e  7:411e pub   _doPcomCmd                               
+1830:000a  8:0000 gproc doubleToBCD                              bcd.c
+1830:000a  8:0000 pub   _doubleToBCD                             
+1830:04fe  8:04f4 gproc BCDtoDouble                              bcd.c
+1830:04fe  8:04f4 pub   _BCDtoDouble                             
+18a2:0016  9:0010 pub   __astart                                 
+18a2:00eb  9:00e5 pub   __cintDIV                                
+18a2:00fa  9:00f4 pub   __amsg_exit                              
+18a2:0126  9:0120 pub   __dataseg                                
+18a2:0128  9:0122 pub   __cinit                                  
+18a2:01f1  9:01eb pub   _exit                                    
+18a2:01f8  9:01f2 pub   __exit                                   
+18a2:0200  9:01fa pub   __cexit                                  
+18a2:020a  9:0204 pub   __c_exit                                 
+18a2:0278  9:0272 pub   __ctermsub                               
+18a2:02a4  9:029e pub   __aFchkstk                               
+18a2:02a4  9:029e pub   __chkstk                                 
+18a2:02c8  9:02c2 pub   _fclose                                  
+18a2:0396  9:0390 pub   __fsopen                                 
+18a2:03ca  9:03c4 pub   _fopen                                   
+18a2:03e6  9:03e0 pub   _fread                                   
+18a2:055a  9:0554 pub   _printf                                  
+18a2:059e  9:0598 pub   _scanf                                   
+18a2:05c2  9:05bc pub   __fgetchar                               
+18a2:05c2  9:05bc pub   _getchar                                 
+18a2:05ca  9:05c4 pub   _fgetc                                   
+18a2:05ca  9:05c4 pub   _getc                                    
+18a2:05ec  9:05e6 pub   _strlen                                  
+18a2:0606  9:0600 pub   _getenv                                  
+18a2:069c  9:0696 pub   __kbhit                                  
+18a2:06be  9:06b8 pub   __getche                                 
+18a2:06c2  9:06bc pub   __getch                                  
+18a2:06ea  9:06e4 pub   _sprintf                                 
+18a2:0754  9:074e pub   _sscanf                                  
+18a2:07a0  9:079a pub   __fileno                                 
+18a2:07ae  9:07a8 pub   __filelength                             
+18a2:0834  9:082e pub   _memcpy                                  
+18a2:0892  9:088c pub   _system                                  
+18a2:094e  9:0948 pub   __bios_timeofday                         
+18a2:0980  9:097a pub   __aFlshl                                 
+18a2:098c  9:0986 pub   __aFulshr                                
+18a2:09ac  9:09a6 pub   __FF_MSGBANNER                           
+18a2:09ce  9:09c8 pub   __fptrap                                 
+18a2:09d4  9:09ce pub   __nullcheck                              
+18a2:09f8  9:09f2 pub   __setargv                                
+18a2:0ba0  9:0b9a pub   __setenvp                                
+18a2:0c40  9:0c3a pub   __NMSG_TEXT                              
+18a2:0c6b  9:0c65 pub   __NMSG_WRITE                             
+18a2:0ca2  9:0c9c pub   __farstub                                
+18a2:0ca4  9:0c9e pub   __filbuf                                 
+18a2:0d40  9:0d3a pub   __flsbuf                                 
+18a2:0e2c  9:0e26 pub   __freebuf                                
+18a2:0e64  9:0e5e pub   __openfile                               
+18a2:0fa0  9:0f9a pub   __stbuf                                  
+18a2:1021  9:101b pub   __ftbuf                                  
+18a2:1068  9:1062 pub   _fflush                                  
+18a2:10c0  9:10ba pub   __flush                                  
+18a2:1140  9:113a pub   __flushall                               
+18a2:11b4  9:11ae pub   __input                                  
+18a2:1b34  9:1b2e pub   __output                                 
+18a2:201e  9:2018 pub   __getstream                              
+18a2:206c  9:2066 pub   __close                                  
+18a2:208c  9:2086 pub   __lseek                                  
+18a2:210e  9:2108 pub   __read                                   
+18a2:220c  9:2206 pub   _strcat                                  
+18a2:2260  9:225a pub   _strcpy                                  
+18a2:229c  9:2296 pub   _strncmp                                 
+18a2:22d8  9:22d2 pub   __itoa                                   
+18a2:23aa  9:23a4 pub   __spawnve                                
+18a2:2586  9:2580 pub   __spawnvpe                               
+18a2:2748  9:2742 pub   __access                                 
+18a2:276a  9:2764 pub   __unlink                                 
+18a2:276a  9:2764 pub   _remove                                  
+18a2:277a  9:2774 pub   __forcdecpt                              
+18a2:27e8  9:27e2 pub   __cropzeros                              
+18a2:2862  9:285c pub   __positive                               
+18a2:2890  9:288a pub   __fassign                                
+18a2:28e2  9:28dc pub   __cftoe                                  
+18a2:2a9a  9:2a94 pub   __cftof                                  
+18a2:2c1e  9:2c18 pub   __cftog                                  
+18a2:2cf2  9:2cec pub   __cfltcvt                                
+18a2:2d84  9:2d7e pub   __fpsignal                               
+18a2:2dc8  9:2dc2 pub   __myalloc                                
+18a2:2dee  9:2de8 pub   __dosret0                                
+18a2:2df6  9:2df0 pub   __dosreturn                              
+18a2:2e03  9:2dfd pub   __dosretax                               
+18a2:2e10  9:2e0a pub   __maperror                               
+18a2:2e44  9:2e3e pub   __endstdio                               
+18a2:2e5a  9:2e54 pub   __getbuf                                 
+18a2:2ea6  9:2ea0 pub   _ungetc                                  
+18a2:2f16  9:2f10 pub   __sopen                                  
+18a2:2f30  9:2f2a pub   __open                                   
+18a2:30d1  9:30cb pub   __cXENIXtoDOSmode                        
+18a2:30e2  9:30dc pub   __write                                  
+18a2:3242  9:323c pub   __growseg                                
+18a2:32d1  9:32cb pub   __incseg                                 
+18a2:3322  9:331c pub   __findlast                               
+18a2:3342  9:333c pub   _atof                                    
+18a2:339a  9:3394 pub   __fptostr                                
+18a2:3442  9:343c pub   __DOSDEVCONFIG                           
+18a2:3459  9:3453 pub   __DOSGETMACHINEMODE                      
+18a2:346e  9:3468 pub   __DOSSETVEC                              
+18a2:3477  9:3471 pub   __DOSCREATECSALIAS                       
+18a2:348d  9:3487 pub   __DOSFREESEG                             
+18a2:3496  9:3490 pub   __DOSWRITE                               
+18a2:34b0  9:34aa pub   __commit                                 
+18a2:350a  9:3504 pub   _strchr                                  
+18a2:353c  9:3536 pub   __strcmpi                                
+18a2:353c  9:3536 pub   __stricmp                                
+18a2:3582  9:357c pub   _strrchr                                 
+18a2:35b6  9:35b0 pub   _memmove                                 
+18a2:3680  9:367a pub   _memset                                  
+18a2:36c8  9:36c2 pub   __cltoasub                               
+18a2:36d5  9:36cf pub   __cxtoa                                  
+18a2:372c  9:3726 pub   __getpath                                
+18a2:37a6  9:37a0 pub   __wrt2err                                
+18a2:37c2  9:37bc pub   __cenvarg                                
+18a2:3b2a  9:3b24 pub   __dospawn                                
+18a2:3c36  9:3c30 pub   __execload                               
+18a2:3c4c  9:3c46 pub   __aFFalmul                               
+18a2:3c4c  9:3c46 pub   __aFFaulmul                              
+18a2:3c6e  9:3c68 pub   __fltout                                 
+18a2:3cba  9:3cb4 pub   __stackavail                             
+18a2:3cce  9:3cc8 pub   __ffree                                  
+18a2:3ce1  9:3cdb pub   __fmalloc                                
+18a2:3d7a  9:3d74 pub   __aFahdiff                               
+18a2:3da6  9:3da0 pub   __fcloseall                              
+18a2:3dcc  9:3dc6 pub   __dos_commit                             
+18a2:3dda  9:3dd4 pub   __aFlmul                                 
+18a2:3dda  9:3dd4 pub   __aFulmul                                
+18a2:3e5a  9:3e54 pub   $i8_output                               
+18a2:3fa0  9:3f9a pub   __fltin                                  
+18a2:3ffa  9:3ff4 pub   __searchseg                              
+18a2:4076  9:4070 pub   __newseg                                 
+18a2:4236  9:4230 pub   $i8_tpwr10                               
+18a2:4274  9:426e pub   __STRINGTOD                              
+18a2:42dc  9:42d6 pub   __initseg                                
+18a2:4310  9:430a pub   __linkseg                                
+18a2:4346  9:4340 pub   __STRINGTOLD                             
+18a2:4866  9:4860 pub   __LD12MULTTENPOWER                       
+18a2:493b  9:4935 pub   __LD12MULT                               
+18a2:4ac0  9:4aba pub   __MANTOLD12                              
+1d5a:0000 10:0000 pub   __EmDataSeg                              
+1d5a:0010 10:0010 pub   __fpemulatorbegin                        
+1d5a:003a 10:003a pub   __fpmath                                 
+1d5a:02de 10:02de pub   __FPEXCEPTION87                          
+1d5a:0873 10:0873 pub   __fpemulator                             
+1d5a:2668 10:2668 pub   __fpemulatorend                          
+1d5a:267a 10:267a pub   __FPINSTALL87                            
+1d5a:26a9 10:26a9 pub   __FPTERMINATE87                          
+1fc9:0169 12:0169 pub   __fptaskdata                             
+1fe0:0042 13:0042 pub   __anullsize                              
+1fe0:0042 14:0000 gdata servobase                                
+1fe0:0042 14:0000 pub   _servobase                               
+1fe0:0044 14:0002 gdata dpRam                                    
+1fe0:0044 14:0002 pub   _dpRam                                   
+1fe0:018a 14:0148 gdata error_code_table                         
+1fe0:018a 14:0148 pub   _error_code_table                        
+1fe0:21da 14:2198 gdata servobase3                               
+1fe0:21da 14:2198 pub   _servobase3                              
+1fe0:232c 14:22ea gdata servobase2                               
+1fe0:232c 14:22ea pub   _servobase2                              
+1fe0:239c 14:235a ldata dpRamSeg                                 wmfncs.c
+1fe0:239e 14:235c gdata dpRamSeg                                 
+1fe0:239e 14:235c pub   _dpRamSeg                                
+1fe0:23a0 14:235e gdata dpRAMptr                                 
+1fe0:23a0 14:235e pub   _dpRAMptr                                
+1fe0:23ae 14:236c pub   __atopsp                                 
+1fe0:23b0 14:236e pub   __aexit_rtn                              
+1fe0:23b2 14:2370 pub   __asizds                                 
+1fe0:23b4 14:2372 pub   __nheap_desc                             
+1fe0:23c8 14:2386 pub   __aseghi                                 
+1fe0:23ca 14:2388 pub   __aseglo                                 
+1fe0:23cc 14:238a pub   __fDosExt                                
+1fe0:23ce 14:238c pub   __acfinfo                                
+1fe0:23dc 14:239a pub   __aintdiv                                
+1fe0:23e0 14:239e pub   __fac                                    
+1fe0:23ea 14:23a8 pub   _errno                                   
+1fe0:23ec 14:23aa pub   __umaskval                               
+1fe0:23ee 14:23ac pub   __pspadr                                 
+1fe0:23f0 14:23ae pub   __psp                                    
+1fe0:23f2 14:23b0 pub   __osminor                                
+1fe0:23f2 14:23b0 pub   __osver                                  
+1fe0:23f3 14:23b1 pub   __osmajor                                
+1fe0:23f4 14:23b2 pub   __osversion                              
+1fe0:23f6 14:23b4 pub   __osmode                                 
+1fe0:23f7 14:23b5 pub   __cpumode                                
+1fe0:23f8 14:23b6 pub   __doserrno                               
+1fe0:23f8 14:23b6 pub   __oserr                                  
+1fe0:23fa 14:23b8 pub   __nfile                                  
+1fe0:23fc 14:23ba pub   __osfile                                 
+1fe0:2410 14:23ce pub   ___argc                                  
+1fe0:2412 14:23d0 pub   ___argv                                  
+1fe0:2416 14:23d4 pub   __environ                                
+1fe0:241a 14:23d8 pub   __pgmptr                                 
+1fe0:241f 14:23dd pub   __child                                  
+1fe0:2421 14:23df pub   __ovlflag                                
+1fe0:2422 14:23e0 pub   __intno                                  
+1fe0:2423 14:23e1 pub   __ovlvec                                 
+1fe0:2427 14:23e5 pub   __exitflag                               
+1fe0:2428 14:23e6 pub   __aaltstkovr                             
+1fe0:242c 14:23ea pub   _STKHQQ                                  
+1fe0:2432 14:23f0 pub   __chbuf                                  
+1fe0:2460 14:241e pub   __adbgmsg                                
+1fe0:2468 14:2426 pub   __iob                                    
+1fe0:2558 14:2516 pub   __iob2                                   
+1fe0:2648 14:2606 pub   __lastiob                                
+1fe0:26c2 14:2680 pub   __cfltcvt_tab                            
+1fe0:26de 14:269c pub   __sigintseg                              
+1fe0:26e0 14:269e pub   __sigintoff                              
+1fe0:26e2 14:26a0 pub   __asizeC                                 
+1fe0:26e3 14:26a1 pub   __asizeD                                 
+1fe0:274a 14:2708 pub   __cflush                                 
+1fe0:274c 14:270a pub   __commode                                
+1fe0:274e 14:270c pub   __lseekchk                               
+1fe0:2750 14:270e pub   __amblksiz                               
+1fe0:2752 14:2710 pub   __ctype                                  
+1fe0:2752 14:2710 pub   __ctype_                                 
+1fe0:28ac 14:286a pub   __fmode                                  
+1fe0:28ac 14:286a pub   __iomode                                 
+1fe0:28ae 14:286c pub   __pnhFarHeap                             
+1fe0:28b2 14:2870 pub   __fileinfo                               
+1fe0:28fe 14:28bc pub   __fheap                                  
+1fe0:2916 15:0000 pub   ___qczrinit                              
+1fe0:2918 16:0000 pub   ___aDBswpflg                             
+1fe0:291a 16:0002 pub   ___aDBswpchk                             
+1fe0:291c 16:0004 pub   ___aDBrterr                              
+1fe0:291e 16:0006 pub   ___aDBexit                               
+1fe0:2926 17:0002 pub   __fpinit                                 
+1fe0:2afe 45:0000 pub   __edata                                  
+1fe0:2afe 45:0000 pub   _edata                                   
+1fe0:2b30 52:0000 gdata type                                     
+1fe0:2b30 52:0000 pub   _type                                    
+1fe0:2b36 52:0006 gdata dpramseg                                 
+1fe0:2b36 52:0006 pub   _dpramseg                                
+1fe0:2b38 52:0008 gdata actualValue                              
+1fe0:2b38 52:0008 pub   _actualValue                             
+1fe0:2b3a 52:000a gdata dpRAM                                    VIEWDP.OBJ
+1fe0:2b3a 52:000a pub   _dpRAM                                   
+1fe0:3710 52:0be0 gdata testValue                                
+1fe0:3710 52:0be0 pub   _testValue                               
+1fe0:3712 52:0be2 pub   __mbac                                   
+1fe0:3720 53:0000 pub   __end                                    
+1fe0:3720 53:0000 pub   _end                                     

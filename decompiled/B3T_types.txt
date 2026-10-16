@@ -1,0 +1,230 @@
+struct MOVEBUFFER (size 0xaa)
+   +0x000 union MOVFLGS                movQflags
+   +0x002 union MOVCMD                 movQcommand
+   +0x004 short                        movQparam
+   +0x006 long                         mWord
+   +0x00a long                         tNumber
+   +0x00e double                       tDiameter
+   +0x016 double                       feedrate
+   +0x01e double                       xEndPoint
+   +0x026 double                       yEndPoint
+   +0x02e double                       zEndPoint
+   +0x036 double                       wEndPoint
+   +0x03e double                       sEndPoint
+   +0x046 double                       sSpeed
+   +0x04e double                       xCenter
+   +0x056 double                       yCenter
+   +0x05e double                       zCenter
+   +0x066 double                       revCount
+   +0x06e long                         dwellTime
+   +0x072 char[56B]                    moveText
+union MOVFLGS (size 0x2)
+   +0x000 short                        mvFlagWord
+   +0x000 struct __unnamed             mvFlagBits
+struct __unnamed (size 0x2)
+   +0x000 prim0001:115@bit0            mvFlgs00
+   +0x000 prim0101*:115@bit0           mvFlgs01
+   +0x000 prim0201*:115@bit0           mvFlgs02
+   +0x000 prim0301*:115@bit0           mvFlgs03
+   +0x000 prim0401*:115@bit0           mvFlgs04
+   +0x000 prim0501*:115@bit0           movElPgmEnd
+   +0x000 prim0601*:115@bit0           movElDrillCycle
+   +0x000 prim0701*:115@bit0           movElZsplit
+   +0x000 prim0801:115@bit0            movElDrdy
+   +0x000 prim0901*:115@bit0           movElCycleStrt
+   +0x000 prim0a01*:115@bit0           movElCycle
+   +0x000 prim0b01*:115@bit0           movElTap
+   +0x000 prim0c01*:115@bit0           movElSrdy
+   +0x000 prim0d01*:115@bit0           movElArdy
+   +0x000 prim0e01*:115@bit0           movElMrdy
+   +0x000 prim0f01*:115@bit0           movElRdy
+union MOVCMD (size 0x2)
+   +0x000 short                        mvCmdWord
+   +0x000 struct __unnamed             mvCmdFields
+struct __unnamed (size 0x2)
+   +0x000 prim0008:115@bit0            mcMoveType
+   +0x000 prim0801:115@bit0            mcBit0
+   +0x000 prim0901*:115@bit0           mcBit1
+   +0x000 prim0a01*:115@bit0           mcBit2
+   +0x000 prim0b01*:115@bit0           mcBit3
+   +0x000 prim0c01*:115@bit0           mcSpReqd
+   +0x000 prim0d01*:115@bit0           mcNoDecel
+   +0x000 prim0e01*:115@bit0           mcFdOvr
+   +0x000 prim0f01*:115@bit0           mcValid
+struct dualPortRAM (size 0xbd6)
+   +0x000 struct PUTSTBLK              puTstBlk
+   +0x020 struct WINCMDBLK             winCmdBlk
+   +0x030 struct CPUREGBLK             cpuRegBlk
+   +0x080 long[128B]                   addressBlock
+   +0x100 long[128B]                   dataBlock
+   +0x180 long[20B]                    reserveBlock
+   +0x194 long                         tBrkptAddr
+   +0x198 long                         tBrkptData
+   +0x19c long                         tBrkptNmbr
+   +0x1a0 long[64B]                    brkptAddr
+   +0x1e0 short[32B]                   brkptData
+   +0x200 union dpDTB                  diskBuffer
+   +0x400 struct dpMCS                 machControl
+   +0x480 struct dpMSS                 machStatus
+   +0x780 short[128B]                  dpReserved
+   +0x800 struct EVTQUEUE              dpEvtQueue
+struct PUTSTBLK (size 0x20)
+   +0x000 long                         testFlag
+   +0x004 long                         testNumber
+   +0x008 long                         testData
+   +0x00c long                         expectedData
+   +0x010 long                         testAddress
+   +0x014 long                         puTstUnused1
+   +0x018 long                         puTstUnused2
+   +0x01c long                         puTstUnused3
+struct WINCMDBLK (size 0x10)
+   +0x000 union WINCMD                 winCmd
+   +0x002 short                        winParam
+   +0x004 union WINSTATUS              winStatus
+   +0x006 short                        wReserved
+   +0x008 long                         systemClock
+   +0x00c long                         windowLink
+union WINCMD (size 0x2)
+   +0x000 short                        winCmdWord
+   +0x000 struct __unnamed             winCmdBits
+struct __unnamed (size 0x2)
+   +0x000 prim0f01*:115@bit0           wcValid
+union WINSTATUS (size 0x2)
+   +0x000 short                        winStatWord
+   +0x000 struct __unnamed             winStatBits
+struct __unnamed (size 0x2)
+   +0x000 prim0001:115@bit0            wsBit0
+   +0x000 prim0101*:115@bit0           wsBit1
+   +0x000 prim0201*:115@bit0           wsBit2
+   +0x000 prim0301*:115@bit0           wsBit3
+   +0x000 prim0401*:115@bit0           wsBit4
+   +0x000 prim0501*:115@bit0           wsBit5
+   +0x000 prim0601*:115@bit0           wsBit6
+   +0x000 prim0701*:115@bit0           wsBit7
+   +0x000 prim0801:115@bit0            wsHitBrkpt
+   +0x000 prim0901*:115@bit0           wsReDoBrkpt
+   +0x000 prim0a01*:115@bit0           wsRunActive
+   +0x000 prim0b01*:115@bit0           wsIdleActive
+   +0x000 prim0c01*:115@bit0           wsException
+   +0x000 prim0d01*:115@bit0           wsLinkOn
+   +0x000 prim0e01*:115@bit0           wsBusy
+   +0x000 prim0f01*:115@bit0           wsDone
+struct CPUREGBLK (size 0x50)
+   +0x000 union __unnamed              cpuRegHeap
+   +0x040 short                        cpuStatus
+   +0x042 long                         cpuPC
+   +0x046 union EXCPTN                 cpuException
+   +0x048 union __unnamed              stackFrame
+union __unnamed (size 0x40)
+   +0x000 long[64B]                    cpuRegArray
+   +0x000 struct __unnamed             cpuRegs
+struct __unnamed (size 0x40)
+   +0x000 long                         D0
+   +0x004 long                         D1
+   +0x008 long                         D2
+   +0x00c long                         D3
+   +0x010 long                         D4
+   +0x014 long                         D5
+   +0x018 long                         D6
+   +0x01c long                         D7
+   +0x020 long                         A0
+   +0x024 long                         A1
+   +0x028 long                         A2
+   +0x02c long                         A3
+   +0x030 long                         A4
+   +0x034 long                         A5
+   +0x038 long                         A6
+   +0x03c long                         A7
+union EXCPTN (size 0x2)
+   +0x000 short                        exceptionWord
+   +0x000 struct __unnamed             exceptionFields
+struct __unnamed (size 0x2)
+   +0x000 prim000c:115@bit0            exceptionVector
+   +0x000 prim0c04*:115@bit0           exceptionType
+union __unnamed (size 0x8)
+   +0x000 struct __unnamed             stkFmt29
+struct __unnamed (size 0x8)
+   +0x000 long                         instrAddr
+   +0x004 short                        intReg0
+   +0x006 short                        intReg1
+   +0x000 struct __unnamed             stkFmtAB
+struct __unnamed (size 0x8)
+   +0x000 short                        intReg0
+   +0x002 short                        specialStatus
+   +0x004 long                         dataAddr
+union dpDTB (size 0x200)
+   +0x000 short[512B]                  dskBufWords
+   +0x000 char[512B]                   dskBufBytes
+struct dpMCS (size 0x80)
+   +0x000 union MCCMD                  mccCmd
+   +0x002 union MCCMDSTATUS            mccCmdStatus
+   +0x004 union MCSPARBLK              mcsParBlk
+   +0x044 short[60B]                   mcReserved
+union MCCMD (size 0x2)
+   +0x000 short                        mcCmdWord
+   +0x000 struct __unnamed             mcCmdBits
+struct __unnamed (size 0x2)
+   +0x000 prim000f:115@bit0            mccWord
+   +0x000 prim0f01*:115@bit0           mccValid
+union MCCMDSTATUS (size 0x2)
+   +0x000 short                        mcCmdStatWord
+   +0x000 struct __unnamed             mcCmdStatBits
+struct __unnamed (size 0x2)
+   +0x000 prim0001:115@bit0            mcsPcomBusy
+   +0x000 prim0101*:115@bit0           mcsPcomError
+   +0x000 prim0201*:115@bit0           mcsBit2
+   +0x000 prim0301*:115@bit0           mcsBit3
+   +0x000 prim0401*:115@bit0           mcsBit4
+   +0x000 prim0501*:115@bit0           mcsBit5
+   +0x000 prim0601*:115@bit0           mcsBit6
+   +0x000 prim0701*:115@bit0           mcsBit7
+   +0x000 prim0801:115@bit0            mcsBit8
+   +0x000 prim0901*:115@bit0           mcsBit9
+   +0x000 prim0a01*:115@bit0           mcsBit10
+   +0x000 prim0b01*:115@bit0           mcsBit11
+   +0x000 prim0c01*:115@bit0           mcsBit12
+   +0x000 prim0d01*:115@bit0           mcsBit13
+   +0x000 prim0e01*:115@bit0           mcsBit14
+   +0x000 prim0f01*:115@bit0           mcsBit15
+union MCSPARBLK (size 0x40)
+   +0x000 short[64B]                   mcsParWords
+   +0x000 char[64B]                    mcsParBytes
+struct dpMSS (size 0x300)
+   +0x000 union MSSFLAGS               mssFlags
+   +0x004 short                        msModeWord
+   +0x006 union MSSROMODE              mssROmode
+   +0x008 long[12B]                    msXaxis
+   +0x014 long[12B]                    msYaxis
+   +0x020 long[12B]                    msZaxis
+   +0x02c long[12B]                    msWaxis
+   +0x038 long[12B]                    msSaxis
+   +0x044 long[12B]                    msXaxisEnd
+   +0x050 long[12B]                    msYaxisEnd
+   +0x05c long[12B]                    msZaxisEnd
+   +0x068 long[12B]                    msWaxisEnd
+   +0x074 long[12B]                    msSaxisEnd
+   +0x080 long[12B]                    msFeedCmd
+   +0x08c long[12B]                    msFeedOvr
+   +0x098 long[12B]                    msFeedAct
+   +0x0a4 long[12B]                    msRPMcmd
+   +0x0b0 long[12B]                    msRPMovr
+   +0x0bc long[12B]                    msRPMact
+   +0x0c8 long[12B]                    msSpLoad
+   +0x0d4 long                         msToolNum
+   +0x0d8 long                         msOffsetNum
+   +0x0dc long[12B]                    msToolLen
+   +0x0e8 long[12B]                    msToolDia
+   +0x0f4 long[12B]                    msToolTime
+   +0x100 union MSSMSGBUF              msMsgBuf
+   +0x200 union MSSTXTBUF              msTxtBuf
+   +0x278 long                         msSpindleGear
+   +0x27c short[132B]                  msReserved
+union MSSFLAGS (size 0x4)
+   +0x000 long                         mssFlagWord
+   +0x000 struct __unnamed             mssFlagBits
+struct __unnamed (size 0x4)
+   +0x000 prim0001:115@bit0            mssFlagBit00
+   +0x000 prim0101*:115@bit0           mssFlagBit01
+   +0x000 prim0201*:115@bit0           mssFlagBit02
+   +0x000 prim0301*:115@bit0           mssFlagBit03
+   +0x000 prim0401*:115@bit0           mssFlagBit04

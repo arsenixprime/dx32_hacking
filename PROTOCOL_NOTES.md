@@ -165,7 +165,7 @@ Driven by `FUN_00012328` at 0x12328. Uses function pointer table.
 
 | Address Range      | Description |
 |-------------------|-------------|
-| 0x00000000-0x0004BFFF | RAM (firmware loaded here) |
+| 0x00000000-0x0007FFFF (or 0x000FFFFF) | Main RAM, sized at boot (see below). Firmware image 0x0-0x4BFF9, stacks at 0x4D000/0x4D100/0x4D200, MDI/block text buffer 0x4E000-0x53FFF, part-program buffer 0x4E000 up to the RAM top (0xAFA8) |
 | 0x01200000-0x01200818 | Dual-port RAM (shared with ISA host) |
 | 0x01300004-0x0130001C | Encoder/counter inputs (up to 9 axes) |
 | 0x01300040-0x0130004C | Motor DAC outputs (4 channels, alternate bank) |
@@ -177,6 +177,42 @@ Driven by `FUN_00012328` at 0x12328. Uses function pointer table.
 | 0x01300180          | Spindle/feedrate DAC |
 | 0x013001C0          | Spindle control |
 | 0x01300200          | Digital input port |
+
+### RAM and dual-port sizing at boot (0xD32C, CONFIRMED)
+
+The firmware does not assume a RAM size; it probes it right after the CPU-speed benchmark
+(0xDBC6, iterations between two timer interrupts → 0xAFA0, classed into 0xAF9C = 0..3):
+
+1. Default top = 0x7FFFC (512 KB). Write 0x12345678 → 0x7FFFC and 0x11111111 → 0xFFFFC; if both
+   read back (no aliasing) the top becomes 0xFFFFC (1 MB).
+2. Dual-port RAM: 0xFFC vs 0x1FFC (4 KB vs 8 KB) by the same marker method → 0xAFAC.
+3. If RAM is 1 MB **and** dual-port is 8 KB, the board class 0xAF9C is forced to 4 ("BMDC4", which
+   also enables 9 encoder channels instead of 6 at 0x11C0E). Only in that case it keeps probing
+   2 MB, 4 MB, 8 MB and 16 MB (0x1FFFFC … 0xFFFFFC), each step re-checking all earlier markers.
+4. Sanity checks (0xDA66..0xDB5A) halt the firmware with 0xDEADDEAD at dual-port +0 and a code at +4:
+   0xA3 class 4 with 0xAFC0 == 1, 0xA5 class 4 with less than 1 MB, **0xA5 class 0-3 with more than
+   512 KB**, 0xA6 class 0-3 with more than 4 KB dual-port.
+
+The RAM top 0xAFA8 is only used as the end of the part-program buffer: `wrPartPgm` (0x29BD8)
+appends 0x200-byte chunks from dual-port +0x200 starting at 0x4E000 (0x9FC8) and raises alarm
+`trap #14` when the pointer reaches 0xAFA8. The firmware never reports the size to the PC. The
+ISA indirect window (0x1A4/0x1A6 = 9+9 bits of longword address) can reach exactly 1 MB, so the
+PC can load/inspect only the first megabyte regardless of what the probe finds.
+
+`tools/patch_bmdc_ram.py` produces a firmware that lifts the class 0-3 limits: patch A turns the
+0xDB12 halt into a branch-over (1 MB usable), patch B NOPs the class-4 gate at 0xD476 so the
+2-16 MB probes run on any board. The patched image is loaded from disk like the original;
+nothing on the card is reflashed. Expected result on a BMDC3 with 4 x 512K x 8 SRAM: 0xAFA8 =
+0x1FFFFC and a part-program buffer of 0x4E000-0x1FFFFC (about 1.7 MB) instead of 200 KB.
+
+**BMDC3 SRAM bank (hardware, from board photo + Motorola MCM6226BB/D datasheet):** U8-U11 are
+MCM6226BBXJ20, 128K x 8, 20 ns, 5 V, in the XJ = 400-mil 32-lead SOJ (the inner outline is the
+EJ = 300-mil variant of the same part, not a denser footprint). Pinout is the JEDEC byte-wide one:
+pin 1 NC, 22 E1 (active-low enable), 24 G, 29 W, **30 E2 (active-high enable)**, 16 VSS, 32 VCC.
+A 512K x 8 part in the same outline puts A18 on pin 1 and A17 on pin 30, so an upgrade needs CPU
+A20 wired to pin 1 and CPU A19 to pin 30 (after removing whatever drives E2 now), plus a part
+rated 20 ns or close to it; fast 4 Mbit x8 SRAMs mostly moved to the 36-pin SOJ, so check
+availability before planning on it. The firmware probe (above) then reports the result in 0xAFA8.
 
 ---
 
@@ -447,7 +483,8 @@ The output word `_DAT_000031f4` is a 32-bit value where individual bits are set/
 | 0x01138C | Port A RX handler |
 | 0x0113DA | Port B TX handler |
 | 0x01141A | Port B RX handler |
-| 0x011CD6 | Servo tick ISR (Level 4 autovector @ 0x70) |
+| 0x011CD6 | Probe-hit ISR (Level 4 autovector @ 0x70): latches the axis positions into 0xE70 for `rdProbe` |
+| 0x016860 | Servo/interpolator tick, 250 Hz: phase 2 of the 32-entry schedule at 0x111D0 driven by the counter/timer interrupt |
 | 0x012328 | Protocol state machine driver |
 | 0x012592 | Nibble encode/decode |
 | 0x0128AE | AUF I/O bit mapping |
@@ -475,8 +512,67 @@ The output word `_DAT_000031f4` is a 32-bit value where individual bits are set/
 | Vector | Address | Handler  | Description |
 |--------|---------|----------|-------------|
 | Level 2 | 0x68 | 0x01111C | UART RX/TX + counter/timer |
-| Level 4 | 0x70 | 0x11CD6  | Servo tick (motion control) |
+| Level 4 | 0x70 | 0x11CD6  | Touch-probe hit (position latch) |
 
 **IMR value:** 0x2A = RxRDY_A + Counter/Timer + RxRDY_B
 
-**Counter/timer:** CTUR=0x00, CTLR=0xE6 → ~500 Hz (2ms servo period)
+**Counter/timer:** CTUR=0x00, CTLR=0xE6, timer mode on X1/CLK (ACR bits 6:4 = 110, no /16) →
+3.6864 MHz / (2 × 230) = 8.01 kHz interrupts. The ISR increments a counter (0x2B68) and jumps
+through a 32-entry phase table at 0x111D0: 0x11252 on every odd phase (4 kHz, UART byte pump),
+0x11468 every 4th phase (2 kHz), 0x12328 (protocol state machine) at phases 14 and 26 (500 Hz),
+0x16860 (servo loop + interpolator) at phase 2 only → **servo tick = 4 ms (250 Hz)**. This is
+confirmed by the feed scaling constants (1 ipm = 169.333 units/tick with 2,540,000 units/in).
+
+---
+
+## PC-to-BMDC Mailbox Commands (dual-port +0x400)
+
+The PC writes `0x8000 | cmd` to +0x400, the firmware dispatcher at 0x27c02 clears bit 15, sets busy (bit 0 of +0x402), and jumps through the table at 0x27d3e. Bit 1 of +0x402 is the error flag. Command arguments start at +0x404; numeric arguments are 68882 packed-decimal (12 bytes). Names come from the CodeView symbols in `B3T.EXE` (`decompiled/B3T_symbols.txt`); unnamed entries are not used by B3T.
+
+| cmd | handler | B3T name |
+|---|---|---|
+| 0x00 | 0x027dea |  |
+| 0x01 | 0x027e20 | doMove |
+| 0x02 | 0x028208 | doDrives |
+| 0x03 | 0x0285b0 | homeAxes |
+| 0x04 | 0x028782 | wrFeedOvr |
+| 0x05 | 0x028794 | setJog |
+| 0x06 | 0x0288bc | setMode |
+| 0x07 | 0x028b1a | setFdOvr |
+| 0x08 | 0x028b54 | setAxes |
+| 0x09 | 0x0293d6 | wrLeadTables |
+| 0x0a | 0x0292cc | setOffsets |
+| 0x0b | 0x027dee |  |
+| 0x0c | 0x029b8c | setHold |
+| 0x0d | 0x029448 | rdProbe |
+| 0x0e | 0x02955c | resetPgm |
+| 0x0f | 0x0296f4 | resetAlarm |
+| 0x10 | 0x0297c4 | wrTool |
+| 0x11 | 0x029a66 | rdTool |
+| 0x12 | 0x02992c | setActvTool |
+| 0x13 | 0x029b94 | clrPartPgm |
+| 0x14 | 0x029bd8 | wrPartPgm |
+| 0x15 | 0x029d46 | rdPartPgmInfo |
+| 0x16 | 0x029d7c | executeBlock |
+| 0x17 | 0x029f3a | cycleStart |
+| 0x18 | 0x029f42 | armProbe |
+| 0x19 | 0x029f90 | getOffsets |
+| 0x1a | 0x02a05e | getPreviewBlk |
+| 0x1b | 0x02abf6 | (read parameter: idx at +0x404, BCD out at +0x406) |
+| 0x1c | 0x02ad24 | (write parameter: idx at +0x404, BCD in at +0x406) |
+| 0x1d | 0x02ae2a | doFind |
+| 0x1e | 0x02af1c | setFlags |
+| 0x1f | 0x02af40 | clrFlags |
+| 0x20 | 0x02af66 | setCoolant |
+| 0x21 | 0x02b094 | setBreakPoint |
+| 0x22 | 0x02b0a8 | probePoint |
+| 0x23 | 0x02b30a | wrDNCpgmBlk |
+| 0x24 | 0x02b3b8 | installParams |
+| 0x25 | 0x02a3f2 |  |
+| 0x26 | 0x029c66 |  |
+| 0x27 | 0x00fb6c | (drive-ready, see HOMING_SEQUENCE.md) |
+| 0x28 | 0x02a448 |  |
+| 0x29 | 0x029ccc |  |
+| 0x2a | 0x02c510 |  |
+
+Parameter read/write and the parameter table are described in `MOTION_PLANNER.md` and `BMDC_PARAM_TABLE.md`.

@@ -1,0 +1,684 @@
+component dx32_pktuart "Bridgeport DX32 AUF/TLAUF PktUART driver";
+
+description """Driver for Bridgeport DX32 CNC AUF and TLAUF I/O boards
+using Mesa PktUART over multidrop RS422 at 38400 baud.
+
+Load using names= parameter matching a PktUART instance:
+  loadrt dx32_pktuart names=hm2_7i96.0.pktuart.0
+
+Set mode parameter: 0=both (default), 1=AUF only, 2=TLAUF only
+  setp hm2_7i96.0.pktuart.0.mode 0
+
+Add update function to servo thread:
+  addf hm2_7i96.0.pktuart.0.update servo-thread
+""";
+
+author "DX32 Hacking Project";
+license "GPL";
+
+include <hostmot2-serial.h>;
+include "hal/drivers/mesa-hostmot2/hostmot2.h";
+
+// ==================== PARAMETERS ====================
+
+param rw s32 mode = 0         "Operating mode: 0=both, 1=AUF only, 2=TLAUF only";
+param rw s32 debug_level = 0  "Debug output level 0-5";
+param rw s32 rx_timeout = 25  "RX timeout in servo cycles (default 25ms at 1kHz)";
+
+// ==================== AUF INPUTS (short RX) ====================
+
+pin out bit auf_estop            "AUF: E-Stop input";
+pin out bit auf_low_lube         "AUF: Low lube level";
+pin out bit auf_spindle_overload "AUF: Spindle motor overload";
+pin out bit auf_z_limit          "AUF: Z axis limit switch";
+pin out bit auf_x_limit          "AUF: X axis limit switch";
+pin out bit auf_x_home           "AUF: X home switch";
+pin out bit auf_y_limit          "AUF: Y axis limit switch";
+pin out bit auf_y_home           "AUF: Y home switch";
+pin out bit auf_z_home           "AUF: Z home switch";
+pin out bit auf_a_home           "AUF: A axis home switch";
+pin out bit auf_rotary_brake     "AUF: Rotary table brake";
+pin out bit auf_index_out        "AUF: Index solenoid retracted";
+pin out bit auf_index_in         "AUF: Index solenoid extended";
+pin out bit auf_door_guard       "AUF: Door guard interlock";
+pin out bit auf_rotary_active    "AUF: Rotary axis active";
+pin out bit auf_low_air          "AUF: Low air pressure";
+pin out bit auf_orient_confirmed "AUF: Spindle orient confirmed";
+pin out bit auf_clamp_confirmed  "AUF: Tool clamp confirmed";
+pin out bit auf_status_n3b2      "AUF: Status flag nibble3 bit2";
+pin out u32 auf_short_rx_n5     "AUF: Short RX nibble 5 raw";
+pin out u32 auf_short_rx_n6     "AUF: Short RX nibble 6 raw";
+
+// ==================== AUF INPUTS (long RX) ====================
+
+pin out u32 auf_long_rx_byte_0  "AUF: Long RX byte 0 (LSB)";
+pin out u32 auf_long_rx_byte_1  "AUF: Long RX byte 1";
+pin out u32 auf_long_rx_byte_2  "AUF: Long RX byte 2";
+pin out u32 auf_long_rx_byte_3  "AUF: Long RX byte 3";
+pin out u32 auf_long_rx_byte_4  "AUF: Long RX byte 4";
+pin out u32 auf_long_rx_byte_5  "AUF: Long RX byte 5";
+pin out u32 auf_long_rx_byte_6  "AUF: Long RX byte 6";
+pin out u32 auf_long_rx_byte_7  "AUF: Long RX byte 7 (MSB)";
+
+// ==================== AUF SHORT TX OUTPUTS ====================
+
+pin in bit auf_motor_enable     "AUF: Motor enable";
+pin in bit auf_motor_dir_a      "AUF: Motor direction A";
+pin in bit auf_motor_dir_b      "AUF: Motor direction B";
+pin in bit auf_spindle_dir_a    "AUF: Spindle direction A";
+pin in bit auf_spindle_dir_b    "AUF: Spindle direction B";
+pin in bit auf_output_5         "AUF: Output group 5";
+pin in bit auf_output_6         "AUF: Output group 6";
+pin in bit auf_output_7         "AUF: General enable";
+
+// ==================== AUF LONG TX OUTPUTS ====================
+
+pin in u32 auf_long_tx_byte_0   "AUF: Long TX byte 0 (LSB)";
+pin in u32 auf_long_tx_byte_1   "AUF: Long TX byte 1";
+pin in u32 auf_long_tx_byte_2   "AUF: Long TX byte 2";
+pin in u32 auf_long_tx_byte_3   "AUF: Long TX byte 3";
+pin in u32 auf_long_tx_byte_4   "AUF: Long TX byte 4";
+pin in u32 auf_long_tx_byte_5   "AUF: Long TX byte 5";
+pin in u32 auf_long_tx_byte_6   "AUF: Long TX byte 6";
+pin in u32 auf_long_tx_byte_7   "AUF: Long TX byte 7 (MSB)";
+
+// ==================== TLAUF INPUTS (short RX) ====================
+
+pin out bit tlauf_tool_count    "TLAUF: Tool count pulse (TI1)";
+pin out bit tlauf_arm_out       "TLAUF: Arm extended (TI2)";
+pin out bit tlauf_arm_back      "TLAUF: Arm retracted (TI3)";
+pin out bit tlauf_unclamped     "TLAUF: Tool unclamped (TI4)";
+pin out bit tlauf_clamped       "TLAUF: Tool clamped (TI5)";
+pin out bit tlauf_arm_down      "TLAUF: Arm down (TI6)";
+pin out bit tlauf_arm_up        "TLAUF: Arm up (TI7)";
+pin out u32 tlauf_short_rx_n0   "TLAUF: Short RX nibble 0 raw";
+pin out u32 tlauf_short_rx_n1   "TLAUF: Short RX nibble 1 raw";
+pin out u32 tlauf_short_rx_n2   "TLAUF: Short RX nibble 2 raw";
+pin out u32 tlauf_short_rx_n3   "TLAUF: Short RX nibble 3 raw";
+pin out u32 tlauf_short_rx_n4   "TLAUF: Short RX nibble 4 raw";
+pin out u32 tlauf_short_rx_n5   "TLAUF: Short RX nibble 5 raw";
+pin out u32 tlauf_short_rx_n6   "TLAUF: Short RX nibble 6 raw";
+pin out s32 tlauf_current_pocket "TLAUF: Current pocket 1-24, 0=unknown";
+
+// ==================== TLAUF SHORT TX OUTPUTS ====================
+
+pin in bit tlauf_arm_out_cmd    "TLAUF: Arm out motor (TO1)";
+pin in bit tlauf_arm_back_cmd   "TLAUF: Arm back motor (TO2)";
+pin in bit tlauf_carousel_fwd   "TLAUF: Carousel forward (TO3)";
+pin in bit tlauf_carousel_rev   "TLAUF: Carousel reverse (TO4)";
+pin in bit tlauf_drawbar        "TLAUF: Drawbar unclamp (TO5)";
+pin in bit tlauf_air_blast      "TLAUF: Air blast (TO6)";
+
+// ==================== TLAUF VMC COMMAND INTERFACE ====================
+
+pin in  s32 tlauf_target_pocket   "TLAUF: Target pocket 1-24, 0=none";
+pin in  bit tlauf_pocket_cmd_go   "TLAUF: Rising edge triggers pocket move";
+pin out bit tlauf_pocket_cmd_done "TLAUF: Pocket command complete";
+pin out bit tlauf_pocket_cmd_active "TLAUF: Pocket command in progress";
+pin out bit tlauf_pocket_cmd_error  "TLAUF: Pocket command error";
+
+// ==================== TLAUF ARM MOTOR (VMC) ====================
+
+pin in bit tlauf_arm_motor_on   "TLAUF: Arm motor enable (VMC cmd type 1)";
+pin in bit tlauf_arm_motor_cw   "TLAUF: Arm motor CW (VMC cmd type 1)";
+pin in bit tlauf_arm_motor_ccw  "TLAUF: Arm motor CCW (VMC cmd type 1)";
+
+// ==================== DIAGNOSTICS ====================
+
+pin out u32 auf_rx_errors       "AUF RX error count";
+pin out u32 tlauf_rx_errors     "TLAUF RX error count";
+pin out u32 auf_tx_count        "AUF TX packet count";
+pin out u32 tlauf_tx_count      "TLAUF TX packet count";
+pin out u32 cycle_time_us       "Last cycle time in microseconds";
+pin out bit fault                "Communication fault";
+pin out bit auf_online           "AUF responding";
+pin out bit tlauf_online         "TLAUF responding";
+
+// ==================== INSTANCE VARIABLES ====================
+
+variable int sm_state = 0;
+variable int wait_count = 0;
+variable int auf_consec_err = 0;
+variable int tlauf_consec_err = 0;
+variable hal_bit_t prev_pocket_go = 0;
+variable int pocket_cmd_st = 0;
+variable char *port_name;
+variable long cycle_start = 0;
+
+option extra_setup yes;
+option count_function yes;
+
+function update;
+
+;;
+
+/* ================================================================
+ *  RAW C IMPLEMENTATION
+ * ================================================================ */
+
+#define BAUDRATE 38400
+
+#define SYNC_AUF   '#'   /* 0x23 */
+#define SYNC_TLAUF '&'   /* 0x26 */
+#define SYNC_LONG  ')'   /* 0x29 */
+
+#define SHORT_TX_LEN 5
+#define SHORT_RX_LEN 9
+#define LONG_PKT_LEN 18
+
+#define MODE_BOTH  0
+#define MODE_AUF   1
+#define MODE_TLAUF 2
+
+/* State machine states */
+#define ST_AUF_SHORT_SEND    0
+#define ST_AUF_SHORT_WAIT    1
+#define ST_TLAUF_SHORT_SEND  2
+#define ST_TLAUF_SHORT_WAIT  3
+#define ST_AUF_LONG_SEND     4
+#define ST_AUF_LONG_WAIT     5
+
+#define MAX_CONSEC_ERRORS 20
+#define MAX_RX_BUF 64
+
+/* PktUART channel name array for names= support */
+char *pktuart_chans[4] = {0,};
+RTAPI_MP_ARRAY_STRING(pktuart_chans, 4, "PktUART channel names");
+
+/* ---- Nibble encode/decode ---- */
+
+static inline rtapi_u8 nib2ascii(rtapi_u8 n) {
+    n &= 0x0F;
+    return (n < 10) ? ('0' + n) : ('a' + n - 10);
+}
+
+static inline int ascii2nib(rtapi_u8 ch) {
+    if (ch >= '0' && ch <= '9') return ch - '0';
+    if (ch >= 'a' && ch <= 'f') return ch - 'a' + 10;
+    if (ch >= 'A' && ch <= 'F') return ch - 'A' + 10;
+    return -1;
+}
+
+/* ---- Checksum: (sum of ASCII data bytes & 0x0F) + 0x40 ---- */
+
+static rtapi_u8 calc_cksum(const rtapi_u8 *data, int count) {
+    rtapi_u8 sum = 0;
+    int i;
+    for (i = 0; i < count; i++)
+        sum += data[i];
+    return (sum & 0x0F) + 0x40;
+}
+
+/* ---- Build short TX packet (5 bytes) ---- */
+
+static void build_short_tx(rtapi_u8 *buf, rtapi_u8 sync,
+                           rtapi_u8 n0, rtapi_u8 n1, rtapi_u8 n2) {
+    buf[0] = sync;
+    buf[1] = nib2ascii(n0);
+    buf[2] = nib2ascii(n1);
+    buf[3] = nib2ascii(n2);
+    buf[4] = calc_cksum(buf + 1, 3);
+}
+
+/* ---- Build long TX packet (18 bytes) ---- */
+
+static void build_long_tx(rtapi_u8 *buf, const rtapi_u8 data[8]) {
+    int i;
+    buf[0] = SYNC_LONG;
+    /* MSB first: data[7] -> nibbles 0-1, data[0] -> nibbles 14-15 */
+    for (i = 0; i < 8; i++) {
+        buf[1 + i * 2]     = nib2ascii((data[7 - i] >> 4) & 0x0F);
+        buf[1 + i * 2 + 1] = nib2ascii(data[7 - i] & 0x0F);
+    }
+    buf[17] = calc_cksum(buf + 1, 16);
+}
+
+/* ---- Parse short RX (9 bytes) into 7 nibbles ---- */
+
+static int parse_short_rx(const rtapi_u8 *buf, int len, rtapi_u8 exp_sync,
+                          rtapi_u8 nibs[7]) {
+    int i;
+    if (len < SHORT_RX_LEN) return -1;
+    if (buf[0] != exp_sync) return -2;
+    if (buf[8] != calc_cksum(buf + 1, 7)) return -3;
+    for (i = 0; i < 7; i++) {
+        int n = ascii2nib(buf[1 + i]);
+        if (n < 0) return -4;
+        nibs[i] = (rtapi_u8)n;
+    }
+    return 0;
+}
+
+/* ---- Parse long RX (18 bytes) into 8 data bytes ---- */
+
+static int parse_long_rx(const rtapi_u8 *buf, int len, rtapi_u8 data[8]) {
+    int i;
+    if (len < LONG_PKT_LEN) return -1;
+    if (buf[0] != SYNC_LONG) return -2;
+    if (buf[17] != calc_cksum(buf + 1, 16)) return -3;
+    for (i = 0; i < 8; i++) {
+        int hi = ascii2nib(buf[1 + i * 2]);
+        int lo = ascii2nib(buf[1 + i * 2 + 1]);
+        if (hi < 0 || lo < 0) return -4;
+        data[7 - i] = (rtapi_u8)((hi << 4) | lo);
+    }
+    return 0;
+}
+
+/* ---- Send one frame via PktUART ---- */
+
+static int pkt_send(const char *pname, const rtapi_u8 *buf, int len) {
+    rtapi_u8 nf = 1;
+    rtapi_u16 fs = len;
+    return hm2_pktuart_send(pname, buf, &nf, &fs);
+}
+
+/* ---- Read one frame from PktUART ----
+ * Returns frame length, 0 if no data, negative on error */
+
+static int pkt_read(const char *pname, rtapi_u8 *buf, int maxlen) {
+    rtapi_u16 mfl = maxlen;
+    rtapi_u8 nf = 1;
+    rtapi_u16 fs[1] = {0};
+    int ret = hm2_pktuart_read(pname, buf, &nf, &mfl, fs);
+    if (ret > 0 && nf > 0)
+        return fs[0];
+    return (ret < 0) ? ret : 0;
+}
+
+/* ---- Count function for names= support ---- */
+
+int get_count(void) {
+    int i;
+    for (i = 0; pktuart_chans[i] != NULL && i < 4; i++) {}
+    return i;
+}
+
+/* ---- EXTRA_SETUP: configure PktUART ---- */
+
+EXTRA_SETUP() {
+    (void)extra_arg;
+
+    /* Reject count= usage — require names= */
+    if (prefix[0] != 'h') {
+        rtapi_print_msg(RTAPI_MSG_ERR,
+            "dx32_pktuart: use names= not count=. "
+            "Example: names=hm2_7i96.0.pktuart.0\n");
+        return -1;
+    }
+
+    port_name = prefix;
+
+    rtapi_print_msg(RTAPI_MSG_INFO,
+        "dx32_pktuart: configuring %s at %d baud\n", port_name, BAUDRATE);
+
+    /* Configure PktUART for 38400 8N1, full-duplex multidrop RS422.
+     * No DRIVEAUTO or drivedelay — RS422 has separate TX/RX pairs,
+     * so the TX driver is always enabled.  RX responses arrive
+     * during TX transmission (confirmed by trace measurements). */
+    hm2_pktuart_config_t cfgrx = {
+        .baudrate = BAUDRATE,
+        .filterrate = 0,
+        .drivedelay = 0,
+        .ifdelay = 20,     /* 20 bit times interframe gap */
+        .flags = HM2_PKTUART_CONFIG_RXEN
+               | HM2_PKTUART_CONFIG_RXMASK
+               | HM2_PKTUART_CONFIG_FLUSH
+    };
+    hm2_pktuart_config_t cfgtx = {
+        .baudrate = BAUDRATE,
+        .filterrate = 0,
+        .drivedelay = 0,
+        .ifdelay = 20,
+        .flags = HM2_PKTUART_CONFIG_FLUSH
+    };
+
+    int retval = hm2_pktuart_config(port_name, &cfgrx, &cfgtx, 0);
+    if (retval < 0) {
+        rtapi_print_msg(RTAPI_MSG_ERR,
+            "dx32_pktuart: PktUART config failed: %d\n", retval);
+        return -1;
+    }
+
+    /* Drain any stale data */
+    {
+        rtapi_u8 junk[256];
+        rtapi_u16 mfl = 256;
+        rtapi_u8 nf = 10;
+        rtapi_u16 fsz[10];
+        hm2_pktuart_read(port_name, junk, &nf, &mfl, fsz);
+    }
+
+    rtapi_print_msg(RTAPI_MSG_INFO,
+        "dx32_pktuart: %s ready\n", port_name);
+    return 0;
+}
+
+/* ================================================================
+ *  MAIN UPDATE FUNCTION — called each servo cycle
+ *
+ *  State machine alternates between sending TX packets and
+ *  waiting for RX responses.  Full-duplex RS422 means RX
+ *  arrives during/immediately after TX, but we still
+ *  serialize per-board to avoid RX collisions on the
+ *  multidrop bus (both boards share one RX pair).
+ *
+ *  Cycle (mode=both):
+ *    AUF short TX -> wait -> AUF short RX
+ *    TLAUF short TX -> wait -> TLAUF short RX
+ *    AUF long TX -> wait -> AUF long RX
+ *    (restart)
+ *
+ *  Cycle (mode=auf): skip TLAUF steps
+ *  Cycle (mode=tlauf): skip AUF steps
+ * ================================================================ */
+
+FUNCTION(update) {
+    rtapi_u8 txbuf[LONG_PKT_LEN];
+    rtapi_u8 rxbuf[MAX_RX_BUF];
+    rtapi_u8 nibs[7];
+    rtapi_u8 ldata[8];
+    int ret, i;
+    int auf_en  = (mode == MODE_BOTH || mode == MODE_AUF);
+    int tlauf_en = (mode == MODE_BOTH || mode == MODE_TLAUF);
+
+    /* Determine first state based on mode */
+    int first_state = auf_en ? ST_AUF_SHORT_SEND : ST_TLAUF_SHORT_SEND;
+
+    switch (sm_state) {
+
+    /* ============================================================
+     *  AUF SHORT TX
+     * ============================================================ */
+    case ST_AUF_SHORT_SEND:
+        if (!auf_en) { sm_state = ST_TLAUF_SHORT_SEND; break; }
+
+        {
+            /* Pack output pins into 3 nibbles.
+             * nibble 0: bits 4-7 (spindle_dir_b, output_5, output_6, output_7)
+             * nibble 1: bits 0-3 (motor_enable, motor_dir_a, motor_dir_b, spindle_dir_a)
+             * nibble 2: copy of nibble 1 */
+            rtapi_u8 n0 = 0, n1 = 0;
+            if (auf_spindle_dir_b) n0 |= 0x01;
+            if (auf_output_5)      n0 |= 0x02;
+            if (auf_output_6)      n0 |= 0x04;
+            if (auf_output_7)      n0 |= 0x08;
+
+            if (auf_motor_enable)  n1 |= 0x01;
+            if (auf_motor_dir_a)   n1 |= 0x02;
+            if (auf_motor_dir_b)   n1 |= 0x04;
+            if (auf_spindle_dir_a) n1 |= 0x08;
+
+            build_short_tx(txbuf, SYNC_AUF, n0, n1, n1);
+            ret = pkt_send(port_name, txbuf, SHORT_TX_LEN);
+            if (ret < 0) {
+                if (debug_level >= 2)
+                    rtapi_print_msg(RTAPI_MSG_WARN,
+                        "dx32: AUF short TX send error %d\n", ret);
+            }
+            auf_tx_count++;
+            wait_count = 0;
+            sm_state = ST_AUF_SHORT_WAIT;
+        }
+        break;
+
+    case ST_AUF_SHORT_WAIT:
+        wait_count++;
+        ret = pkt_read(port_name, rxbuf, MAX_RX_BUF);
+        if (ret >= SHORT_RX_LEN) {
+            if (parse_short_rx(rxbuf, ret, SYNC_AUF, nibs) == 0) {
+                /* Nibble 0 */
+                auf_estop            = (nibs[0] >> 3) & 1;
+                auf_low_lube         = (nibs[0] >> 2) & 1;
+                auf_spindle_overload = (nibs[0] >> 1) & 1;
+                auf_orient_confirmed = (nibs[0] >> 0) & 1;
+                /* Nibble 1 */
+                auf_z_limit          = (nibs[1] >> 3) & 1;
+                auf_clamp_confirmed  = (nibs[1] >> 2) & 1;
+                auf_x_limit          = (nibs[1] >> 1) & 1;
+                auf_x_home           = (nibs[1] >> 0) & 1;
+                /* Nibble 2 */
+                auf_y_limit          = (nibs[2] >> 3) & 1;
+                auf_y_home           = (nibs[2] >> 2) & 1;
+                auf_z_home           = (nibs[2] >> 0) & 1;
+                /* Nibble 3 */
+                auf_a_home           = (nibs[3] >> 3) & 1;
+                auf_status_n3b2      = (nibs[3] >> 2) & 1;
+                auf_rotary_brake     = (nibs[3] >> 1) & 1;
+                auf_index_out        = (nibs[3] >> 0) & 1;
+                /* Nibble 4 */
+                auf_index_in         = (nibs[4] >> 3) & 1;
+                auf_door_guard       = (nibs[4] >> 2) & 1;
+                auf_rotary_active    = (nibs[4] >> 1) & 1;
+                auf_low_air          = (nibs[4] >> 0) & 1;
+                /* Raw nibbles 5-6 */
+                auf_short_rx_n5 = nibs[5];
+                auf_short_rx_n6 = nibs[6];
+
+                auf_online = 1;
+                auf_consec_err = 0;
+            } else {
+                auf_rx_errors++;
+                auf_consec_err++;
+                if (debug_level >= 2)
+                    rtapi_print_msg(RTAPI_MSG_WARN,
+                        "dx32: AUF short RX parse error\n");
+            }
+            sm_state = tlauf_en ? ST_TLAUF_SHORT_SEND : ST_AUF_LONG_SEND;
+        } else if (wait_count >= rx_timeout) {
+            auf_rx_errors++;
+            auf_consec_err++;
+            auf_online = 0;
+            if (debug_level >= 3)
+                rtapi_print_msg(RTAPI_MSG_WARN,
+                    "dx32: AUF short RX timeout\n");
+            sm_state = tlauf_en ? ST_TLAUF_SHORT_SEND : ST_AUF_LONG_SEND;
+        }
+        break;
+
+    /* ============================================================
+     *  TLAUF SHORT TX
+     * ============================================================ */
+    case ST_TLAUF_SHORT_SEND:
+        if (!tlauf_en) { sm_state = auf_en ? ST_AUF_LONG_SEND : ST_AUF_SHORT_SEND; break; }
+
+        {
+            /* Pack TLAUF output bits into 3 nibbles.
+             * Direct I/O mode: bits map to TO1-TO6.
+             * Bit positions are tentative — verify with hardware.
+             * nibble 0: TO1(b1), TO2(b2), TO3(b3) packed as bits 0-2 + TO4 bit 3
+             * nibble 1: TO5(b5), TO6(b6) packed
+             * nibble 2: 0 */
+            rtapi_u8 n0 = 0, n1 = 0, n2 = 0;
+            if (tlauf_arm_out_cmd)   n0 |= 0x02;  /* TO1 -> bit 1 */
+            if (tlauf_arm_back_cmd)  n0 |= 0x04;  /* TO2 -> bit 2 */
+            if (tlauf_carousel_fwd)  n0 |= 0x08;  /* TO3 -> bit 3 */
+            if (tlauf_carousel_rev)  n1 |= 0x01;  /* TO4 -> bit 4 (n1.0) */
+            if (tlauf_drawbar)       n1 |= 0x02;  /* TO5 -> bit 5 (n1.1) */
+            if (tlauf_air_blast)     n1 |= 0x04;  /* TO6 -> bit 6 (n1.2) */
+
+            build_short_tx(txbuf, SYNC_TLAUF, n0, n1, n2);
+            ret = pkt_send(port_name, txbuf, SHORT_TX_LEN);
+            if (ret < 0 && debug_level >= 2)
+                rtapi_print_msg(RTAPI_MSG_WARN,
+                    "dx32: TLAUF short TX send error %d\n", ret);
+            tlauf_tx_count++;
+            wait_count = 0;
+            sm_state = ST_TLAUF_SHORT_WAIT;
+        }
+        break;
+
+    case ST_TLAUF_SHORT_WAIT:
+        wait_count++;
+        ret = pkt_read(port_name, rxbuf, MAX_RX_BUF);
+        if (ret >= SHORT_RX_LEN) {
+            if (parse_short_rx(rxbuf, ret, SYNC_TLAUF, nibs) == 0) {
+                /* Store raw nibbles */
+                tlauf_short_rx_n0 = nibs[0];
+                tlauf_short_rx_n1 = nibs[1];
+                tlauf_short_rx_n2 = nibs[2];
+                tlauf_short_rx_n3 = nibs[3];
+                tlauf_short_rx_n4 = nibs[4];
+                tlauf_short_rx_n5 = nibs[5];
+                tlauf_short_rx_n6 = nibs[6];
+
+                /* Named input pins — bit mapping is TENTATIVE.
+                 * Assumes sequential TI1-TI7 into nibbles 0-1.
+                 * MUST be verified with hardware testing. */
+                tlauf_tool_count = (nibs[0] >> 0) & 1;  /* TI1 */
+                tlauf_arm_out    = (nibs[0] >> 1) & 1;  /* TI2 */
+                tlauf_arm_back   = (nibs[0] >> 2) & 1;  /* TI3 */
+                tlauf_unclamped  = (nibs[0] >> 3) & 1;  /* TI4 */
+                tlauf_clamped    = (nibs[1] >> 0) & 1;  /* TI5 */
+                tlauf_arm_down   = (nibs[1] >> 1) & 1;  /* TI6 */
+                tlauf_arm_up     = (nibs[1] >> 2) & 1;  /* TI7 */
+
+                /* Current pocket — TENTATIVE extraction.
+                 * In BMDC firmware: pocket = (DAT_3277 << 4) | DAT_3278
+                 * These may be nibble indices 5-6 in the short RX.
+                 * Needs hardware verification. */
+                {
+                    int pocket = (nibs[5] << 4) | nibs[6];
+                    if (pocket >= 1 && pocket <= 24)
+                        tlauf_current_pocket = pocket;
+                    else if (pocket == 0 || pocket == 0xFF)
+                        tlauf_current_pocket = 0;
+                    else
+                        tlauf_current_pocket = 0;
+                }
+
+                tlauf_online = 1;
+                tlauf_consec_err = 0;
+
+                /* VMC pocket command state machine */
+                if (tlauf_pocket_cmd_active) {
+                    if (tlauf_current_pocket == tlauf_target_pocket
+                        && tlauf_current_pocket > 0) {
+                        tlauf_pocket_cmd_active = 0;
+                        tlauf_pocket_cmd_done = 1;
+                    }
+                }
+            } else {
+                tlauf_rx_errors++;
+                tlauf_consec_err++;
+                if (debug_level >= 2)
+                    rtapi_print_msg(RTAPI_MSG_WARN,
+                        "dx32: TLAUF short RX parse error\n");
+            }
+            sm_state = auf_en ? ST_AUF_LONG_SEND : first_state;
+        } else if (wait_count >= rx_timeout) {
+            tlauf_rx_errors++;
+            tlauf_consec_err++;
+            tlauf_online = 0;
+            if (debug_level >= 3)
+                rtapi_print_msg(RTAPI_MSG_WARN,
+                    "dx32: TLAUF short RX timeout\n");
+            sm_state = auf_en ? ST_AUF_LONG_SEND : first_state;
+        }
+        break;
+
+    /* ============================================================
+     *  AUF LONG TX
+     * ============================================================ */
+    case ST_AUF_LONG_SEND:
+        if (!auf_en) { sm_state = first_state; break; }
+
+        {
+            rtapi_u8 ld[8];
+            ld[0] = (rtapi_u8)(auf_long_tx_byte_0 & 0xFF);
+            ld[1] = (rtapi_u8)(auf_long_tx_byte_1 & 0xFF);
+            ld[2] = (rtapi_u8)(auf_long_tx_byte_2 & 0xFF);
+            ld[3] = (rtapi_u8)(auf_long_tx_byte_3 & 0xFF);
+            ld[4] = (rtapi_u8)(auf_long_tx_byte_4 & 0xFF);
+            ld[5] = (rtapi_u8)(auf_long_tx_byte_5 & 0xFF);
+            ld[6] = (rtapi_u8)(auf_long_tx_byte_6 & 0xFF);
+            ld[7] = (rtapi_u8)(auf_long_tx_byte_7 & 0xFF);
+
+            build_long_tx(txbuf, ld);
+            ret = pkt_send(port_name, txbuf, LONG_PKT_LEN);
+            if (ret < 0 && debug_level >= 2)
+                rtapi_print_msg(RTAPI_MSG_WARN,
+                    "dx32: AUF long TX send error %d\n", ret);
+            auf_tx_count++;
+            wait_count = 0;
+            sm_state = ST_AUF_LONG_WAIT;
+        }
+        break;
+
+    case ST_AUF_LONG_WAIT:
+        wait_count++;
+        ret = pkt_read(port_name, rxbuf, MAX_RX_BUF);
+        if (ret >= LONG_PKT_LEN) {
+            if (parse_long_rx(rxbuf, ret, ldata) == 0) {
+                auf_long_rx_byte_0 = ldata[0];
+                auf_long_rx_byte_1 = ldata[1];
+                auf_long_rx_byte_2 = ldata[2];
+                auf_long_rx_byte_3 = ldata[3];
+                auf_long_rx_byte_4 = ldata[4];
+                auf_long_rx_byte_5 = ldata[5];
+                auf_long_rx_byte_6 = ldata[6];
+                auf_long_rx_byte_7 = ldata[7];
+            } else {
+                auf_rx_errors++;
+                auf_consec_err++;
+                if (debug_level >= 2)
+                    rtapi_print_msg(RTAPI_MSG_WARN,
+                        "dx32: AUF long RX parse error\n");
+            }
+            sm_state = first_state;  /* restart cycle */
+        } else if (wait_count >= rx_timeout) {
+            auf_rx_errors++;
+            auf_consec_err++;
+            if (debug_level >= 3)
+                rtapi_print_msg(RTAPI_MSG_WARN,
+                    "dx32: AUF long RX timeout\n");
+            sm_state = first_state;
+        }
+        break;
+
+    default:
+        sm_state = first_state;
+        break;
+    }
+
+    /* ============================================================
+     *  VMC pocket command — rising edge detection
+     * ============================================================ */
+    if (tlauf_en) {
+        if (tlauf_pocket_cmd_go && !prev_pocket_go) {
+            /* Rising edge: start pocket command */
+            int tgt = tlauf_target_pocket;
+            if (tgt >= 1 && tgt <= 24) {
+                tlauf_pocket_cmd_active = 1;
+                tlauf_pocket_cmd_done = 0;
+                tlauf_pocket_cmd_error = 0;
+                /* NOTE: The actual VMC command protocol encoding
+                 * (cmd types 1-3 into TX nibbles) is not yet
+                 * reverse-engineered. For now, the pocket command
+                 * only monitors current_pocket for a match.
+                 * The user must set the direct output bits
+                 * (carousel_fwd/rev) manually or implement the
+                 * VMC protocol after capturing on-wire packets. */
+                if (debug_level >= 1)
+                    rtapi_print_msg(RTAPI_MSG_INFO,
+                        "dx32: pocket cmd start, target=%d\n", tgt);
+            } else {
+                tlauf_pocket_cmd_error = 1;
+            }
+        }
+        prev_pocket_go = tlauf_pocket_cmd_go;
+    }
+
+    /* ============================================================
+     *  Fault detection
+     * ============================================================ */
+    fault = 0;
+    if (auf_en && auf_consec_err >= MAX_CONSEC_ERRORS) {
+        fault = 1;
+        auf_online = 0;
+    }
+    if (tlauf_en && tlauf_consec_err >= MAX_CONSEC_ERRORS) {
+        fault = 1;
+        tlauf_online = 0;
+    }
+}

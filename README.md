@@ -29,10 +29,39 @@ The AUF Board has:
 
 ## Reverse Engineering Documentation
 
-* [PROTOCOL_NOTES.md](PROTOCOL_NOTES.md) — Serial protocol between BMDC, AUF, and TLAUF. Covers UART configuration, packet formats, ISA I/O port map, dual-port RAM layout, 68030 memory map, and the TLAUF TX command protocol (VMC vs non-VMC modes).
+* [PROTOCOL_NOTES.md](PROTOCOL_NOTES.md) — Master protocol document. Serial protocol between BMDC, AUF, and TLAUF (UART configuration, packet formats), ISA I/O port map, dual-port RAM layout, 68030 memory map, the TLAUF TX command protocol (VMC vs non-VMC modes), the timer/interrupt schedule (4 ms servo tick), the boot-time RAM/dual-port sizing probe, the key firmware function table, and the complete PC→BMDC mailbox command table with the DOS-side names (doMove, armProbe, wrPartPgm, ...).
 * [HOMING_SEQUENCE.md](HOMING_SEQUENCE.md) — How the carousel homes on startup. Traces the full call chain from drive-ready detection through the task dispatcher to the pocket-send protocol that commands the TLAUF to move to pocket 1.
 * [TOOL_CHANGE_STATE_MACHINE.md](TOOL_CHANGE_STATE_MACHINE.md) — Non-VMC tool change step machine. Documents the outer state machine (subroutine call stack) and inner step machine (carousel seek, orient, rotate) that runs when the BMDC directly controls motor outputs.
 * [AUF_PACKET_FORMAT.md](AUF_PACKET_FORMAT.md) — Detailed AUF packet encoding/decoding. Covers the nibble packing for short and long packets, input debounce logic, and output bit assignments.
+* [MOTION_PLANNER.md](MOTION_PLANNER.md) — How the BMDC firmware plans motion. Firmware units (10 nm, 4 ms tick), the trapezoid vs S-curve velocity planners and what parameter 010 (accel/decel profile, values 0-5) changes, when the S-curve falls back to the trapezoid, G8/G9/G99 and the P (precision) word with the corner-blending classifier, how the F word is scaled and used in combined X/Y/Z/C moves (F after a C word is the C-axis rate in deg/min, caps from parameters 7/8/47), the G117/G118/G119 rotary-coordinated moves, the move-type dispatch table, and the touch-probe engine (PC-driven via mailbox; there are no G-code probing cycles).
+* [BMDC_PARAM_TABLE.md](BMDC_PARAM_TABLE.md) — All 288 firmware parameter slots (number, 68030 address, data type, title) extracted from the firmware's parameter table at 0x2a536. Use it to find where a `BMDCPRMS.SYS` parameter lives in BMDC RAM.
+* [BMDC_RAM_UPGRADE.md](BMDC_RAM_UPGRADE.md) — Adding main RAM to a BMDC3 for a larger part-program buffer (the "part program memory full" alarm). Documents the fitted SRAM (MCM6226BBXJ20, 4 × 128K×8 = 512 KB), its full pin assignment, the 300-mil and 400-mil SOJ package dimensions (pitch, lead span, land pattern), the 36-lead package used by 512K×8 parts, how the firmware sizes RAM at boot and why a stock BMDC3 halts above 512 KB, the two-byte firmware patch (`tools/patch_bmdc_ram.py`), the castellated-adapter plan for 2 MB, the ISA-window test for the address decoder, and the DNC alternative.
+
+## Decompiled Sources
+
+* `decompiled/BMDC.c`, `decompiled/BXX.c`, `decompiled/B3T.c`, `decompiled/MAINTPG.c` — Ghidra decompilation of each binary, one file per binary. Grep here first rather than re-running Ghidra. `B3T.c` has real function names from the CodeView symbols.
+* `decompiled/BMDC.asm` — Full Ghidra disassembly listing of the firmware. Use it whenever a `BMDC.c` function is truncated: the decompiler cannot model the 68882 `FMOVECR` / packed-decimal instructions and silently drops everything after them.
+* `decompiled/B3T_symbols.txt` — CodeView symbols from `B3T.EXE` (address, kind, name, source module). The DOS-side names of the mailbox commands come from here.
+* `decompiled/B3T_types.txt` — CodeView struct/union/enum records from `B3T.EXE`: the MOVEBUFFER, MOVCMD, MOVFLGS, dualPortRAM, MCCMD and parameter-block layouts shared between the DOS software and the firmware.
+
+## Tools and Scripts
+
+* `tools/cv_nb09.py` — Parses the CodeView NB09 debug block at the end of `B3T.EXE` and prints the symbol table (source of `decompiled/B3T_symbols.txt`).
+* `tools/cv_types.py` — Dumps CodeView type records (structs, bit fields) from `B3T.EXE` by type index (source of `decompiled/B3T_types.txt`).
+* `tools/m68k_dis.py` — Capstone disassembler for `BMDC.BIN` (`python3 tools/m68k_dis.py START END`) with resync after undecodable words and decoded extended-precision immediates. Needed for the mailbox, G-code-letter and move-type handlers that Ghidra never disassembled because they are only reached through jump tables.
+* `tools/patch_bmdc_ram.py` — Produces a patched `BMDC.BIN` that lets a BMDC3 use more than 512 KB of RAM (`--max 1M` or `--max 16M`, `--check` to inspect an image). See `BMDC_RAM_UPGRADE.md`.
+* `ghidra_scripts/ExportAllDecompiled.java` — Headless Ghidra post-script that writes every function's decompilation to one `.c` file.
+* `ghidra_scripts/ExportListing.java` — Headless post-script that writes the full disassembly listing (`decompiled/BMDC.asm`).
+* `ghidra_scripts/ApplyCvSymbols.java` — Applies a CSV of CodeView names (address, kind, name) to a Ghidra program before export.
+* `ghidra_scripts/DisableNoReturnDiscovery.java` — Pre-script for the DOS executables. Without it Ghidra marks the Microsoft C `__chkstk` as non-returning and every function body is cut off after its first line.
+* `CLAUDE.md` — Working notes for AI-assisted analysis: how to regenerate the decompiled sources with headless Ghidra, tool pitfalls, and the conventions used in the documents.
+
+## Bench Test Scripts (no LinuxCNC needed, `pip install pyserial`)
+
+* `dx32_proto.py` — Python reference implementation of the RS422 protocol: packet building/parsing, checksums, AUF/TLAUF bit maps.
+* `test_auf.py` — Poll an AUF board over a USB-RS422 adapter and display decoded inputs; interactive output control.
+* `test_tlauf.py` — Poll a TLAUF board; send VMC pocket commands.
+* `test_sniff.py` — Passive bus sniffer/decoder and loopback self-test.
 
 ## LinuxCNC Integration
 
