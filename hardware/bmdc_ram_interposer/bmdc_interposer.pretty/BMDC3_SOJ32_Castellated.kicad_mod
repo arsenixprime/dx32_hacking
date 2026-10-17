@@ -1,0 +1,797 @@
+(footprint "BMDC3_SOJ32_Castellated"
+	(version 20260206)
+	(generator "gen_footprints.py")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "BMDC3 32-lead wide SOJ RAM site reproduced as castellated half-holes: 16 per long edge, 1.27 mm pitch, hole 0.6 mm on the board edge (X=+-5.915), L1 ring 0.2 mm, inner-layer ring 1.1 mm dia on L3 (and L2 for 16/32), L4 land 1.2x1.0 mm inward. Pin 1 at -X/-Y, 1-16 down edge A, 17-32 up edge B (32 opposite 1).")
+	(tags "castellated SOJ-32 interposer BMDC3")
+	(property "Reference" "REF**"
+		(at 0 -13.3 0)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "8d6e9497-4583-4cda-b92e-598f058a6c2f")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "BMDC3_SOJ32_Castellated"
+		(at 0 13.3 0)
+		(layer "F.Fab")
+		(uuid "06f459c9-e4b2-49e3-83d9-4021c680fadc")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "c0add1fd-3f70-4ae4-9b7c-4659eb763801")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "BMDC3 32-lead wide SOJ RAM site reproduced as castellated half-holes: 16 per long edge, 1.27 mm pitch, hole 0.6 mm on the board edge (X=+-5.915), L1 ring 0.2 mm, inner-layer ring 1.1 mm dia on L3 (and L2 for 16/32), L4 land 1.2x1.0 mm inward. Pin 1 at -X/-Y, 1-16 down edge A, 17-32 up edge B (32 opposite 1)."
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "76dc472c-36bf-4c2e-a091-56a60af1634e")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd exclude_from_pos_files exclude_from_bom)
+	(duplicate_pad_numbers_are_jumpers no)
+	(pad "1" thru_hole circle
+		(at -5.915 -9.525)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "8c6f910a-0412-4974-abab-a8ec8fe8a5f2")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset 0.35 0)
+			)
+		)
+	)
+	(pad "2" thru_hole circle
+		(at -5.915 -8.255)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "6c55d523-397d-45b5-9fb6-abc11d9080ad")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset 0.35 0)
+			)
+		)
+	)
+	(pad "3" thru_hole circle
+		(at -5.915 -6.985)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "80f64b3a-2816-4191-b0c8-45f9b35da018")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset 0.35 0)
+			)
+		)
+	)
+	(pad "4" thru_hole circle
+		(at -5.915 -5.715)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "d39d1955-8382-4f3c-a25b-f4db82b0a947")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset 0.35 0)
+			)
+		)
+	)
+	(pad "5" thru_hole circle
+		(at -5.915 -4.445)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "e17ad3ae-b4fe-49e2-9444-1f1de96f0ceb")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset 0.35 0)
+			)
+		)
+	)
+	(pad "6" thru_hole circle
+		(at -5.915 -3.175)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "3a1b474b-29c2-4b78-832f-f1006b90c450")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset 0.35 0)
+			)
+		)
+	)
+	(pad "7" thru_hole circle
+		(at -5.915 -1.905)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "b3f01471-a62c-4115-b02b-69a7babeb9b0")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset 0.35 0)
+			)
+		)
+	)
+	(pad "8" thru_hole circle
+		(at -5.915 -0.635)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "0a3ab197-c110-47f4-8983-637a5aa49461")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset 0.35 0)
+			)
+		)
+	)
+	(pad "9" thru_hole circle
+		(at -5.915 0.635)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "6a9d60cc-bd3e-472d-8447-7b41857944ef")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset 0.35 0)
+			)
+		)
+	)
+	(pad "10" thru_hole circle
+		(at -5.915 1.905)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "9483fd8f-87b2-42d1-9af0-ba5fc02d1f80")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset 0.35 0)
+			)
+		)
+	)
+	(pad "11" thru_hole circle
+		(at -5.915 3.175)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "b978fa9e-d303-4996-bc97-9a030ca4f55c")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset 0.35 0)
+			)
+		)
+	)
+	(pad "12" thru_hole circle
+		(at -5.915 4.445)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "9dd48fc2-8615-49d6-9867-410f5c3cc015")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset 0.35 0)
+			)
+		)
+	)
+	(pad "13" thru_hole circle
+		(at -5.915 5.715)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "1a8ccf0b-aa7e-48fc-b22f-f19dbed02f14")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset 0.35 0)
+			)
+		)
+	)
+	(pad "14" thru_hole circle
+		(at -5.915 6.985)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "cc3888de-4035-4842-a5bb-3175582b9d4e")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset 0.35 0)
+			)
+		)
+	)
+	(pad "15" thru_hole circle
+		(at -5.915 8.255)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "930ee8d1-f747-4498-bda6-c1449c00fd84")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset 0.35 0)
+			)
+		)
+	)
+	(pad "16" thru_hole circle
+		(at -5.915 9.525)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(zone_connect 2)
+		(uuid "e35ad0cb-96e3-408b-864e-500d3777395a")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset 0.35 0)
+			)
+		)
+	)
+	(pad "17" thru_hole circle
+		(at 5.915 9.525)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "c73daa8d-c3b2-42e3-9ad4-314dd66ef991")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset -0.35 0)
+			)
+		)
+	)
+	(pad "18" thru_hole circle
+		(at 5.915 8.255)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "5f542f05-1205-4a8b-957e-c3eb111d657c")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset -0.35 0)
+			)
+		)
+	)
+	(pad "19" thru_hole circle
+		(at 5.915 6.985)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "b9a436d6-765b-49b2-8c81-41125da91b8b")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset -0.35 0)
+			)
+		)
+	)
+	(pad "20" thru_hole circle
+		(at 5.915 5.715)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "ef77d20d-4deb-4daf-8843-ab29c9fe5f90")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset -0.35 0)
+			)
+		)
+	)
+	(pad "21" thru_hole circle
+		(at 5.915 4.445)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "c65845fd-e1a5-4ac8-9eb2-06e7b1ca1917")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset -0.35 0)
+			)
+		)
+	)
+	(pad "22" thru_hole circle
+		(at 5.915 3.175)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "f87cbd9d-db17-4e85-aee7-a1a41c89d668")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset -0.35 0)
+			)
+		)
+	)
+	(pad "23" thru_hole circle
+		(at 5.915 1.905)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "10d138e7-36c7-4703-84e8-3fbe817ac38d")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset -0.35 0)
+			)
+		)
+	)
+	(pad "24" thru_hole circle
+		(at 5.915 0.635)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "3001aa53-b9c2-4a45-b7a8-f6a7de725a4b")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset -0.35 0)
+			)
+		)
+	)
+	(pad "25" thru_hole circle
+		(at 5.915 -0.635)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "4e599161-4820-4d04-a4ff-fffec2952b1b")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset -0.35 0)
+			)
+		)
+	)
+	(pad "26" thru_hole circle
+		(at 5.915 -1.905)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "38961977-7578-4c15-9d14-febc6ac7ca48")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset -0.35 0)
+			)
+		)
+	)
+	(pad "27" thru_hole circle
+		(at 5.915 -3.175)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "17861292-171a-47ae-893c-b7a50c3d6bc2")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset -0.35 0)
+			)
+		)
+	)
+	(pad "28" thru_hole circle
+		(at 5.915 -4.445)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "63ea2ef8-d80d-4b98-a09e-12c0a1f77600")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset -0.35 0)
+			)
+		)
+	)
+	(pad "29" thru_hole circle
+		(at 5.915 -5.715)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "792ea1de-7f87-43b1-bbc9-b541d6d9bb19")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset -0.35 0)
+			)
+		)
+	)
+	(pad "30" thru_hole circle
+		(at 5.915 -6.985)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "33249440-3231-41f3-a5f6-92030abe7d34")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset -0.35 0)
+			)
+		)
+	)
+	(pad "31" thru_hole circle
+		(at 5.915 -8.255)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "42f48df1-41cd-4ad8-a7bf-00f047f6ee7f")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset -0.35 0)
+			)
+		)
+	)
+	(pad "32" thru_hole circle
+		(at 5.915 -9.525)
+		(size 1 1)
+		(drill 0.6
+			(offset 0 0)
+		)
+		(property pad_prop_castellated)
+		(layers "*.Mask" "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(zone_connect 2)
+		(uuid "09f8073f-5104-4b39-9073-eefef1ca61a1")
+		(padstack
+			(mode front_inner_back)
+			(layer "Inner"
+				(shape circle)
+				(size 1.1 1.1)
+			)
+			(layer "B.Cu"
+				(shape rect)
+				(size 1.7 1)
+				(offset -0.35 0)
+			)
+		)
+	)
+	(fp_rect
+		(start -5.915 -13.8)
+		(end 5.915 13.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "ce68e286-b247-4745-a95b-f7a7e380b4b9")
+	)
+	(fp_text user "castellation 1"
+		(at -3.615 -13.25 0)
+		(layer "F.Fab")
+		(uuid "d2a2104d-3215-4091-9d33-da2e94ad34d7")
+		(effects
+			(font
+				(size 0.4 0.4)
+				(thickness 0.06)
+			)
+		)
+	)
+	(fp_circle
+		(center -5.315 -13.25)
+		(end -5.115 -13.25)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill yes)
+		(layer "F.SilkS")
+		(uuid "596ff511-675b-4252-84ee-8b4081f96812")
+	)
+	(embedded_fonts no)
+)

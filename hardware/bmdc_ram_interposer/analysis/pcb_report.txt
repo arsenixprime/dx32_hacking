@@ -1,0 +1,106 @@
+=== Design Analysis ===
+
+--- assembly ---
+  [1] INFO FD-001: No fiducials on F.Cu (9 SMD components) (finest pad dim 0.56mm — coarse pitch only)
+      Detail: F.Cu has 0 fiducial(s) but 9 SMD components. Assembly machines need >= 3 fiducials for accurate placement.
+      Fix:    Add fiducial markers for pick-and-place alignment (3 per side with SMD).
+      Stages: pre_fab
+
+--- copper_integrity ---
+  [2] INFO CP-002: No opposite-layer copper under J1
+      Detail: Component J1 has no copper zone on the opposite layer.
+      Component: J1
+      Stages: layout
+
+--- current_capacity ---
+  [3] INFO CC-DET: Power net +5V: 0.2mm min trace
+      Detail: Power/ground net +5V: min trace 0.2mm, max 0.2mm, 4 segments.
+      Stages: layout, pre_fab
+  [4] INFO CC-DET: Power net GND: 0.2mm min trace
+      Detail: Power/ground net GND: min trace 0.2mm, max 0.2mm, 21 segments.
+      Stages: layout, pre_fab
+
+--- dfm ---
+  [5] INFO TB-001: C1 (0402) tombstoning risk: medium
+      Detail: C1 (0402, 100nF) has medium tombstoning risk due to thermal asymmetry between pads.
+      Fix:    pad 2 is GND (likely ground pour), other pad is signal — thermal asymmetry risk
+      Component: C1
+      Stages: layout
+  [6] INFO TB-001: C2 (0402) tombstoning risk: medium
+      Detail: C2 (0402, 100nF) has medium tombstoning risk due to thermal asymmetry between pads.
+      Fix:    pad 2 is GND (likely ground pour), other pad is signal — thermal asymmetry risk
+      Component: C2
+      Stages: layout
+  [7] INFO TB-001: C3 (0402) tombstoning risk: medium
+      Detail: C3 (0402, 100nF) has medium tombstoning risk due to thermal asymmetry between pads.
+      Fix:    pad 2 is GND (likely ground pour), other pad is signal — thermal asymmetry risk
+      Component: C3
+      Stages: layout
+  [8] INFO TB-001: C4 (0402) tombstoning risk: medium
+      Detail: C4 (0402, 100nF) has medium tombstoning risk due to thermal asymmetry between pads.
+      Fix:    pad 2 is GND (likely ground pour), other pad is signal — thermal asymmetry risk
+      Component: C4
+      Stages: layout
+
+--- placement ---
+  [9] WARNING PM-002: C1 is 0.54mm from board edge
+      Detail: Component C1 on F.Cu is only 0.54mm from the board edge, risking damage during depaneling or handling.
+      Fix:    Move C1 further from board edge (currently 0.54mm, recommend >= 1.0mm)
+      Component: C1
+      Stages: layout
+  [10] WARNING PM-002: C2 is 0.54mm from board edge
+      Detail: Component C2 on F.Cu is only 0.54mm from the board edge, risking damage during depaneling or handling.
+      Fix:    Move C2 further from board edge (currently 0.54mm, recommend >= 1.0mm)
+      Component: C2
+      Stages: layout
+  [11] WARNING PM-002: C3 is 0.54mm from board edge
+      Detail: Component C3 on F.Cu is only 0.54mm from the board edge, risking damage during depaneling or handling.
+      Fix:    Move C3 further from board edge (currently 0.54mm, recommend >= 1.0mm)
+      Component: C3
+      Stages: layout
+  [12] WARNING PM-002: C4 is 0.54mm from board edge
+      Detail: Component C4 on F.Cu is only 0.54mm from the board edge, risking damage during depaneling or handling.
+      Fix:    Move C4 further from board edge (currently 0.54mm, recommend >= 1.0mm)
+      Component: C4
+      Stages: layout
+  [13] ERROR PM-002: JP1 is 0.15mm from board edge
+      Detail: Component JP1 on F.Cu is only 0.15mm from the board edge, risking damage during depaneling or handling.
+      Fix:    Move JP1 further from board edge (currently 0.15mm, recommend >= 1.0mm)
+      Component: JP1
+      Stages: layout
+  [14] ERROR PM-002: JP2 is 0.15mm from board edge
+      Detail: Component JP2 on F.Cu is only 0.15mm from the board edge, risking damage during depaneling or handling.
+      Fix:    Move JP2 further from board edge (currently 0.15mm, recommend >= 1.0mm)
+      Component: JP2
+      Stages: layout
+  [15] ERROR PM-002: TP1 is 0.4mm from board edge
+      Detail: Component TP1 on F.Cu is only 0.4mm from the board edge, risking damage during depaneling or handling.
+      Fix:    Move TP1 further from board edge (currently 0.4mm, recommend >= 1.0mm)
+      Component: TP1
+      Stages: layout
+  [16] ERROR PM-002: TP2 is 0.4mm from board edge
+      Detail: Component TP2 on F.Cu is only 0.4mm from the board edge, risking damage during depaneling or handling.
+      Fix:    Move TP2 further from board edge (currently 0.4mm, recommend >= 1.0mm)
+      Component: TP2
+      Stages: layout
+  [17] WARNING PM-002: U1 is 0.65mm from board edge
+      Detail: Component U1 on F.Cu is only 0.65mm from the board edge, risking damage during depaneling or handling.
+      Fix:    Move U1 further from board edge (currently 0.65mm, recommend >= 1.0mm)
+      Component: U1
+      Stages: layout
+
+--- testability ---
+  [18] WARNING TE-001: Test point coverage: 2/34 nets (6%)
+      Detail: 2 of 34 signal nets have test points (6% coverage).
+      Fix:    Add test points to improve ICT/flying probe coverage.
+      Stages: pre_fab
+
+--- thermal ---
+  [19] INFO TS-DET: Zone stitching: +5V 1 vias
+      Detail: Zone stitching on net +5V: 1 vias across layers ['F.Cu'].
+      Stages: layout
+  [20] INFO TS-DET: Zone stitching: GND 5 vias
+      Detail: Zone stitching on net GND: 5 vias across layers ['In1.Cu'].
+      Stages: layout
+
+Total: 20 (4 errors, 6 warnings, 10 info)

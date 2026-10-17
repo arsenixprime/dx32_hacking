@@ -1,0 +1,4 @@
+(sym_lib_table
+	(version 7)
+	(lib (name "bmdc_interposer")(type "KiCad")(uri "${KIPRJMOD}/bmdc_interposer.kicad_sym")(options "")(descr "project symbols"))
+)

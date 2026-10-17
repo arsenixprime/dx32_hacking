@@ -1,0 +1,43 @@
+=== Design Analysis ===
+
+--- plane_integrity ---
+  [1] ERROR PS-002: GND plane split: 7 islands, 31 signals crossing
+      Detail: GND plane has 7 disconnected islands. Signals crossing: A17, A18, HOST_PIN1, A14, A12.
+      Fix:    Bridge the plane gap with copper pour or stitching vias.
+      Stages: layout
+
+--- return_path ---
+  [2] ERROR RP-002: memory net DQ3 crosses GND plane gap
+      Detail: memory signal DQ3 crosses a gap in GND plane on layer F.Cu.
+      Fix:    Re-route DQ3 to avoid the GND plane gap, or bridge with a stitching capacitor.
+      Stages: layout
+  [3] ERROR RP-002: memory net DQ0 crosses GND plane gap
+      Detail: memory signal DQ0 crosses a gap in GND plane on layer F.Cu.
+      Fix:    Re-route DQ0 to avoid the GND plane gap, or bridge with a stitching capacitor.
+      Stages: layout
+  [4] ERROR RP-002: memory net DQ1 crosses GND plane gap
+      Detail: memory signal DQ1 crosses a gap in GND plane on layer F.Cu.
+      Fix:    Re-route DQ1 to avoid the GND plane gap, or bridge with a stitching capacitor.
+      Stages: layout
+  [5] ERROR RP-002: memory net DQ2 crosses GND plane gap
+      Detail: memory signal DQ2 crosses a gap in GND plane on layer F.Cu.
+      Fix:    Re-route DQ2 to avoid the GND plane gap, or bridge with a stitching capacitor.
+      Stages: layout
+  [6] ERROR RP-002: memory net DQ4 crosses GND plane gap
+      Detail: memory signal DQ4 crosses a gap in GND plane on layer F.Cu.
+      Fix:    Re-route DQ4 to avoid the GND plane gap, or bridge with a stitching capacitor.
+      Stages: layout
+  [7] ERROR RP-002: memory net DQ5 crosses GND plane gap
+      Detail: memory signal DQ5 crosses a gap in GND plane on layer F.Cu.
+      Fix:    Re-route DQ5 to avoid the GND plane gap, or bridge with a stitching capacitor.
+      Stages: layout
+  [8] ERROR RP-002: memory net DQ6 crosses GND plane gap
+      Detail: memory signal DQ6 crosses a gap in GND plane on layer F.Cu.
+      Fix:    Re-route DQ6 to avoid the GND plane gap, or bridge with a stitching capacitor.
+      Stages: layout
+  [9] ERROR RP-002: memory net DQ7 crosses GND plane gap
+      Detail: memory signal DQ7 crosses a gap in GND plane on layer F.Cu.
+      Fix:    Re-route DQ7 to avoid the GND plane gap, or bridge with a stitching capacitor.
+      Stages: layout
+
+Total: 9 (9 errors, 0 warnings, 0 info)

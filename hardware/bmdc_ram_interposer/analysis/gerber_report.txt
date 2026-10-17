@@ -1,0 +1,9 @@
+=== Design Analysis ===
+
+--- gerber_completeness ---
+  [1] WARNING GR-004: F paste layer: 44 flashes vs 136 copper (32%)
+      Detail: F-side paste layer has significantly fewer flashes (44) than copper layer (136). This may indicate missing solder paste apertures.
+      Fix:    Check solder paste aperture generation — missing apertures cause assembly defects.
+      Stages: pre_fab
+
+Total: 1 (0 errors, 1 warning, 0 info)

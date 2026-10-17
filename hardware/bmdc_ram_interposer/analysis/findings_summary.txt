@@ -1,0 +1,30 @@
+# Run: analysis/2026-10-16_1704
+# 26 rule groups across 98 findings
+rule_id        severity  count   det  heu  ds  example
+------------------------------------------------------------------------------------------
+GP-001         high         20     0   20   0  Signal has major reference plane gap
+RP-002         high          8     8    0   0  memory net DQ3 crosses GND plane gap
+PM-002         high          4     4    0   0  JP1 is 0.15mm from board edge
+DC-002         high          1     0    1   0  No decoupling cap found near U1
+PS-002         high          1     1    0   0  GND plane split: 7 islands, 31 signals crossing
+SU-001         high          1     1    0   0  Adjacent signal layers: In2.Cu, B.Cu
+RP-001         warning      22    22    0   0  Missing stitching via at layer transition: A17
+GP-001         warning      12     0   12   0  Signal has partial reference plane gap
+PM-002         warning       5     5    0   0  C1 is 0.54mm from board edge
+GR-004         warning       1     0    1   0  F paste layer: 44 flashes vs 136 copper (32%)
+RS-001         warning       1     1    0   0  +5V has no declared source
+TE-001         warning       1     1    0   0  Test point coverage: 2/34 nets (6%)
+TB-001         info          4     4    0   0  C1 (0402) tombstoning risk: medium
+CC-DET         info          2     2    0   0  Power net +5V: 0.2mm min trace
+SJ-DET         info          2     2    0   0  JP1 (SolderJumper_2_Open) — open by default, betwe
+SU-002         info          2     2    0   0  Signal layer In2.Cu far from reference plane
+TS-DET         info          2     2    0   0  Zone stitching: +5V 1 vias
+CG-AUD         info          1     1    0   0  Connector J1: 30:1 signal-to-ground ratio
+CP-002         info          1     1    0   0  No opposite-layer copper under J1
+DC-DET         info          1     1    0   0  Decoupling on +5V
+DO-DET         info          1     0    1   0  Decoupling coverage on +5V
+EE-001         info          1     0    1   0  Board cavity resonance frequencies
+EP-AUD         info          1     1    0   0  ESD audit J1 (generic): none coverage
+FD-001         info          1     1    0   0  No fiducials on F.Cu (9 SMD components) (finest pa
+IO-001         info          1     0    1   0  No EMC filtering near J1
+IO-002         info          1     0    1   0  Insufficient ground pins on J1

@@ -1,0 +1,6727 @@
+{
+  "analyzer_type": "schematic",
+  "schema_version": "1.3.0",
+  "summary": {
+    "total_findings": 7,
+    "by_severity": {
+      "error": 0,
+      "warning": 1,
+      "info": 6
+    }
+  },
+  "trust_summary": {
+    "total_findings": 7,
+    "trust_level": "high",
+    "by_confidence": {
+      "deterministic": 6,
+      "heuristic": 1,
+      "datasheet-backed": 0
+    },
+    "by_evidence_source": {
+      "datasheet": 0,
+      "topology": 5,
+      "heuristic_rule": 0,
+      "symbol_footprint": 2,
+      "bom": 0,
+      "geometry": 0,
+      "api_lookup": 0
+    },
+    "provenance_coverage_pct": 100.0,
+    "bom_coverage": {
+      "total_components": 2,
+      "with_mpn": 2,
+      "with_datasheet": 2,
+      "mpn_pct": 100.0,
+      "datasheet_pct": 100.0
+    }
+  },
+  "file": "/home/jpeverill/sandbox/dx32_hacking/hardware/bmdc_ram_interposer/bmdc_ram_interposer.kicad_sch",
+  "kicad_version": "10.0",
+  "file_version": "20250114",
+  "title_block": {
+    "title": "BMDC3 2 MB RAM interposer",
+    "date": "2026-10-16",
+    "rev": "A",
+    "company": "dx32_hacking",
+    "comment_1": "CY7C1049G-10VXI 36-SOJ on the 32-SOJ site of U8..U11"
+  },
+  "statistics": {
+    "total_components": 10,
+    "unique_parts": 2,
+    "dnp_parts": 0,
+    "total_nets": 36,
+    "total_wires": 78,
+    "total_no_connects": 0,
+    "component_types": {
+      "ic": 1,
+      "connector": 1,
+      "capacitor": 4,
+      "jumper": 2,
+      "test_point": 2
+    },
+    "power_rails": [
+      {
+        "name": "+5V",
+        "voltage": 5.0
+      },
+      {
+        "name": "GND",
+        "voltage": null
+      },
+      {
+        "name": "PWR_FLAG",
+        "voltage": null
+      }
+    ],
+    "missing_mpn": [],
+    "missing_footprint": []
+  },
+  "findings": [
+    {
+      "ref": "J1",
+      "value": "BMDC3_SOJ32_Site",
+      "total_pins": 32,
+      "ground_pins": 1,
+      "signal_pins": 30,
+      "signal_per_ground": 30.0,
+      "status": "advisory",
+      "detail": "J1: 30 signal pins per ground pin (recommended: \u22643 for EMI control)",
+      "detector": "audit_connector_ground_distribution",
+      "rule_id": "CG-AUD",
+      "category": "connectors",
+      "severity": "info",
+      "confidence": "deterministic",
+      "evidence_source": "topology",
+      "summary": "Connector J1: 30:1 signal-to-ground ratio",
+      "description": "Connector J1 has 30.0 signal pins per ground pin.",
+      "components": [
+        "J1"
+      ],
+      "nets": [],
+      "pins": [],
+      "recommendation": "Add more ground pins (target \u22643 signal pins per ground).",
+      "report_context": {
+        "section": "Connector Ground",
+        "impact": "",
+        "standard_ref": ""
+      },
+      "provenance": {
+        "evidence": "cg_ground_audit",
+        "confidence": "deterministic",
+        "claimed_components": [
+          "J1"
+        ],
+        "excluded_by": [],
+        "suppressed_candidates": []
+      },
+      "detection_id": "connector_ground_audit:4e03f8f166ee",
+      "stages": [
+        "schematic"
+      ]
+    },
+    {
+      "rail": "+5V",
+      "capacitors": [
+        {
+          "ref": "C1",
+          "value": "100nF",
+          "farads": 1.0000000000000001e-07,
+          "self_resonant_hz": 15915494.0,
+          "package": "0402",
+          "esr_ohm": 0.5,
+          "dielectric": "X7R"
+        },
+        {
+          "ref": "C2",
+          "value": "100nF",
+          "farads": 1.0000000000000001e-07,
+          "self_resonant_hz": 15915494.0,
+          "package": "0402",
+          "esr_ohm": 0.5,
+          "dielectric": "X7R"
+        },
+        {
+          "ref": "C3",
+          "value": "100nF",
+          "farads": 1.0000000000000001e-07,
+          "self_resonant_hz": 15915494.0,
+          "package": "0402",
+          "esr_ohm": 0.5,
+          "dielectric": "X7R"
+        },
+        {
+          "ref": "C4",
+          "value": "100nF",
+          "farads": 1.0000000000000001e-07,
+          "self_resonant_hz": 15915494.0,
+          "package": "0402",
+          "esr_ohm": 0.5,
+          "dielectric": "X7R"
+        }
+      ],
+      "total_capacitance_uF": 0.4,
+      "cap_count": 4,
+      "detector": "detect_decoupling",
+      "rule_id": "DC-DET",
+      "category": "decoupling",
+      "severity": "info",
+      "confidence": "deterministic",
+      "evidence_source": "topology",
+      "summary": "Decoupling on +5V",
+      "description": "Decoupling capacitors on power rail +5V",
+      "components": [
+        "C1",
+        "C2",
+        "C3",
+        "C4"
+      ],
+      "nets": [],
+      "pins": [],
+      "recommendation": "",
+      "report_context": {
+        "section": "Decoupling",
+        "impact": "",
+        "standard_ref": ""
+      },
+      "provenance": {
+        "evidence": "decoup_cap_near_ic",
+        "confidence": "deterministic",
+        "claimed_components": [
+          "C1",
+          "C2",
+          "C3",
+          "C4"
+        ],
+        "excluded_by": [],
+        "suppressed_candidates": []
+      },
+      "detection_id": "decoupling_analysis:9a1adf60f6b2",
+      "stages": [
+        "schematic",
+        "layout"
+      ]
+    },
+    {
+      "category": "decoupling_coverage",
+      "rail": "+5V",
+      "cap_count": 4,
+      "total_uF": 0.4,
+      "has_bulk": false,
+      "has_bypass": true,
+      "has_high_freq": false,
+      "detector": "detect_design_observations",
+      "rule_id": "DO-DET",
+      "severity": "info",
+      "confidence": "heuristic",
+      "evidence_source": "topology",
+      "summary": "Decoupling coverage on +5V",
+      "description": "Decoupling frequency coverage for rail +5V",
+      "components": [
+        "C1",
+        "C2",
+        "C3",
+        "C4"
+      ],
+      "nets": [],
+      "pins": [],
+      "recommendation": "",
+      "report_context": {
+        "section": "Design Observations",
+        "impact": "",
+        "standard_ref": ""
+      },
+      "provenance": {
+        "evidence": "obs_topology",
+        "confidence": "heuristic",
+        "claimed_components": [
+          "C1",
+          "C2",
+          "C3",
+          "C4"
+        ],
+        "excluded_by": [],
+        "suppressed_candidates": []
+      },
+      "detection_id": "",
+      "stages": [
+        "schematic"
+      ]
+    },
+    {
+      "connector_ref": "J1",
+      "connector_value": "BMDC3_SOJ32_Site",
+      "interface_type": "generic",
+      "risk_level": "medium_risk",
+      "signal_nets": [
+        "A0",
+        "A1",
+        "A10",
+        "A11",
+        "A12",
+        "A13",
+        "A14",
+        "A15",
+        "A16",
+        "A2",
+        "A3",
+        "A4",
+        "A5",
+        "A6",
+        "A7",
+        "A8",
+        "A9",
+        "DQ0",
+        "DQ1",
+        "DQ2",
+        "DQ3",
+        "DQ4",
+        "DQ5",
+        "DQ6",
+        "DQ7",
+        "E2",
+        "HOST_PIN1",
+        "~{CE1}",
+        "~{OE}",
+        "~{WE}"
+      ],
+      "protected_nets": [],
+      "unprotected_nets": [
+        "A0",
+        "A1",
+        "A10",
+        "A11",
+        "A12",
+        "A13",
+        "A14",
+        "A15",
+        "A16",
+        "A2",
+        "A3",
+        "A4",
+        "A5",
+        "A6",
+        "A7",
+        "A8",
+        "A9",
+        "DQ0",
+        "DQ1",
+        "DQ2",
+        "DQ3",
+        "DQ4",
+        "DQ5",
+        "DQ6",
+        "DQ7",
+        "E2",
+        "HOST_PIN1",
+        "~{CE1}",
+        "~{OE}",
+        "~{WE}"
+      ],
+      "coverage": "none",
+      "esd_devices": [],
+      "esd_device_details": [],
+      "detector": "audit_esd_protection",
+      "rule_id": "EP-AUD",
+      "category": "protection",
+      "severity": "info",
+      "confidence": "deterministic",
+      "evidence_source": "topology",
+      "summary": "ESD audit J1 (generic): none coverage",
+      "description": "ESD protection audit for generic connector J1: none coverage.",
+      "components": [
+        "J1"
+      ],
+      "nets": [
+        "A0",
+        "A1",
+        "A10",
+        "A11",
+        "A12",
+        "A13",
+        "A14",
+        "A15",
+        "A16",
+        "A2",
+        "A3",
+        "A4",
+        "A5",
+        "A6",
+        "A7",
+        "A8",
+        "A9",
+        "DQ0",
+        "DQ1",
+        "DQ2",
+        "DQ3",
+        "DQ4",
+        "DQ5",
+        "DQ6",
+        "DQ7",
+        "E2",
+        "HOST_PIN1",
+        "~{CE1}",
+        "~{OE}",
+        "~{WE}"
+      ],
+      "pins": [],
+      "recommendation": "",
+      "report_context": {
+        "section": "ESD Protection",
+        "impact": "",
+        "standard_ref": ""
+      },
+      "provenance": {
+        "evidence": "esd_coverage_audit",
+        "confidence": "deterministic",
+        "claimed_components": [
+          "J1"
+        ],
+        "excluded_by": [],
+        "suppressed_candidates": []
+      },
+      "detection_id": "",
+      "stages": [
+        "schematic"
+      ]
+    },
+    {
+      "detector": "audit_rail_sources",
+      "rule_id": "RS-001",
+      "severity": "warning",
+      "confidence": "deterministic",
+      "evidence_source": "topology",
+      "category": "power",
+      "summary": "+5V has no declared source",
+      "description": "Net +5V carries power_in pins but has no power_out pin, no PWR_FLAG, no regulator output mapping, and no bridged solder jumper path to a sourced net.",
+      "components": [],
+      "nets": [
+        "+5V"
+      ],
+      "pins": [
+        "#PWR01.1",
+        "#PWR04.1",
+        "#PWR05.1",
+        "#PWR11.1",
+        "#PWR12.1",
+        "#PWR13.1",
+        "#PWR14.1",
+        "U1.9"
+      ],
+      "source_path": "none",
+      "recommendation": "Add a PWR_FLAG to declare the rail as externally powered (e.g. from a connector) or trace the rail back to a regulator output. If the source lives on another sheet, promote the net name to a global label.",
+      "report_context": {
+        "section": "Power \u2014 Rail Sources",
+        "impact": "Rail has no source visible to the analyser; likely a wiring gap or missing PWR_FLAG.",
+        "standard_ref": ""
+      },
+      "provenance": {
+        "evidence": "rs_rail_audit",
+        "confidence": "deterministic",
+        "claimed_components": [],
+        "excluded_by": [],
+        "suppressed_candidates": []
+      },
+      "detection_id": "",
+      "stages": [
+        "schematic"
+      ]
+    },
+    {
+      "detector": "detect_solder_jumpers",
+      "rule_id": "SJ-DET",
+      "severity": "info",
+      "confidence": "deterministic",
+      "evidence_source": "symbol_footprint",
+      "category": "topology",
+      "summary": "JP1 (SolderJumper_2_Open) \u2014 open by default, between A17 \u2194 E2",
+      "reference": "JP1",
+      "value": "SolderJumper_2_Open",
+      "lib_id": "Jumper:SolderJumper_2_Open",
+      "footprint": "bmdc_interposer:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm",
+      "default_state": "open",
+      "nets": [
+        "A17",
+        "E2"
+      ],
+      "power_nets": [],
+      "ground_nets": [],
+      "pin_count": 2,
+      "components": [
+        "JP1"
+      ],
+      "pins": [
+        "JP1.1",
+        "JP1.2"
+      ],
+      "recommendation": "Open solder jumper is non-conducting until the pads are soldered. If either side is a power rail or required signal, the board won't function without the solder step.",
+      "report_context": {
+        "section": "Solder Jumpers",
+        "impact": "Optional / configuration jumper.",
+        "standard_ref": ""
+      },
+      "provenance": {
+        "evidence": "sj_symbol_footprint",
+        "confidence": "deterministic",
+        "claimed_components": [
+          "JP1"
+        ],
+        "excluded_by": [],
+        "suppressed_candidates": []
+      },
+      "detection_id": "",
+      "stages": [
+        "schematic"
+      ]
+    },
+    {
+      "detector": "detect_solder_jumpers",
+      "rule_id": "SJ-DET",
+      "severity": "info",
+      "confidence": "deterministic",
+      "evidence_source": "symbol_footprint",
+      "category": "topology",
+      "summary": "JP2 (SolderJumper_2_Open) \u2014 open by default, between A18 \u2194 HOST_PIN1",
+      "reference": "JP2",
+      "value": "SolderJumper_2_Open",
+      "lib_id": "Jumper:SolderJumper_2_Open",
+      "footprint": "bmdc_interposer:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm",
+      "default_state": "open",
+      "nets": [
+        "A18",
+        "HOST_PIN1"
+      ],
+      "power_nets": [],
+      "ground_nets": [],
+      "pin_count": 2,
+      "components": [
+        "JP2"
+      ],
+      "pins": [
+        "JP2.1",
+        "JP2.2"
+      ],
+      "recommendation": "Open solder jumper is non-conducting until the pads are soldered. If either side is a power rail or required signal, the board won't function without the solder step.",
+      "report_context": {
+        "section": "Solder Jumpers",
+        "impact": "Optional / configuration jumper.",
+        "standard_ref": ""
+      },
+      "provenance": {
+        "evidence": "sj_symbol_footprint",
+        "confidence": "deterministic",
+        "claimed_components": [
+          "JP2"
+        ],
+        "excluded_by": [],
+        "suppressed_candidates": []
+      },
+      "detection_id": "",
+      "stages": [
+        "schematic"
+      ]
+    }
+  ],
+  "bom": [
+    {
+      "value": "100nF",
+      "footprint": "Capacitor_SMD:C_0402_1005Metric",
+      "mpn": "CL05B104KO5NNNC",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "digikey": "1276-1004-1-ND",
+      "mouser": "",
+      "lcsc": "C1525",
+      "element14": "",
+      "datasheet": "https://www.samsungsem.com/resources/file/global/support/product_catalog/MLCC.pdf",
+      "description": "100 nF 16 V X7R 0402 decoupling",
+      "references": [
+        "C1",
+        "C2",
+        "C3",
+        "C4"
+      ],
+      "quantity": 4,
+      "dnp": false,
+      "type": "capacitor"
+    },
+    {
+      "value": "CY7C1049G-10VXI",
+      "footprint": "bmdc_interposer:SOJ-36_10.16x23.495mm_P1.27mm_ShortPads",
+      "mpn": "CY7C1049G-10VXI",
+      "manufacturer": "Infineon Technologies (Cypress)",
+      "digikey": "CY7C1049G-10VXI-ND",
+      "mouser": "",
+      "lcsc": "",
+      "element14": "",
+      "datasheet": "https://www.infineon.com/dgdl/Infineon-CY7C1049G_and_CY7C1049GE_are_high-performance_CMOS_fast_static_RAM_devices_with_embedded_ECC-DataSheet-v07_00-EN.pdf?fileId=8ac78c8c7d0d8da4017d0ed7e2c15966",
+      "description": "4-Mbit (512K x 8) 5 V fast SRAM with ECC, 10 ns, 36-SOJ (Infineon/Cypress)",
+      "references": [
+        "U1"
+      ],
+      "quantity": 1,
+      "dnp": false,
+      "type": "ic"
+    }
+  ],
+  "components": [
+    {
+      "reference": "U1",
+      "value": "CY7C1049G-10VXI",
+      "lib_id": "bmdc_interposer:CY7C1049G-10VXI",
+      "lib_name": "",
+      "footprint": "bmdc_interposer:SOJ-36_10.16x23.495mm_P1.27mm_ShortPads",
+      "datasheet": "https://www.infineon.com/dgdl/Infineon-CY7C1049G_and_CY7C1049GE_are_high-performance_CMOS_fast_static_RAM_devices_with_embedded_ECC-DataSheet-v07_00-EN.pdf?fileId=8ac78c8c7d0d8da4017d0ed7e2c15966",
+      "description": "4-Mbit (512K x 8) 5 V fast SRAM with ECC, 10 ns, 36-SOJ (Infineon/Cypress)",
+      "mpn": "CY7C1049G-10VXI",
+      "manufacturer": "Infineon Technologies (Cypress)",
+      "digikey": "CY7C1049G-10VXI-ND",
+      "mouser": "",
+      "lcsc": "",
+      "element14": "",
+      "x": 152.4,
+      "y": 101.6,
+      "angle": 0.0,
+      "mirror_x": false,
+      "mirror_y": false,
+      "unit": 1,
+      "uuid": "9c2e4b82-958a-563d-8394-83a3b240af7d",
+      "in_bom": true,
+      "dnp": false,
+      "on_board": true,
+      "pin_uuids": {
+        "1": "1e146d0f-c115-5d9f-a11b-23bb91a3618f",
+        "2": "97614a24-96a2-5e00-b36b-ff6d5d2c8d43",
+        "3": "c6b0b6ed-4deb-5697-8132-767d3cd7abcc",
+        "4": "f703cc6d-cd73-5550-928c-13228c5e5a35",
+        "5": "08383926-419f-5905-9fcf-94087424903f",
+        "6": "d15b9866-84da-5902-abb4-4a4431fedf83",
+        "7": "4cfd5329-4892-5c1b-be29-34003e82e3c5",
+        "8": "1397304f-17e1-5aad-8abd-de2ba667b3e3",
+        "9": "ade53da2-b4a1-5a69-a1f0-3f13d3681e93",
+        "10": "841681f1-5a7b-56a7-ac2a-c2d155d0681e",
+        "11": "e2437a23-274e-5468-89b7-da1c565911fa",
+        "12": "ff38cee1-13c5-5d17-83fe-f123dfc9b5c1",
+        "13": "8f3b150c-14c5-5e52-8c8d-a38940ac0757",
+        "14": "c7cb19e7-0efa-5ebe-87fb-9a7f6f1b561c",
+        "15": "aee3ad9d-4193-5d0c-8c7d-c985b82bed71",
+        "16": "f627c83b-9f5d-5e10-b7ed-b82f96b50cc5",
+        "17": "69fc73e2-4595-57b0-b8eb-62f2ed194071",
+        "18": "8f320334-81c3-53bd-a9bd-7fe7be46fe40",
+        "19": "b04d25b2-651a-5544-82fa-32cb5d78a3c7",
+        "20": "f9983e85-8bf6-5e00-8d59-b57bb5bd385e",
+        "21": "eb99497a-f7a8-5a7a-bf59-721446345dd4",
+        "22": "cefa4a9a-19d9-5baa-a2f4-31d3b32db2c1",
+        "23": "2097a6e3-8210-59c9-a3b2-29281e6af92f",
+        "24": "08f02fe5-60a5-5f17-bf8e-cae72ce5108d",
+        "25": "eaeb3a21-6834-5318-a80c-8dd6e2d1b822",
+        "26": "366fe1f4-b711-5302-8521-569b6b48a881",
+        "27": "892478e0-6f3b-5b29-a059-39593cf53ff9",
+        "28": "0d402122-3c17-59ee-a3f3-247096c9ba76",
+        "29": "c34b8c1e-23b5-53be-a9f9-905aba4632d2",
+        "30": "b796fe47-7b72-5e3b-812a-0cd875df5183",
+        "31": "7b9a22a3-7f12-5ff5-aee1-68db33aadbda",
+        "32": "a8fc1a73-273f-5051-b7de-c0b1594c65b9",
+        "33": "43795b3d-5e46-5421-9e75-f45ccbc8949e",
+        "34": "df9706cf-73bf-58c9-a813-34c193b82708",
+        "35": "a99306fe-428c-5fb1-b885-b517a184cb79",
+        "36": "e0aa88c5-5f2c-5a0f-a0cd-8725eb14703c"
+      },
+      "type": "ic",
+      "keywords": "SRAM MEMORY",
+      "functional_class": "memory",
+      "_sheet": 0,
+      "category": "ic",
+      "pin_nets": {
+        "1": "A14",
+        "2": "A12",
+        "3": "A7",
+        "4": "A6",
+        "5": "A5",
+        "6": "~{CE1}",
+        "7": "DQ3",
+        "8": "DQ0",
+        "9": "+5V",
+        "27": "+5V",
+        "10": "GND",
+        "28": "GND",
+        "11": "DQ1",
+        "12": "DQ2",
+        "13": "~{WE}",
+        "14": "A4",
+        "15": "A3",
+        "16": "A2",
+        "17": "A1",
+        "18": "A0",
+        "19": "__unnamed_0",
+        "20": "A10",
+        "21": "A11",
+        "22": "A9",
+        "23": "A8",
+        "24": "A13",
+        "25": "DQ4",
+        "26": "DQ5",
+        "29": "DQ6",
+        "30": "DQ7",
+        "31": "~{OE}",
+        "32": "A15",
+        "33": "A16",
+        "34": "A17",
+        "35": "A18",
+        "36": "__unnamed_1"
+      }
+    },
+    {
+      "reference": "J1",
+      "value": "BMDC3_SOJ32_Site",
+      "lib_id": "bmdc_interposer:BMDC3_SOJ32_Site",
+      "lib_name": "",
+      "footprint": "bmdc_interposer:BMDC3_SOJ32_Castellated",
+      "datasheet": "",
+      "description": "Bridgeport BMDC3 32-lead wide SOJ RAM site (U8..U11); castellated interposer edge",
+      "mpn": "",
+      "manufacturer": "",
+      "digikey": "",
+      "mouser": "",
+      "lcsc": "",
+      "element14": "",
+      "x": 76.2,
+      "y": 101.6,
+      "angle": 0.0,
+      "mirror_x": false,
+      "mirror_y": false,
+      "unit": 1,
+      "uuid": "eb0b674f-13aa-56a0-b8c8-9d6455a5bd16",
+      "in_bom": false,
+      "dnp": false,
+      "on_board": true,
+      "pin_uuids": {
+        "1": "ba3e700d-1d12-55ad-9ecb-d0edb2e1e83f",
+        "2": "ed5138cb-9a90-56a6-b815-f35386af2db1",
+        "3": "57542c85-687c-5324-8f8c-686c37733917",
+        "4": "4edb90a4-bf67-580d-8722-8cc0776f4d87",
+        "5": "e9176d41-9827-556a-9f9c-ab9697daec90",
+        "6": "febe05a1-d459-5391-bc5d-bff84f996e2a",
+        "7": "9fa2c06d-b021-56c1-89f6-13cd29fb8801",
+        "8": "f20cb300-050e-58cc-8f66-479f5a924369",
+        "9": "812daa80-6af0-5bcb-9b4f-7f9182ce81df",
+        "10": "7a191163-618a-5b23-9e19-66652f48d373",
+        "11": "5be02003-fcdd-5b3a-971c-b1e8352d40b4",
+        "12": "ce1ba739-1d86-5424-a02b-8f67f3f87b60",
+        "13": "215a36b6-6aad-5e53-a749-fa1b8d37b1dc",
+        "14": "6a69fe21-a08b-5e9c-8934-70395d240afd",
+        "15": "d0055870-dc41-527d-b9e6-9784728d952e",
+        "16": "c44726d2-f688-5544-a398-e2ac3ca66ddf",
+        "17": "413962a1-6a5b-5fd0-a165-dfb0cc4ec923",
+        "18": "9c65eefe-184d-5163-b0de-f988c0d0db27",
+        "19": "13c75bc0-39f2-5bb4-8be3-6afccd8aa497",
+        "20": "cce263b2-e0d7-5ab5-9520-5403258f6072",
+        "21": "c0bdd4a2-de1f-56d9-90fa-5a56ae7e62cb",
+        "22": "ce0ed8ab-6cfb-5700-9155-784d183dcb66",
+        "23": "13abc135-7cb3-5ea6-8d4c-e44409c66cf8",
+        "24": "ee2d559e-2998-5a20-b523-cecac88e4836",
+        "25": "4df7fc02-d58d-5006-a753-9c3ebc2420cc",
+        "26": "3c2eb665-3a5d-50f3-a95c-34e83cf99f58",
+        "27": "9cd14ed0-5e46-5e97-bae0-a9fc68599a82",
+        "28": "c7f64515-c3cc-51d2-8091-b1d20bad369b",
+        "29": "52a8cc84-9e3a-561b-8661-8a3661f5b233",
+        "30": "8550ada0-d0ef-5062-b16e-21f51a895571",
+        "31": "3e43b34a-b0f7-5e69-88dd-9d9b937041ec",
+        "32": "827ac368-27da-5c8b-b678-fcf23cbf9e96"
+      },
+      "type": "connector",
+      "keywords": "BMDC3 SOJ-32 castellated",
+      "is_external_connector": false,
+      "connector_layout": "other",
+      "_sheet": 0,
+      "category": "connector",
+      "pin_nets": {
+        "3": "A14",
+        "4": "A12",
+        "5": "A7",
+        "6": "A6",
+        "7": "A5",
+        "22": "~{CE1}",
+        "17": "DQ3",
+        "13": "DQ0",
+        "32": "+5V",
+        "16": "GND",
+        "14": "DQ1",
+        "15": "DQ2",
+        "29": "~{WE}",
+        "8": "A4",
+        "9": "A3",
+        "10": "A2",
+        "11": "A1",
+        "12": "A0",
+        "23": "A10",
+        "25": "A11",
+        "26": "A9",
+        "27": "A8",
+        "28": "A13",
+        "18": "DQ4",
+        "19": "DQ5",
+        "20": "DQ6",
+        "21": "DQ7",
+        "24": "~{OE}",
+        "31": "A15",
+        "2": "A16",
+        "1": "HOST_PIN1",
+        "30": "E2"
+      }
+    },
+    {
+      "reference": "C1",
+      "value": "100nF",
+      "lib_id": "Device:C",
+      "lib_name": "",
+      "footprint": "Capacitor_SMD:C_0402_1005Metric",
+      "datasheet": "https://www.samsungsem.com/resources/file/global/support/product_catalog/MLCC.pdf",
+      "description": "100 nF 16 V X7R 0402 decoupling",
+      "mpn": "CL05B104KO5NNNC",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "digikey": "1276-1004-1-ND",
+      "mouser": "",
+      "lcsc": "C1525",
+      "element14": "",
+      "x": 203.2,
+      "y": 101.6,
+      "angle": 0.0,
+      "mirror_x": false,
+      "mirror_y": false,
+      "unit": 1,
+      "uuid": "b31aa001-1a58-558d-83ae-8a7db14347b1",
+      "in_bom": true,
+      "dnp": false,
+      "on_board": true,
+      "pin_uuids": {
+        "1": "cf7312b6-bdc9-5d43-a4a8-46437666e81c",
+        "2": "57768167-97ff-54d0-b605-45f40673b810"
+      },
+      "type": "capacitor",
+      "keywords": "cap capacitor",
+      "_sheet": 0,
+      "category": "capacitor",
+      "parsed_value": 1.0000000000000001e-07,
+      "pin_nets": {
+        "1": "+5V",
+        "2": "GND"
+      }
+    },
+    {
+      "reference": "C2",
+      "value": "100nF",
+      "lib_id": "Device:C",
+      "lib_name": "",
+      "footprint": "Capacitor_SMD:C_0402_1005Metric",
+      "datasheet": "https://www.samsungsem.com/resources/file/global/support/product_catalog/MLCC.pdf",
+      "description": "100 nF 16 V X7R 0402 decoupling",
+      "mpn": "CL05B104KO5NNNC",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "digikey": "1276-1004-1-ND",
+      "mouser": "",
+      "lcsc": "C1525",
+      "element14": "",
+      "x": 215.9,
+      "y": 101.6,
+      "angle": 0.0,
+      "mirror_x": false,
+      "mirror_y": false,
+      "unit": 1,
+      "uuid": "6f95f1e8-7e0a-56bb-9c2a-ea2f1a3d5fda",
+      "in_bom": true,
+      "dnp": false,
+      "on_board": true,
+      "pin_uuids": {
+        "1": "eaec23e2-b714-5431-8ffd-8853e31f5951",
+        "2": "347de1ce-f81d-50b3-a0e3-0688752b6e88"
+      },
+      "type": "capacitor",
+      "keywords": "cap capacitor",
+      "_sheet": 0,
+      "category": "capacitor",
+      "parsed_value": 1.0000000000000001e-07,
+      "pin_nets": {
+        "1": "+5V",
+        "2": "GND"
+      }
+    },
+    {
+      "reference": "C3",
+      "value": "100nF",
+      "lib_id": "Device:C",
+      "lib_name": "",
+      "footprint": "Capacitor_SMD:C_0402_1005Metric",
+      "datasheet": "https://www.samsungsem.com/resources/file/global/support/product_catalog/MLCC.pdf",
+      "description": "100 nF 16 V X7R 0402 decoupling",
+      "mpn": "CL05B104KO5NNNC",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "digikey": "1276-1004-1-ND",
+      "mouser": "",
+      "lcsc": "C1525",
+      "element14": "",
+      "x": 228.6,
+      "y": 101.6,
+      "angle": 0.0,
+      "mirror_x": false,
+      "mirror_y": false,
+      "unit": 1,
+      "uuid": "eadf3e4b-50ec-5f47-9af5-45b5b6d88a09",
+      "in_bom": true,
+      "dnp": false,
+      "on_board": true,
+      "pin_uuids": {
+        "1": "bcb4b58c-be21-52e0-a1a4-c1fafd8f24e7",
+        "2": "fe18980f-2f19-5045-a685-7c1dfff475c5"
+      },
+      "type": "capacitor",
+      "keywords": "cap capacitor",
+      "_sheet": 0,
+      "category": "capacitor",
+      "parsed_value": 1.0000000000000001e-07,
+      "pin_nets": {
+        "1": "+5V",
+        "2": "GND"
+      }
+    },
+    {
+      "reference": "C4",
+      "value": "100nF",
+      "lib_id": "Device:C",
+      "lib_name": "",
+      "footprint": "Capacitor_SMD:C_0402_1005Metric",
+      "datasheet": "https://www.samsungsem.com/resources/file/global/support/product_catalog/MLCC.pdf",
+      "description": "100 nF 16 V X7R 0402 decoupling",
+      "mpn": "CL05B104KO5NNNC",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "digikey": "1276-1004-1-ND",
+      "mouser": "",
+      "lcsc": "C1525",
+      "element14": "",
+      "x": 241.3,
+      "y": 101.6,
+      "angle": 0.0,
+      "mirror_x": false,
+      "mirror_y": false,
+      "unit": 1,
+      "uuid": "4f786b74-a320-5075-9d87-08974071f5b8",
+      "in_bom": true,
+      "dnp": false,
+      "on_board": true,
+      "pin_uuids": {
+        "1": "6dcefb33-cd8d-5267-a617-c0912e3c5795",
+        "2": "8f927c28-3609-5c88-98f6-99fa76315416"
+      },
+      "type": "capacitor",
+      "keywords": "cap capacitor",
+      "_sheet": 0,
+      "category": "capacitor",
+      "parsed_value": 1.0000000000000001e-07,
+      "pin_nets": {
+        "1": "+5V",
+        "2": "GND"
+      }
+    },
+    {
+      "reference": "JP1",
+      "value": "SolderJumper_2_Open",
+      "lib_id": "Jumper:SolderJumper_2_Open",
+      "lib_name": "",
+      "footprint": "bmdc_interposer:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm",
+      "datasheet": "",
+      "description": "A17 to castellation 30 (host E2) - open unless the card drives 68030 A19 there",
+      "mpn": "",
+      "manufacturer": "",
+      "digikey": "",
+      "mouser": "",
+      "lcsc": "",
+      "element14": "",
+      "x": 76.2,
+      "y": 142.24,
+      "angle": 0.0,
+      "mirror_x": false,
+      "mirror_y": false,
+      "unit": 1,
+      "uuid": "89ed62e8-1135-553c-99ab-19ed7d60dd1b",
+      "in_bom": false,
+      "dnp": false,
+      "on_board": true,
+      "pin_uuids": {
+        "1": "851c1a67-3edd-5875-bbd2-67373f6e0dd0",
+        "2": "2e04ade8-4f3a-590e-a781-7d2ab13756f8"
+      },
+      "type": "jumper",
+      "keywords": "solder jumper SPST",
+      "_sheet": 0,
+      "category": "jumper",
+      "pin_nets": {
+        "1": "A17",
+        "2": "E2"
+      }
+    },
+    {
+      "reference": "JP2",
+      "value": "SolderJumper_2_Open",
+      "lib_id": "Jumper:SolderJumper_2_Open",
+      "lib_name": "",
+      "footprint": "bmdc_interposer:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm",
+      "datasheet": "",
+      "description": "A18 to castellation 1 (host NC) - open unless the card drives 68030 A20 there",
+      "mpn": "",
+      "manufacturer": "",
+      "digikey": "",
+      "mouser": "",
+      "lcsc": "",
+      "element14": "",
+      "x": 76.2,
+      "y": 149.86,
+      "angle": 0.0,
+      "mirror_x": false,
+      "mirror_y": false,
+      "unit": 1,
+      "uuid": "88b91db3-8715-5331-89bc-97e2ca9624af",
+      "in_bom": false,
+      "dnp": false,
+      "on_board": true,
+      "pin_uuids": {
+        "1": "9d7700fe-60c7-561a-8c87-466847337389",
+        "2": "584ad7c1-7b94-5907-8975-a17c66e73b04"
+      },
+      "type": "jumper",
+      "keywords": "solder jumper SPST",
+      "_sheet": 0,
+      "category": "jumper",
+      "pin_nets": {
+        "1": "A18",
+        "2": "HOST_PIN1"
+      }
+    },
+    {
+      "reference": "TP1",
+      "value": "A17 wire pad",
+      "lib_id": "Connector:TestPoint",
+      "lib_name": "",
+      "footprint": "bmdc_interposer:WirePad_1.5x1.0mm",
+      "datasheet": "",
+      "description": "wire pad: 30 AWG to 68030 A19 on the card",
+      "mpn": "",
+      "manufacturer": "",
+      "digikey": "",
+      "mouser": "",
+      "lcsc": "",
+      "element14": "",
+      "x": 116.84,
+      "y": 142.24,
+      "angle": 0.0,
+      "mirror_x": false,
+      "mirror_y": false,
+      "unit": 1,
+      "uuid": "963fabbf-2d2a-55e3-bbe3-892a3b272dab",
+      "in_bom": false,
+      "dnp": false,
+      "on_board": true,
+      "pin_uuids": {
+        "1": "f78882ff-5b79-59bf-aaff-33ebda73d39e"
+      },
+      "type": "test_point",
+      "keywords": "test point tp",
+      "_sheet": 0,
+      "category": "test_point",
+      "pin_nets": {
+        "1": "A17"
+      }
+    },
+    {
+      "reference": "TP2",
+      "value": "A18 wire pad",
+      "lib_id": "Connector:TestPoint",
+      "lib_name": "",
+      "footprint": "bmdc_interposer:WirePad_1.5x1.0mm",
+      "datasheet": "",
+      "description": "wire pad: 30 AWG to 68030 A20 on the card",
+      "mpn": "",
+      "manufacturer": "",
+      "digikey": "",
+      "mouser": "",
+      "lcsc": "",
+      "element14": "",
+      "x": 116.84,
+      "y": 149.86,
+      "angle": 0.0,
+      "mirror_x": false,
+      "mirror_y": false,
+      "unit": 1,
+      "uuid": "9d2216c5-6e25-59ff-a803-dacc2b226352",
+      "in_bom": false,
+      "dnp": false,
+      "on_board": true,
+      "pin_uuids": {
+        "1": "c6cd888f-b7b6-5703-9d69-bf09305e309c"
+      },
+      "type": "test_point",
+      "keywords": "test point tp",
+      "_sheet": 0,
+      "category": "test_point",
+      "pin_nets": {
+        "1": "A18"
+      }
+    }
+  ],
+  "nets": {
+    "A14": {
+      "name": "A14",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "1",
+          "pin_name": "A0",
+          "pin_type": "input"
+        },
+        {
+          "component": "J1",
+          "pin_number": "3",
+          "pin_name": "A14",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "A14",
+          "type": "global_label"
+        }
+      ]
+    },
+    "A12": {
+      "name": "A12",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "2",
+          "pin_name": "A1",
+          "pin_type": "input"
+        },
+        {
+          "component": "J1",
+          "pin_number": "4",
+          "pin_name": "A12",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "A12",
+          "type": "global_label"
+        }
+      ]
+    },
+    "A7": {
+      "name": "A7",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "3",
+          "pin_name": "A2",
+          "pin_type": "input"
+        },
+        {
+          "component": "J1",
+          "pin_number": "5",
+          "pin_name": "A7",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "A7",
+          "type": "global_label"
+        }
+      ]
+    },
+    "A6": {
+      "name": "A6",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "4",
+          "pin_name": "A3",
+          "pin_type": "input"
+        },
+        {
+          "component": "J1",
+          "pin_number": "6",
+          "pin_name": "A6",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "A6",
+          "type": "global_label"
+        }
+      ]
+    },
+    "A5": {
+      "name": "A5",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "5",
+          "pin_name": "A4",
+          "pin_type": "input"
+        },
+        {
+          "component": "J1",
+          "pin_number": "7",
+          "pin_name": "A5",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "A5",
+          "type": "global_label"
+        }
+      ]
+    },
+    "~{CE1}": {
+      "name": "~{CE1}",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "6",
+          "pin_name": "~{CE}",
+          "pin_type": "input"
+        },
+        {
+          "component": "J1",
+          "pin_number": "22",
+          "pin_name": "~{E1}",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "~{CE1}",
+          "type": "global_label"
+        }
+      ]
+    },
+    "DQ3": {
+      "name": "DQ3",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "7",
+          "pin_name": "I/O0",
+          "pin_type": "bidirectional"
+        },
+        {
+          "component": "J1",
+          "pin_number": "17",
+          "pin_name": "DQ3",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "DQ3",
+          "type": "global_label"
+        }
+      ]
+    },
+    "DQ0": {
+      "name": "DQ0",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "8",
+          "pin_name": "I/O1",
+          "pin_type": "bidirectional"
+        },
+        {
+          "component": "J1",
+          "pin_number": "13",
+          "pin_name": "DQ0",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "DQ0",
+          "type": "global_label"
+        }
+      ]
+    },
+    "+5V": {
+      "name": "+5V",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "9",
+          "pin_name": "VDD",
+          "pin_type": "power_in"
+        },
+        {
+          "component": "U1",
+          "pin_number": "27",
+          "pin_name": "VDD",
+          "pin_type": "passive"
+        },
+        {
+          "component": "#PWR01",
+          "pin_number": "1",
+          "pin_name": "",
+          "pin_type": "power_in"
+        },
+        {
+          "component": "J1",
+          "pin_number": "32",
+          "pin_name": "VCC",
+          "pin_type": "passive"
+        },
+        {
+          "component": "#PWR04",
+          "pin_number": "1",
+          "pin_name": "",
+          "pin_type": "power_in"
+        },
+        {
+          "component": "C1",
+          "pin_number": "1",
+          "pin_name": "",
+          "pin_type": "passive"
+        },
+        {
+          "component": "#PWR11",
+          "pin_number": "1",
+          "pin_name": "",
+          "pin_type": "power_in"
+        },
+        {
+          "component": "C2",
+          "pin_number": "1",
+          "pin_name": "",
+          "pin_type": "passive"
+        },
+        {
+          "component": "#PWR12",
+          "pin_number": "1",
+          "pin_name": "",
+          "pin_type": "power_in"
+        },
+        {
+          "component": "C3",
+          "pin_number": "1",
+          "pin_name": "",
+          "pin_type": "passive"
+        },
+        {
+          "component": "#PWR13",
+          "pin_number": "1",
+          "pin_name": "",
+          "pin_type": "power_in"
+        },
+        {
+          "component": "C4",
+          "pin_number": "1",
+          "pin_name": "",
+          "pin_type": "passive"
+        },
+        {
+          "component": "#PWR14",
+          "pin_number": "1",
+          "pin_name": "",
+          "pin_type": "power_in"
+        },
+        {
+          "component": "#PWR05",
+          "pin_number": "1",
+          "pin_name": "",
+          "pin_type": "power_in"
+        }
+      ],
+      "point_count": 13,
+      "no_connect": false,
+      "labels": []
+    },
+    "GND": {
+      "name": "GND",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "10",
+          "pin_name": "GND",
+          "pin_type": "power_in"
+        },
+        {
+          "component": "U1",
+          "pin_number": "28",
+          "pin_name": "GND",
+          "pin_type": "passive"
+        },
+        {
+          "component": "#PWR02",
+          "pin_number": "1",
+          "pin_name": "",
+          "pin_type": "power_in"
+        },
+        {
+          "component": "J1",
+          "pin_number": "16",
+          "pin_name": "VSS",
+          "pin_type": "passive"
+        },
+        {
+          "component": "#PWR03",
+          "pin_number": "1",
+          "pin_name": "",
+          "pin_type": "power_in"
+        },
+        {
+          "component": "C1",
+          "pin_number": "2",
+          "pin_name": "",
+          "pin_type": "passive"
+        },
+        {
+          "component": "#PWR21",
+          "pin_number": "1",
+          "pin_name": "",
+          "pin_type": "power_in"
+        },
+        {
+          "component": "C2",
+          "pin_number": "2",
+          "pin_name": "",
+          "pin_type": "passive"
+        },
+        {
+          "component": "#PWR22",
+          "pin_number": "1",
+          "pin_name": "",
+          "pin_type": "power_in"
+        },
+        {
+          "component": "C3",
+          "pin_number": "2",
+          "pin_name": "",
+          "pin_type": "passive"
+        },
+        {
+          "component": "#PWR23",
+          "pin_number": "1",
+          "pin_name": "",
+          "pin_type": "power_in"
+        },
+        {
+          "component": "C4",
+          "pin_number": "2",
+          "pin_name": "",
+          "pin_type": "passive"
+        },
+        {
+          "component": "#PWR24",
+          "pin_number": "1",
+          "pin_name": "",
+          "pin_type": "power_in"
+        },
+        {
+          "component": "#PWR06",
+          "pin_number": "1",
+          "pin_name": "",
+          "pin_type": "power_in"
+        }
+      ],
+      "point_count": 13,
+      "no_connect": false,
+      "labels": []
+    },
+    "DQ1": {
+      "name": "DQ1",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "11",
+          "pin_name": "I/O2",
+          "pin_type": "bidirectional"
+        },
+        {
+          "component": "J1",
+          "pin_number": "14",
+          "pin_name": "DQ1",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "DQ1",
+          "type": "global_label"
+        }
+      ]
+    },
+    "DQ2": {
+      "name": "DQ2",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "12",
+          "pin_name": "I/O3",
+          "pin_type": "bidirectional"
+        },
+        {
+          "component": "J1",
+          "pin_number": "15",
+          "pin_name": "DQ2",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "DQ2",
+          "type": "global_label"
+        }
+      ]
+    },
+    "~{WE}": {
+      "name": "~{WE}",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "13",
+          "pin_name": "~{WE}",
+          "pin_type": "input"
+        },
+        {
+          "component": "J1",
+          "pin_number": "29",
+          "pin_name": "A13",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "~{WE}",
+          "type": "global_label"
+        }
+      ]
+    },
+    "A4": {
+      "name": "A4",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "14",
+          "pin_name": "A5",
+          "pin_type": "input"
+        },
+        {
+          "component": "J1",
+          "pin_number": "8",
+          "pin_name": "A4",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "A4",
+          "type": "global_label"
+        }
+      ]
+    },
+    "A3": {
+      "name": "A3",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "15",
+          "pin_name": "A6",
+          "pin_type": "input"
+        },
+        {
+          "component": "J1",
+          "pin_number": "9",
+          "pin_name": "A3",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "A3",
+          "type": "global_label"
+        }
+      ]
+    },
+    "A2": {
+      "name": "A2",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "16",
+          "pin_name": "A7",
+          "pin_type": "input"
+        },
+        {
+          "component": "J1",
+          "pin_number": "10",
+          "pin_name": "A2",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "A2",
+          "type": "global_label"
+        }
+      ]
+    },
+    "A1": {
+      "name": "A1",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "17",
+          "pin_name": "A8",
+          "pin_type": "input"
+        },
+        {
+          "component": "J1",
+          "pin_number": "11",
+          "pin_name": "A1",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "A1",
+          "type": "global_label"
+        }
+      ]
+    },
+    "A0": {
+      "name": "A0",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "18",
+          "pin_name": "A9",
+          "pin_type": "input"
+        },
+        {
+          "component": "J1",
+          "pin_number": "12",
+          "pin_name": "A0",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "A0",
+          "type": "global_label"
+        }
+      ]
+    },
+    "__unnamed_0": {
+      "name": "__unnamed_0",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "19",
+          "pin_name": "NC",
+          "pin_type": "no_connect"
+        }
+      ],
+      "point_count": 1,
+      "no_connect": true,
+      "labels": []
+    },
+    "A10": {
+      "name": "A10",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "20",
+          "pin_name": "A10",
+          "pin_type": "input"
+        },
+        {
+          "component": "J1",
+          "pin_number": "23",
+          "pin_name": "A10",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "A10",
+          "type": "global_label"
+        }
+      ]
+    },
+    "A11": {
+      "name": "A11",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "21",
+          "pin_name": "A11",
+          "pin_type": "input"
+        },
+        {
+          "component": "J1",
+          "pin_number": "25",
+          "pin_name": "A11",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "A11",
+          "type": "global_label"
+        }
+      ]
+    },
+    "A9": {
+      "name": "A9",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "22",
+          "pin_name": "A12",
+          "pin_type": "input"
+        },
+        {
+          "component": "J1",
+          "pin_number": "26",
+          "pin_name": "A9",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "A9",
+          "type": "global_label"
+        }
+      ]
+    },
+    "A8": {
+      "name": "A8",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "23",
+          "pin_name": "A13",
+          "pin_type": "input"
+        },
+        {
+          "component": "J1",
+          "pin_number": "27",
+          "pin_name": "A8",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "A8",
+          "type": "global_label"
+        }
+      ]
+    },
+    "A13": {
+      "name": "A13",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "24",
+          "pin_name": "A14",
+          "pin_type": "input"
+        },
+        {
+          "component": "J1",
+          "pin_number": "28",
+          "pin_name": "~{W}",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "A13",
+          "type": "global_label"
+        }
+      ]
+    },
+    "DQ4": {
+      "name": "DQ4",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "25",
+          "pin_name": "I/O4",
+          "pin_type": "bidirectional"
+        },
+        {
+          "component": "J1",
+          "pin_number": "18",
+          "pin_name": "DQ4",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "DQ4",
+          "type": "global_label"
+        }
+      ]
+    },
+    "DQ5": {
+      "name": "DQ5",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "26",
+          "pin_name": "I/O5",
+          "pin_type": "bidirectional"
+        },
+        {
+          "component": "J1",
+          "pin_number": "19",
+          "pin_name": "DQ5",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "DQ5",
+          "type": "global_label"
+        }
+      ]
+    },
+    "DQ6": {
+      "name": "DQ6",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "29",
+          "pin_name": "I/O6",
+          "pin_type": "bidirectional"
+        },
+        {
+          "component": "J1",
+          "pin_number": "20",
+          "pin_name": "DQ6",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "DQ6",
+          "type": "global_label"
+        }
+      ]
+    },
+    "DQ7": {
+      "name": "DQ7",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "30",
+          "pin_name": "I/O7",
+          "pin_type": "bidirectional"
+        },
+        {
+          "component": "J1",
+          "pin_number": "21",
+          "pin_name": "DQ7",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "DQ7",
+          "type": "global_label"
+        }
+      ]
+    },
+    "~{OE}": {
+      "name": "~{OE}",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "31",
+          "pin_name": "~{OE}",
+          "pin_type": "input"
+        },
+        {
+          "component": "J1",
+          "pin_number": "24",
+          "pin_name": "~{G}",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "~{OE}",
+          "type": "global_label"
+        }
+      ]
+    },
+    "A15": {
+      "name": "A15",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "32",
+          "pin_name": "A15",
+          "pin_type": "input"
+        },
+        {
+          "component": "J1",
+          "pin_number": "31",
+          "pin_name": "A15",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "A15",
+          "type": "global_label"
+        }
+      ]
+    },
+    "A16": {
+      "name": "A16",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "33",
+          "pin_name": "A16",
+          "pin_type": "input"
+        },
+        {
+          "component": "J1",
+          "pin_number": "2",
+          "pin_name": "A16",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "A16",
+          "type": "global_label"
+        }
+      ]
+    },
+    "A17": {
+      "name": "A17",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "34",
+          "pin_name": "A17",
+          "pin_type": "input"
+        },
+        {
+          "component": "JP1",
+          "pin_number": "1",
+          "pin_name": "A",
+          "pin_type": "passive"
+        },
+        {
+          "component": "TP1",
+          "pin_number": "1",
+          "pin_name": "1",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 6,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "A17",
+          "type": "global_label"
+        }
+      ]
+    },
+    "A18": {
+      "name": "A18",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "35",
+          "pin_name": "A18",
+          "pin_type": "input"
+        },
+        {
+          "component": "JP2",
+          "pin_number": "1",
+          "pin_name": "A",
+          "pin_type": "passive"
+        },
+        {
+          "component": "TP2",
+          "pin_number": "1",
+          "pin_name": "1",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 6,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "A18",
+          "type": "global_label"
+        }
+      ]
+    },
+    "__unnamed_1": {
+      "name": "__unnamed_1",
+      "pins": [
+        {
+          "component": "U1",
+          "pin_number": "36",
+          "pin_name": "NC",
+          "pin_type": "no_connect"
+        }
+      ],
+      "point_count": 1,
+      "no_connect": true,
+      "labels": []
+    },
+    "HOST_PIN1": {
+      "name": "HOST_PIN1",
+      "pins": [
+        {
+          "component": "J1",
+          "pin_number": "1",
+          "pin_name": "NC",
+          "pin_type": "passive"
+        },
+        {
+          "component": "JP2",
+          "pin_number": "2",
+          "pin_name": "B",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "HOST_PIN1",
+          "type": "global_label"
+        }
+      ]
+    },
+    "E2": {
+      "name": "E2",
+      "pins": [
+        {
+          "component": "J1",
+          "pin_number": "30",
+          "pin_name": "E2",
+          "pin_type": "passive"
+        },
+        {
+          "component": "JP1",
+          "pin_number": "2",
+          "pin_name": "B",
+          "pin_type": "passive"
+        }
+      ],
+      "point_count": 4,
+      "no_connect": false,
+      "labels": [
+        {
+          "name": "E2",
+          "type": "global_label"
+        }
+      ]
+    }
+  },
+  "subcircuits": [
+    {
+      "center_ic": "U1",
+      "ic_value": "CY7C1049G-10VXI",
+      "ic_mpn": "CY7C1049G-10VXI",
+      "ic_lib_id": "bmdc_interposer:CY7C1049G-10VXI",
+      "neighbor_components": [
+        {
+          "ref": "J1",
+          "value": "BMDC3_SOJ32_Site",
+          "type": "connector"
+        },
+        {
+          "ref": "JP1",
+          "value": "SolderJumper_2_Open",
+          "type": "jumper"
+        },
+        {
+          "ref": "JP2",
+          "value": "SolderJumper_2_Open",
+          "type": "jumper"
+        },
+        {
+          "ref": "TP1",
+          "value": "A17 wire pad",
+          "type": "test_point"
+        },
+        {
+          "ref": "TP2",
+          "value": "A18 wire pad",
+          "type": "test_point"
+        }
+      ],
+      "description": "4-Mbit (512K x 8) 5 V fast SRAM with ECC, 10 ns, 36-SOJ (Infineon/Cypress)"
+    }
+  ],
+  "ic_pin_analysis": [
+    {
+      "reference": "U1",
+      "value": "CY7C1049G-10VXI",
+      "type": "ic",
+      "lib_id": "bmdc_interposer:CY7C1049G-10VXI",
+      "mpn": "CY7C1049G-10VXI",
+      "description": "4-Mbit (512K x 8) 5 V fast SRAM with ECC, 10 ns, 36-SOJ (Infineon/Cypress)",
+      "datasheet": "https://www.infineon.com/dgdl/Infineon-CY7C1049G_and_CY7C1049GE_are_high-performance_CMOS_fast_static_RAM_devices_with_embedded_ECC-DataSheet-v07_00-EN.pdf?fileId=8ac78c8c7d0d8da4017d0ed7e2c15966",
+      "function": "",
+      "total_pins": 36,
+      "unconnected_pins": 0,
+      "pins": [
+        {
+          "pin_number": "1",
+          "pin_name": "A0",
+          "pin_type": "input",
+          "net": "A14",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "3",
+              "pin_name": "A14"
+            }
+          ]
+        },
+        {
+          "pin_number": "2",
+          "pin_name": "A1",
+          "pin_type": "input",
+          "net": "A12",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "4",
+              "pin_name": "A12"
+            }
+          ]
+        },
+        {
+          "pin_number": "3",
+          "pin_name": "A2",
+          "pin_type": "input",
+          "net": "A7",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "5",
+              "pin_name": "A7"
+            }
+          ]
+        },
+        {
+          "pin_number": "4",
+          "pin_name": "A3",
+          "pin_type": "input",
+          "net": "A6",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "6",
+              "pin_name": "A6"
+            }
+          ]
+        },
+        {
+          "pin_number": "5",
+          "pin_name": "A4",
+          "pin_type": "input",
+          "net": "A5",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "7",
+              "pin_name": "A5"
+            }
+          ]
+        },
+        {
+          "pin_number": "6",
+          "pin_name": "~{CE}",
+          "pin_type": "input",
+          "net": "~{CE1}",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "22",
+              "pin_name": "~{E1}"
+            }
+          ]
+        },
+        {
+          "pin_number": "7",
+          "pin_name": "I/O0",
+          "pin_type": "bidirectional",
+          "net": "DQ3",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "17",
+              "pin_name": "DQ3"
+            }
+          ]
+        },
+        {
+          "pin_number": "8",
+          "pin_name": "I/O1",
+          "pin_type": "bidirectional",
+          "net": "DQ0",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "13",
+              "pin_name": "DQ0"
+            }
+          ]
+        },
+        {
+          "pin_number": "9",
+          "pin_name": "VDD",
+          "pin_type": "power_in",
+          "net": "+5V",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "32",
+              "pin_name": "VCC"
+            },
+            {
+              "ref": "C1",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "1",
+              "pin_name": ""
+            },
+            {
+              "ref": "C2",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "1",
+              "pin_name": ""
+            },
+            {
+              "ref": "C3",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "1",
+              "pin_name": ""
+            },
+            {
+              "ref": "C4",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "1",
+              "pin_name": ""
+            }
+          ],
+          "has_decoupling_cap": true,
+          "decoupling_caps": [
+            {
+              "ref": "C1",
+              "value": "100nF"
+            },
+            {
+              "ref": "C2",
+              "value": "100nF"
+            },
+            {
+              "ref": "C3",
+              "value": "100nF"
+            },
+            {
+              "ref": "C4",
+              "value": "100nF"
+            }
+          ]
+        },
+        {
+          "pin_number": "10",
+          "pin_name": "GND",
+          "pin_type": "power_in",
+          "net": "GND",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "16",
+              "pin_name": "VSS"
+            },
+            {
+              "ref": "C1",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "2",
+              "pin_name": ""
+            },
+            {
+              "ref": "C2",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "2",
+              "pin_name": ""
+            },
+            {
+              "ref": "C3",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "2",
+              "pin_name": ""
+            },
+            {
+              "ref": "C4",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "2",
+              "pin_name": ""
+            }
+          ],
+          "has_decoupling_cap": true,
+          "decoupling_caps": [],
+          "note": "Ground net \u2014 decoupling caps listed on VCC/VDD pins"
+        },
+        {
+          "pin_number": "11",
+          "pin_name": "I/O2",
+          "pin_type": "bidirectional",
+          "net": "DQ1",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "14",
+              "pin_name": "DQ1"
+            }
+          ]
+        },
+        {
+          "pin_number": "12",
+          "pin_name": "I/O3",
+          "pin_type": "bidirectional",
+          "net": "DQ2",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "15",
+              "pin_name": "DQ2"
+            }
+          ]
+        },
+        {
+          "pin_number": "13",
+          "pin_name": "~{WE}",
+          "pin_type": "input",
+          "net": "~{WE}",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "29",
+              "pin_name": "A13"
+            }
+          ]
+        },
+        {
+          "pin_number": "14",
+          "pin_name": "A5",
+          "pin_type": "input",
+          "net": "A4",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "8",
+              "pin_name": "A4"
+            }
+          ]
+        },
+        {
+          "pin_number": "15",
+          "pin_name": "A6",
+          "pin_type": "input",
+          "net": "A3",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "9",
+              "pin_name": "A3"
+            }
+          ]
+        },
+        {
+          "pin_number": "16",
+          "pin_name": "A7",
+          "pin_type": "input",
+          "net": "A2",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "10",
+              "pin_name": "A2"
+            }
+          ]
+        },
+        {
+          "pin_number": "17",
+          "pin_name": "A8",
+          "pin_type": "input",
+          "net": "A1",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "11",
+              "pin_name": "A1"
+            }
+          ]
+        },
+        {
+          "pin_number": "18",
+          "pin_name": "A9",
+          "pin_type": "input",
+          "net": "A0",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "12",
+              "pin_name": "A0"
+            }
+          ]
+        },
+        {
+          "pin_number": "19",
+          "pin_name": "NC",
+          "pin_type": "no_connect",
+          "net": "NO_CONNECT",
+          "connected_to": []
+        },
+        {
+          "pin_number": "20",
+          "pin_name": "A10",
+          "pin_type": "input",
+          "net": "A10",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "23",
+              "pin_name": "A10"
+            }
+          ]
+        },
+        {
+          "pin_number": "21",
+          "pin_name": "A11",
+          "pin_type": "input",
+          "net": "A11",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "25",
+              "pin_name": "A11"
+            }
+          ]
+        },
+        {
+          "pin_number": "22",
+          "pin_name": "A12",
+          "pin_type": "input",
+          "net": "A9",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "26",
+              "pin_name": "A9"
+            }
+          ]
+        },
+        {
+          "pin_number": "23",
+          "pin_name": "A13",
+          "pin_type": "input",
+          "net": "A8",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "27",
+              "pin_name": "A8"
+            }
+          ]
+        },
+        {
+          "pin_number": "24",
+          "pin_name": "A14",
+          "pin_type": "input",
+          "net": "A13",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "28",
+              "pin_name": "~{W}"
+            }
+          ]
+        },
+        {
+          "pin_number": "25",
+          "pin_name": "I/O4",
+          "pin_type": "bidirectional",
+          "net": "DQ4",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "18",
+              "pin_name": "DQ4"
+            }
+          ]
+        },
+        {
+          "pin_number": "26",
+          "pin_name": "I/O5",
+          "pin_type": "bidirectional",
+          "net": "DQ5",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "19",
+              "pin_name": "DQ5"
+            }
+          ]
+        },
+        {
+          "pin_number": "27",
+          "pin_name": "VDD",
+          "pin_type": "passive",
+          "net": "+5V",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "32",
+              "pin_name": "VCC"
+            },
+            {
+              "ref": "C1",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "1",
+              "pin_name": ""
+            },
+            {
+              "ref": "C2",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "1",
+              "pin_name": ""
+            },
+            {
+              "ref": "C3",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "1",
+              "pin_name": ""
+            },
+            {
+              "ref": "C4",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "1",
+              "pin_name": ""
+            }
+          ],
+          "has_decoupling_cap": true,
+          "decoupling_caps": [
+            {
+              "ref": "C1",
+              "value": "100nF"
+            },
+            {
+              "ref": "C2",
+              "value": "100nF"
+            },
+            {
+              "ref": "C3",
+              "value": "100nF"
+            },
+            {
+              "ref": "C4",
+              "value": "100nF"
+            }
+          ]
+        },
+        {
+          "pin_number": "28",
+          "pin_name": "GND",
+          "pin_type": "passive",
+          "net": "GND",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "16",
+              "pin_name": "VSS"
+            },
+            {
+              "ref": "C1",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "2",
+              "pin_name": ""
+            },
+            {
+              "ref": "C2",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "2",
+              "pin_name": ""
+            },
+            {
+              "ref": "C3",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "2",
+              "pin_name": ""
+            },
+            {
+              "ref": "C4",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "2",
+              "pin_name": ""
+            }
+          ],
+          "has_decoupling_cap": true,
+          "decoupling_caps": [],
+          "note": "Ground net \u2014 decoupling caps listed on VCC/VDD pins"
+        },
+        {
+          "pin_number": "29",
+          "pin_name": "I/O6",
+          "pin_type": "bidirectional",
+          "net": "DQ6",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "20",
+              "pin_name": "DQ6"
+            }
+          ]
+        },
+        {
+          "pin_number": "30",
+          "pin_name": "I/O7",
+          "pin_type": "bidirectional",
+          "net": "DQ7",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "21",
+              "pin_name": "DQ7"
+            }
+          ]
+        },
+        {
+          "pin_number": "31",
+          "pin_name": "~{OE}",
+          "pin_type": "input",
+          "net": "~{OE}",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "24",
+              "pin_name": "~{G}"
+            }
+          ]
+        },
+        {
+          "pin_number": "32",
+          "pin_name": "A15",
+          "pin_type": "input",
+          "net": "A15",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "31",
+              "pin_name": "A15"
+            }
+          ]
+        },
+        {
+          "pin_number": "33",
+          "pin_name": "A16",
+          "pin_type": "input",
+          "net": "A16",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "2",
+              "pin_name": "A16"
+            }
+          ]
+        },
+        {
+          "pin_number": "34",
+          "pin_name": "A17",
+          "pin_type": "input",
+          "net": "A17",
+          "connected_to": [
+            {
+              "ref": "JP1",
+              "value": "SolderJumper_2_Open",
+              "type": "jumper",
+              "pin": "1",
+              "pin_name": "A"
+            },
+            {
+              "ref": "TP1",
+              "value": "A17 wire pad",
+              "type": "test_point",
+              "pin": "1",
+              "pin_name": "1"
+            }
+          ]
+        },
+        {
+          "pin_number": "35",
+          "pin_name": "A18",
+          "pin_type": "input",
+          "net": "A18",
+          "connected_to": [
+            {
+              "ref": "JP2",
+              "value": "SolderJumper_2_Open",
+              "type": "jumper",
+              "pin": "1",
+              "pin_name": "A"
+            },
+            {
+              "ref": "TP2",
+              "value": "A18 wire pad",
+              "type": "test_point",
+              "pin": "1",
+              "pin_name": "1"
+            }
+          ]
+        },
+        {
+          "pin_number": "36",
+          "pin_name": "NC",
+          "pin_type": "no_connect",
+          "net": "NO_CONNECT",
+          "connected_to": []
+        }
+      ],
+      "power_pins": [
+        {
+          "pin_number": "9",
+          "pin_name": "VDD",
+          "pin_type": "power_in",
+          "net": "+5V",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "32",
+              "pin_name": "VCC"
+            },
+            {
+              "ref": "C1",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "1",
+              "pin_name": ""
+            },
+            {
+              "ref": "C2",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "1",
+              "pin_name": ""
+            },
+            {
+              "ref": "C3",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "1",
+              "pin_name": ""
+            },
+            {
+              "ref": "C4",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "1",
+              "pin_name": ""
+            }
+          ],
+          "has_decoupling_cap": true,
+          "decoupling_caps": [
+            {
+              "ref": "C1",
+              "value": "100nF"
+            },
+            {
+              "ref": "C2",
+              "value": "100nF"
+            },
+            {
+              "ref": "C3",
+              "value": "100nF"
+            },
+            {
+              "ref": "C4",
+              "value": "100nF"
+            }
+          ]
+        },
+        {
+          "pin_number": "10",
+          "pin_name": "GND",
+          "pin_type": "power_in",
+          "net": "GND",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "16",
+              "pin_name": "VSS"
+            },
+            {
+              "ref": "C1",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "2",
+              "pin_name": ""
+            },
+            {
+              "ref": "C2",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "2",
+              "pin_name": ""
+            },
+            {
+              "ref": "C3",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "2",
+              "pin_name": ""
+            },
+            {
+              "ref": "C4",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "2",
+              "pin_name": ""
+            }
+          ],
+          "has_decoupling_cap": true,
+          "decoupling_caps": [],
+          "note": "Ground net \u2014 decoupling caps listed on VCC/VDD pins"
+        },
+        {
+          "pin_number": "27",
+          "pin_name": "VDD",
+          "pin_type": "passive",
+          "net": "+5V",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "32",
+              "pin_name": "VCC"
+            },
+            {
+              "ref": "C1",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "1",
+              "pin_name": ""
+            },
+            {
+              "ref": "C2",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "1",
+              "pin_name": ""
+            },
+            {
+              "ref": "C3",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "1",
+              "pin_name": ""
+            },
+            {
+              "ref": "C4",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "1",
+              "pin_name": ""
+            }
+          ],
+          "has_decoupling_cap": true,
+          "decoupling_caps": [
+            {
+              "ref": "C1",
+              "value": "100nF"
+            },
+            {
+              "ref": "C2",
+              "value": "100nF"
+            },
+            {
+              "ref": "C3",
+              "value": "100nF"
+            },
+            {
+              "ref": "C4",
+              "value": "100nF"
+            }
+          ]
+        },
+        {
+          "pin_number": "28",
+          "pin_name": "GND",
+          "pin_type": "passive",
+          "net": "GND",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "16",
+              "pin_name": "VSS"
+            },
+            {
+              "ref": "C1",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "2",
+              "pin_name": ""
+            },
+            {
+              "ref": "C2",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "2",
+              "pin_name": ""
+            },
+            {
+              "ref": "C3",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "2",
+              "pin_name": ""
+            },
+            {
+              "ref": "C4",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "2",
+              "pin_name": ""
+            }
+          ],
+          "has_decoupling_cap": true,
+          "decoupling_caps": [],
+          "note": "Ground net \u2014 decoupling caps listed on VCC/VDD pins"
+        }
+      ],
+      "signal_pins": [
+        {
+          "pin_number": "1",
+          "pin_name": "A0",
+          "pin_type": "input",
+          "net": "A14",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "3",
+              "pin_name": "A14"
+            }
+          ]
+        },
+        {
+          "pin_number": "2",
+          "pin_name": "A1",
+          "pin_type": "input",
+          "net": "A12",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "4",
+              "pin_name": "A12"
+            }
+          ]
+        },
+        {
+          "pin_number": "3",
+          "pin_name": "A2",
+          "pin_type": "input",
+          "net": "A7",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "5",
+              "pin_name": "A7"
+            }
+          ]
+        },
+        {
+          "pin_number": "4",
+          "pin_name": "A3",
+          "pin_type": "input",
+          "net": "A6",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "6",
+              "pin_name": "A6"
+            }
+          ]
+        },
+        {
+          "pin_number": "5",
+          "pin_name": "A4",
+          "pin_type": "input",
+          "net": "A5",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "7",
+              "pin_name": "A5"
+            }
+          ]
+        },
+        {
+          "pin_number": "6",
+          "pin_name": "~{CE}",
+          "pin_type": "input",
+          "net": "~{CE1}",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "22",
+              "pin_name": "~{E1}"
+            }
+          ]
+        },
+        {
+          "pin_number": "7",
+          "pin_name": "I/O0",
+          "pin_type": "bidirectional",
+          "net": "DQ3",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "17",
+              "pin_name": "DQ3"
+            }
+          ]
+        },
+        {
+          "pin_number": "8",
+          "pin_name": "I/O1",
+          "pin_type": "bidirectional",
+          "net": "DQ0",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "13",
+              "pin_name": "DQ0"
+            }
+          ]
+        },
+        {
+          "pin_number": "11",
+          "pin_name": "I/O2",
+          "pin_type": "bidirectional",
+          "net": "DQ1",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "14",
+              "pin_name": "DQ1"
+            }
+          ]
+        },
+        {
+          "pin_number": "12",
+          "pin_name": "I/O3",
+          "pin_type": "bidirectional",
+          "net": "DQ2",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "15",
+              "pin_name": "DQ2"
+            }
+          ]
+        },
+        {
+          "pin_number": "13",
+          "pin_name": "~{WE}",
+          "pin_type": "input",
+          "net": "~{WE}",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "29",
+              "pin_name": "A13"
+            }
+          ]
+        },
+        {
+          "pin_number": "14",
+          "pin_name": "A5",
+          "pin_type": "input",
+          "net": "A4",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "8",
+              "pin_name": "A4"
+            }
+          ]
+        },
+        {
+          "pin_number": "15",
+          "pin_name": "A6",
+          "pin_type": "input",
+          "net": "A3",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "9",
+              "pin_name": "A3"
+            }
+          ]
+        },
+        {
+          "pin_number": "16",
+          "pin_name": "A7",
+          "pin_type": "input",
+          "net": "A2",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "10",
+              "pin_name": "A2"
+            }
+          ]
+        },
+        {
+          "pin_number": "17",
+          "pin_name": "A8",
+          "pin_type": "input",
+          "net": "A1",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "11",
+              "pin_name": "A1"
+            }
+          ]
+        },
+        {
+          "pin_number": "18",
+          "pin_name": "A9",
+          "pin_type": "input",
+          "net": "A0",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "12",
+              "pin_name": "A0"
+            }
+          ]
+        },
+        {
+          "pin_number": "19",
+          "pin_name": "NC",
+          "pin_type": "no_connect",
+          "net": "NO_CONNECT",
+          "connected_to": []
+        },
+        {
+          "pin_number": "20",
+          "pin_name": "A10",
+          "pin_type": "input",
+          "net": "A10",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "23",
+              "pin_name": "A10"
+            }
+          ]
+        },
+        {
+          "pin_number": "21",
+          "pin_name": "A11",
+          "pin_type": "input",
+          "net": "A11",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "25",
+              "pin_name": "A11"
+            }
+          ]
+        },
+        {
+          "pin_number": "22",
+          "pin_name": "A12",
+          "pin_type": "input",
+          "net": "A9",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "26",
+              "pin_name": "A9"
+            }
+          ]
+        },
+        {
+          "pin_number": "23",
+          "pin_name": "A13",
+          "pin_type": "input",
+          "net": "A8",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "27",
+              "pin_name": "A8"
+            }
+          ]
+        },
+        {
+          "pin_number": "24",
+          "pin_name": "A14",
+          "pin_type": "input",
+          "net": "A13",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "28",
+              "pin_name": "~{W}"
+            }
+          ]
+        },
+        {
+          "pin_number": "25",
+          "pin_name": "I/O4",
+          "pin_type": "bidirectional",
+          "net": "DQ4",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "18",
+              "pin_name": "DQ4"
+            }
+          ]
+        },
+        {
+          "pin_number": "26",
+          "pin_name": "I/O5",
+          "pin_type": "bidirectional",
+          "net": "DQ5",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "19",
+              "pin_name": "DQ5"
+            }
+          ]
+        },
+        {
+          "pin_number": "29",
+          "pin_name": "I/O6",
+          "pin_type": "bidirectional",
+          "net": "DQ6",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "20",
+              "pin_name": "DQ6"
+            }
+          ]
+        },
+        {
+          "pin_number": "30",
+          "pin_name": "I/O7",
+          "pin_type": "bidirectional",
+          "net": "DQ7",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "21",
+              "pin_name": "DQ7"
+            }
+          ]
+        },
+        {
+          "pin_number": "31",
+          "pin_name": "~{OE}",
+          "pin_type": "input",
+          "net": "~{OE}",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "24",
+              "pin_name": "~{G}"
+            }
+          ]
+        },
+        {
+          "pin_number": "32",
+          "pin_name": "A15",
+          "pin_type": "input",
+          "net": "A15",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "31",
+              "pin_name": "A15"
+            }
+          ]
+        },
+        {
+          "pin_number": "33",
+          "pin_name": "A16",
+          "pin_type": "input",
+          "net": "A16",
+          "connected_to": [
+            {
+              "ref": "J1",
+              "value": "BMDC3_SOJ32_Site",
+              "type": "connector",
+              "pin": "2",
+              "pin_name": "A16"
+            }
+          ]
+        },
+        {
+          "pin_number": "34",
+          "pin_name": "A17",
+          "pin_type": "input",
+          "net": "A17",
+          "connected_to": [
+            {
+              "ref": "JP1",
+              "value": "SolderJumper_2_Open",
+              "type": "jumper",
+              "pin": "1",
+              "pin_name": "A"
+            },
+            {
+              "ref": "TP1",
+              "value": "A17 wire pad",
+              "type": "test_point",
+              "pin": "1",
+              "pin_name": "1"
+            }
+          ]
+        },
+        {
+          "pin_number": "35",
+          "pin_name": "A18",
+          "pin_type": "input",
+          "net": "A18",
+          "connected_to": [
+            {
+              "ref": "JP2",
+              "value": "SolderJumper_2_Open",
+              "type": "jumper",
+              "pin": "1",
+              "pin_name": "A"
+            },
+            {
+              "ref": "TP2",
+              "value": "A18 wire pad",
+              "type": "test_point",
+              "pin": "1",
+              "pin_name": "1"
+            }
+          ]
+        },
+        {
+          "pin_number": "36",
+          "pin_name": "NC",
+          "pin_type": "no_connect",
+          "net": "NO_CONNECT",
+          "connected_to": []
+        }
+      ],
+      "decoupling_caps_by_rail": {
+        "+5V": [
+          {
+            "ref": "C1",
+            "value": "100nF"
+          },
+          {
+            "ref": "C2",
+            "value": "100nF"
+          },
+          {
+            "ref": "C3",
+            "value": "100nF"
+          },
+          {
+            "ref": "C4",
+            "value": "100nF"
+          }
+        ]
+      }
+    },
+    {
+      "reference": "J1",
+      "value": "BMDC3_SOJ32_Site",
+      "type": "connector",
+      "lib_id": "bmdc_interposer:BMDC3_SOJ32_Site",
+      "mpn": "",
+      "description": "Bridgeport BMDC3 32-lead wide SOJ RAM site (U8..U11); castellated interposer edge",
+      "datasheet": "",
+      "function": "",
+      "total_pins": 32,
+      "unconnected_pins": 0,
+      "pins": [
+        {
+          "pin_number": "1",
+          "pin_name": "NC",
+          "pin_type": "passive",
+          "net": "HOST_PIN1",
+          "connected_to": [
+            {
+              "ref": "JP2",
+              "value": "SolderJumper_2_Open",
+              "type": "jumper",
+              "pin": "2",
+              "pin_name": "B"
+            }
+          ]
+        },
+        {
+          "pin_number": "2",
+          "pin_name": "A16",
+          "pin_type": "passive",
+          "net": "A16",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "33",
+              "pin_name": "A16"
+            }
+          ]
+        },
+        {
+          "pin_number": "3",
+          "pin_name": "A14",
+          "pin_type": "passive",
+          "net": "A14",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "1",
+              "pin_name": "A0"
+            }
+          ]
+        },
+        {
+          "pin_number": "4",
+          "pin_name": "A12",
+          "pin_type": "passive",
+          "net": "A12",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "2",
+              "pin_name": "A1"
+            }
+          ]
+        },
+        {
+          "pin_number": "5",
+          "pin_name": "A7",
+          "pin_type": "passive",
+          "net": "A7",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "3",
+              "pin_name": "A2"
+            }
+          ]
+        },
+        {
+          "pin_number": "6",
+          "pin_name": "A6",
+          "pin_type": "passive",
+          "net": "A6",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "4",
+              "pin_name": "A3"
+            }
+          ]
+        },
+        {
+          "pin_number": "7",
+          "pin_name": "A5",
+          "pin_type": "passive",
+          "net": "A5",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "5",
+              "pin_name": "A4"
+            }
+          ]
+        },
+        {
+          "pin_number": "8",
+          "pin_name": "A4",
+          "pin_type": "passive",
+          "net": "A4",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "14",
+              "pin_name": "A5"
+            }
+          ]
+        },
+        {
+          "pin_number": "9",
+          "pin_name": "A3",
+          "pin_type": "passive",
+          "net": "A3",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "15",
+              "pin_name": "A6"
+            }
+          ]
+        },
+        {
+          "pin_number": "10",
+          "pin_name": "A2",
+          "pin_type": "passive",
+          "net": "A2",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "16",
+              "pin_name": "A7"
+            }
+          ]
+        },
+        {
+          "pin_number": "11",
+          "pin_name": "A1",
+          "pin_type": "passive",
+          "net": "A1",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "17",
+              "pin_name": "A8"
+            }
+          ]
+        },
+        {
+          "pin_number": "12",
+          "pin_name": "A0",
+          "pin_type": "passive",
+          "net": "A0",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "18",
+              "pin_name": "A9"
+            }
+          ]
+        },
+        {
+          "pin_number": "13",
+          "pin_name": "DQ0",
+          "pin_type": "passive",
+          "net": "DQ0",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "8",
+              "pin_name": "I/O1"
+            }
+          ]
+        },
+        {
+          "pin_number": "14",
+          "pin_name": "DQ1",
+          "pin_type": "passive",
+          "net": "DQ1",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "11",
+              "pin_name": "I/O2"
+            }
+          ]
+        },
+        {
+          "pin_number": "15",
+          "pin_name": "DQ2",
+          "pin_type": "passive",
+          "net": "DQ2",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "12",
+              "pin_name": "I/O3"
+            }
+          ]
+        },
+        {
+          "pin_number": "16",
+          "pin_name": "VSS",
+          "pin_type": "passive",
+          "net": "GND",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "10",
+              "pin_name": "GND"
+            },
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "28",
+              "pin_name": "GND"
+            },
+            {
+              "ref": "C1",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "2",
+              "pin_name": ""
+            },
+            {
+              "ref": "C2",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "2",
+              "pin_name": ""
+            },
+            {
+              "ref": "C3",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "2",
+              "pin_name": ""
+            },
+            {
+              "ref": "C4",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "2",
+              "pin_name": ""
+            }
+          ],
+          "has_decoupling_cap": true,
+          "decoupling_caps": [],
+          "note": "Ground net \u2014 decoupling caps listed on VCC/VDD pins"
+        },
+        {
+          "pin_number": "17",
+          "pin_name": "DQ3",
+          "pin_type": "passive",
+          "net": "DQ3",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "7",
+              "pin_name": "I/O0"
+            }
+          ]
+        },
+        {
+          "pin_number": "18",
+          "pin_name": "DQ4",
+          "pin_type": "passive",
+          "net": "DQ4",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "25",
+              "pin_name": "I/O4"
+            }
+          ]
+        },
+        {
+          "pin_number": "19",
+          "pin_name": "DQ5",
+          "pin_type": "passive",
+          "net": "DQ5",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "26",
+              "pin_name": "I/O5"
+            }
+          ]
+        },
+        {
+          "pin_number": "20",
+          "pin_name": "DQ6",
+          "pin_type": "passive",
+          "net": "DQ6",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "29",
+              "pin_name": "I/O6"
+            }
+          ]
+        },
+        {
+          "pin_number": "21",
+          "pin_name": "DQ7",
+          "pin_type": "passive",
+          "net": "DQ7",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "30",
+              "pin_name": "I/O7"
+            }
+          ]
+        },
+        {
+          "pin_number": "22",
+          "pin_name": "~{E1}",
+          "pin_type": "passive",
+          "net": "~{CE1}",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "6",
+              "pin_name": "~{CE}"
+            }
+          ]
+        },
+        {
+          "pin_number": "23",
+          "pin_name": "A10",
+          "pin_type": "passive",
+          "net": "A10",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "20",
+              "pin_name": "A10"
+            }
+          ]
+        },
+        {
+          "pin_number": "24",
+          "pin_name": "~{G}",
+          "pin_type": "passive",
+          "net": "~{OE}",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "31",
+              "pin_name": "~{OE}"
+            }
+          ]
+        },
+        {
+          "pin_number": "25",
+          "pin_name": "A11",
+          "pin_type": "passive",
+          "net": "A11",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "21",
+              "pin_name": "A11"
+            }
+          ]
+        },
+        {
+          "pin_number": "26",
+          "pin_name": "A9",
+          "pin_type": "passive",
+          "net": "A9",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "22",
+              "pin_name": "A12"
+            }
+          ]
+        },
+        {
+          "pin_number": "27",
+          "pin_name": "A8",
+          "pin_type": "passive",
+          "net": "A8",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "23",
+              "pin_name": "A13"
+            }
+          ]
+        },
+        {
+          "pin_number": "28",
+          "pin_name": "~{W}",
+          "pin_type": "passive",
+          "net": "A13",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "24",
+              "pin_name": "A14"
+            }
+          ]
+        },
+        {
+          "pin_number": "29",
+          "pin_name": "A13",
+          "pin_type": "passive",
+          "net": "~{WE}",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "13",
+              "pin_name": "~{WE}"
+            }
+          ]
+        },
+        {
+          "pin_number": "30",
+          "pin_name": "E2",
+          "pin_type": "passive",
+          "net": "E2",
+          "connected_to": [
+            {
+              "ref": "JP1",
+              "value": "SolderJumper_2_Open",
+              "type": "jumper",
+              "pin": "2",
+              "pin_name": "B"
+            }
+          ]
+        },
+        {
+          "pin_number": "31",
+          "pin_name": "A15",
+          "pin_type": "passive",
+          "net": "A15",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "32",
+              "pin_name": "A15"
+            }
+          ]
+        },
+        {
+          "pin_number": "32",
+          "pin_name": "VCC",
+          "pin_type": "passive",
+          "net": "+5V",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "9",
+              "pin_name": "VDD"
+            },
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "27",
+              "pin_name": "VDD"
+            },
+            {
+              "ref": "C1",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "1",
+              "pin_name": ""
+            },
+            {
+              "ref": "C2",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "1",
+              "pin_name": ""
+            },
+            {
+              "ref": "C3",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "1",
+              "pin_name": ""
+            },
+            {
+              "ref": "C4",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "1",
+              "pin_name": ""
+            }
+          ],
+          "has_decoupling_cap": true,
+          "decoupling_caps": [
+            {
+              "ref": "C1",
+              "value": "100nF"
+            },
+            {
+              "ref": "C2",
+              "value": "100nF"
+            },
+            {
+              "ref": "C3",
+              "value": "100nF"
+            },
+            {
+              "ref": "C4",
+              "value": "100nF"
+            }
+          ]
+        }
+      ],
+      "power_pins": [
+        {
+          "pin_number": "16",
+          "pin_name": "VSS",
+          "pin_type": "passive",
+          "net": "GND",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "10",
+              "pin_name": "GND"
+            },
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "28",
+              "pin_name": "GND"
+            },
+            {
+              "ref": "C1",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "2",
+              "pin_name": ""
+            },
+            {
+              "ref": "C2",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "2",
+              "pin_name": ""
+            },
+            {
+              "ref": "C3",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "2",
+              "pin_name": ""
+            },
+            {
+              "ref": "C4",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "2",
+              "pin_name": ""
+            }
+          ],
+          "has_decoupling_cap": true,
+          "decoupling_caps": [],
+          "note": "Ground net \u2014 decoupling caps listed on VCC/VDD pins"
+        },
+        {
+          "pin_number": "32",
+          "pin_name": "VCC",
+          "pin_type": "passive",
+          "net": "+5V",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "9",
+              "pin_name": "VDD"
+            },
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "27",
+              "pin_name": "VDD"
+            },
+            {
+              "ref": "C1",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "1",
+              "pin_name": ""
+            },
+            {
+              "ref": "C2",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "1",
+              "pin_name": ""
+            },
+            {
+              "ref": "C3",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "1",
+              "pin_name": ""
+            },
+            {
+              "ref": "C4",
+              "value": "100nF",
+              "type": "capacitor",
+              "pin": "1",
+              "pin_name": ""
+            }
+          ],
+          "has_decoupling_cap": true,
+          "decoupling_caps": [
+            {
+              "ref": "C1",
+              "value": "100nF"
+            },
+            {
+              "ref": "C2",
+              "value": "100nF"
+            },
+            {
+              "ref": "C3",
+              "value": "100nF"
+            },
+            {
+              "ref": "C4",
+              "value": "100nF"
+            }
+          ]
+        }
+      ],
+      "signal_pins": [
+        {
+          "pin_number": "1",
+          "pin_name": "NC",
+          "pin_type": "passive",
+          "net": "HOST_PIN1",
+          "connected_to": [
+            {
+              "ref": "JP2",
+              "value": "SolderJumper_2_Open",
+              "type": "jumper",
+              "pin": "2",
+              "pin_name": "B"
+            }
+          ]
+        },
+        {
+          "pin_number": "2",
+          "pin_name": "A16",
+          "pin_type": "passive",
+          "net": "A16",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "33",
+              "pin_name": "A16"
+            }
+          ]
+        },
+        {
+          "pin_number": "3",
+          "pin_name": "A14",
+          "pin_type": "passive",
+          "net": "A14",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "1",
+              "pin_name": "A0"
+            }
+          ]
+        },
+        {
+          "pin_number": "4",
+          "pin_name": "A12",
+          "pin_type": "passive",
+          "net": "A12",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "2",
+              "pin_name": "A1"
+            }
+          ]
+        },
+        {
+          "pin_number": "5",
+          "pin_name": "A7",
+          "pin_type": "passive",
+          "net": "A7",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "3",
+              "pin_name": "A2"
+            }
+          ]
+        },
+        {
+          "pin_number": "6",
+          "pin_name": "A6",
+          "pin_type": "passive",
+          "net": "A6",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "4",
+              "pin_name": "A3"
+            }
+          ]
+        },
+        {
+          "pin_number": "7",
+          "pin_name": "A5",
+          "pin_type": "passive",
+          "net": "A5",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "5",
+              "pin_name": "A4"
+            }
+          ]
+        },
+        {
+          "pin_number": "8",
+          "pin_name": "A4",
+          "pin_type": "passive",
+          "net": "A4",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "14",
+              "pin_name": "A5"
+            }
+          ]
+        },
+        {
+          "pin_number": "9",
+          "pin_name": "A3",
+          "pin_type": "passive",
+          "net": "A3",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "15",
+              "pin_name": "A6"
+            }
+          ]
+        },
+        {
+          "pin_number": "10",
+          "pin_name": "A2",
+          "pin_type": "passive",
+          "net": "A2",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "16",
+              "pin_name": "A7"
+            }
+          ]
+        },
+        {
+          "pin_number": "11",
+          "pin_name": "A1",
+          "pin_type": "passive",
+          "net": "A1",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "17",
+              "pin_name": "A8"
+            }
+          ]
+        },
+        {
+          "pin_number": "12",
+          "pin_name": "A0",
+          "pin_type": "passive",
+          "net": "A0",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "18",
+              "pin_name": "A9"
+            }
+          ]
+        },
+        {
+          "pin_number": "13",
+          "pin_name": "DQ0",
+          "pin_type": "passive",
+          "net": "DQ0",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "8",
+              "pin_name": "I/O1"
+            }
+          ]
+        },
+        {
+          "pin_number": "14",
+          "pin_name": "DQ1",
+          "pin_type": "passive",
+          "net": "DQ1",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "11",
+              "pin_name": "I/O2"
+            }
+          ]
+        },
+        {
+          "pin_number": "15",
+          "pin_name": "DQ2",
+          "pin_type": "passive",
+          "net": "DQ2",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "12",
+              "pin_name": "I/O3"
+            }
+          ]
+        },
+        {
+          "pin_number": "17",
+          "pin_name": "DQ3",
+          "pin_type": "passive",
+          "net": "DQ3",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "7",
+              "pin_name": "I/O0"
+            }
+          ]
+        },
+        {
+          "pin_number": "18",
+          "pin_name": "DQ4",
+          "pin_type": "passive",
+          "net": "DQ4",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "25",
+              "pin_name": "I/O4"
+            }
+          ]
+        },
+        {
+          "pin_number": "19",
+          "pin_name": "DQ5",
+          "pin_type": "passive",
+          "net": "DQ5",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "26",
+              "pin_name": "I/O5"
+            }
+          ]
+        },
+        {
+          "pin_number": "20",
+          "pin_name": "DQ6",
+          "pin_type": "passive",
+          "net": "DQ6",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "29",
+              "pin_name": "I/O6"
+            }
+          ]
+        },
+        {
+          "pin_number": "21",
+          "pin_name": "DQ7",
+          "pin_type": "passive",
+          "net": "DQ7",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "30",
+              "pin_name": "I/O7"
+            }
+          ]
+        },
+        {
+          "pin_number": "22",
+          "pin_name": "~{E1}",
+          "pin_type": "passive",
+          "net": "~{CE1}",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "6",
+              "pin_name": "~{CE}"
+            }
+          ]
+        },
+        {
+          "pin_number": "23",
+          "pin_name": "A10",
+          "pin_type": "passive",
+          "net": "A10",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "20",
+              "pin_name": "A10"
+            }
+          ]
+        },
+        {
+          "pin_number": "24",
+          "pin_name": "~{G}",
+          "pin_type": "passive",
+          "net": "~{OE}",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "31",
+              "pin_name": "~{OE}"
+            }
+          ]
+        },
+        {
+          "pin_number": "25",
+          "pin_name": "A11",
+          "pin_type": "passive",
+          "net": "A11",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "21",
+              "pin_name": "A11"
+            }
+          ]
+        },
+        {
+          "pin_number": "26",
+          "pin_name": "A9",
+          "pin_type": "passive",
+          "net": "A9",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "22",
+              "pin_name": "A12"
+            }
+          ]
+        },
+        {
+          "pin_number": "27",
+          "pin_name": "A8",
+          "pin_type": "passive",
+          "net": "A8",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "23",
+              "pin_name": "A13"
+            }
+          ]
+        },
+        {
+          "pin_number": "28",
+          "pin_name": "~{W}",
+          "pin_type": "passive",
+          "net": "A13",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "24",
+              "pin_name": "A14"
+            }
+          ]
+        },
+        {
+          "pin_number": "29",
+          "pin_name": "A13",
+          "pin_type": "passive",
+          "net": "~{WE}",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "13",
+              "pin_name": "~{WE}"
+            }
+          ]
+        },
+        {
+          "pin_number": "30",
+          "pin_name": "E2",
+          "pin_type": "passive",
+          "net": "E2",
+          "connected_to": [
+            {
+              "ref": "JP1",
+              "value": "SolderJumper_2_Open",
+              "type": "jumper",
+              "pin": "2",
+              "pin_name": "B"
+            }
+          ]
+        },
+        {
+          "pin_number": "31",
+          "pin_name": "A15",
+          "pin_type": "passive",
+          "net": "A15",
+          "connected_to": [
+            {
+              "ref": "U1",
+              "value": "CY7C1049G-10VXI",
+              "type": "ic",
+              "pin": "32",
+              "pin_name": "A15"
+            }
+          ]
+        }
+      ],
+      "decoupling_caps_by_rail": {
+        "+5V": [
+          {
+            "ref": "C1",
+            "value": "100nF"
+          },
+          {
+            "ref": "C2",
+            "value": "100nF"
+          },
+          {
+            "ref": "C3",
+            "value": "100nF"
+          },
+          {
+            "ref": "C4",
+            "value": "100nF"
+          }
+        ]
+      }
+    }
+  ],
+  "design_analysis": {
+    "net_classification": {
+      "A14": "signal",
+      "A12": "signal",
+      "A7": "signal",
+      "A6": "signal",
+      "A5": "signal",
+      "~{CE1}": "chip_select",
+      "DQ3": "signal",
+      "DQ0": "signal",
+      "+5V": "power",
+      "GND": "ground",
+      "DQ1": "signal",
+      "DQ2": "signal",
+      "~{WE}": "signal",
+      "A4": "signal",
+      "A3": "signal",
+      "A2": "signal",
+      "A1": "signal",
+      "A0": "signal",
+      "__unnamed_0": "signal",
+      "A10": "signal",
+      "A11": "signal",
+      "A9": "signal",
+      "A8": "signal",
+      "A13": "signal",
+      "DQ4": "signal",
+      "DQ5": "signal",
+      "DQ6": "signal",
+      "DQ7": "signal",
+      "~{OE}": "signal",
+      "A15": "signal",
+      "A16": "signal",
+      "A17": "signal",
+      "A18": "signal",
+      "__unnamed_1": "signal",
+      "HOST_PIN1": "signal",
+      "E2": "signal"
+    },
+    "power_domains": {
+      "ic_power_rails": {
+        "U1": {
+          "value": "CY7C1049G-10VXI",
+          "power_rails": [
+            "+5V"
+          ],
+          "io_rails": null
+        }
+      },
+      "domain_groups": {
+        "+5V": [
+          "U1"
+        ]
+      }
+    },
+    "cross_domain_signals": [],
+    "bus_analysis": {
+      "i2c": [],
+      "spi": [],
+      "uart": [],
+      "can": []
+    },
+    "differential_pairs": [],
+    "erc_warnings": [
+      {
+        "type": "no_driver",
+        "net": "A14",
+        "message": "Net 'A14' has input pins but no output driver",
+        "pins": [
+          {
+            "component": "U1",
+            "pin_number": "1",
+            "pin_name": "A0",
+            "pin_type": "input"
+          },
+          {
+            "component": "J1",
+            "pin_number": "3",
+            "pin_name": "A14",
+            "pin_type": "passive"
+          }
+        ]
+      },
+      {
+        "type": "no_driver",
+        "net": "A12",
+        "message": "Net 'A12' has input pins but no output driver",
+        "pins": [
+          {
+            "component": "U1",
+            "pin_number": "2",
+            "pin_name": "A1",
+            "pin_type": "input"
+          },
+          {
+            "component": "J1",
+            "pin_number": "4",
+            "pin_name": "A12",
+            "pin_type": "passive"
+          }
+        ]
+      },
+      {
+        "type": "no_driver",
+        "net": "A7",
+        "message": "Net 'A7' has input pins but no output driver",
+        "pins": [
+          {
+            "component": "U1",
+            "pin_number": "3",
+            "pin_name": "A2",
+            "pin_type": "input"
+          },
+          {
+            "component": "J1",
+            "pin_number": "5",
+            "pin_name": "A7",
+            "pin_type": "passive"
+          }
+        ]
+      },
+      {
+        "type": "no_driver",
+        "net": "A6",
+        "message": "Net 'A6' has input pins but no output driver",
+        "pins": [
+          {
+            "component": "U1",
+            "pin_number": "4",
+            "pin_name": "A3",
+            "pin_type": "input"
+          },
+          {
+            "component": "J1",
+            "pin_number": "6",
+            "pin_name": "A6",
+            "pin_type": "passive"
+          }
+        ]
+      },
+      {
+        "type": "no_driver",
+        "net": "A5",
+        "message": "Net 'A5' has input pins but no output driver",
+        "pins": [
+          {
+            "component": "U1",
+            "pin_number": "5",
+            "pin_name": "A4",
+            "pin_type": "input"
+          },
+          {
+            "component": "J1",
+            "pin_number": "7",
+            "pin_name": "A5",
+            "pin_type": "passive"
+          }
+        ]
+      },
+      {
+        "type": "no_driver",
+        "net": "~{CE1}",
+        "message": "Net '~{CE1}' has input pins but no output driver",
+        "pins": [
+          {
+            "component": "U1",
+            "pin_number": "6",
+            "pin_name": "~{CE}",
+            "pin_type": "input"
+          },
+          {
+            "component": "J1",
+            "pin_number": "22",
+            "pin_name": "~{E1}",
+            "pin_type": "passive"
+          }
+        ]
+      },
+      {
+        "type": "no_driver",
+        "net": "~{WE}",
+        "message": "Net '~{WE}' has input pins but no output driver",
+        "pins": [
+          {
+            "component": "U1",
+            "pin_number": "13",
+            "pin_name": "~{WE}",
+            "pin_type": "input"
+          },
+          {
+            "component": "J1",
+            "pin_number": "29",
+            "pin_name": "A13",
+            "pin_type": "passive"
+          }
+        ]
+      },
+      {
+        "type": "no_driver",
+        "net": "A4",
+        "message": "Net 'A4' has input pins but no output driver",
+        "pins": [
+          {
+            "component": "U1",
+            "pin_number": "14",
+            "pin_name": "A5",
+            "pin_type": "input"
+          },
+          {
+            "component": "J1",
+            "pin_number": "8",
+            "pin_name": "A4",
+            "pin_type": "passive"
+          }
+        ]
+      },
+      {
+        "type": "no_driver",
+        "net": "A3",
+        "message": "Net 'A3' has input pins but no output driver",
+        "pins": [
+          {
+            "component": "U1",
+            "pin_number": "15",
+            "pin_name": "A6",
+            "pin_type": "input"
+          },
+          {
+            "component": "J1",
+            "pin_number": "9",
+            "pin_name": "A3",
+            "pin_type": "passive"
+          }
+        ]
+      },
+      {
+        "type": "no_driver",
+        "net": "A2",
+        "message": "Net 'A2' has input pins but no output driver",
+        "pins": [
+          {
+            "component": "U1",
+            "pin_number": "16",
+            "pin_name": "A7",
+            "pin_type": "input"
+          },
+          {
+            "component": "J1",
+            "pin_number": "10",
+            "pin_name": "A2",
+            "pin_type": "passive"
+          }
+        ]
+      },
+      {
+        "type": "no_driver",
+        "net": "A1",
+        "message": "Net 'A1' has input pins but no output driver",
+        "pins": [
+          {
+            "component": "U1",
+            "pin_number": "17",
+            "pin_name": "A8",
+            "pin_type": "input"
+          },
+          {
+            "component": "J1",
+            "pin_number": "11",
+            "pin_name": "A1",
+            "pin_type": "passive"
+          }
+        ]
+      },
+      {
+        "type": "no_driver",
+        "net": "A0",
+        "message": "Net 'A0' has input pins but no output driver",
+        "pins": [
+          {
+            "component": "U1",
+            "pin_number": "18",
+            "pin_name": "A9",
+            "pin_type": "input"
+          },
+          {
+            "component": "J1",
+            "pin_number": "12",
+            "pin_name": "A0",
+            "pin_type": "passive"
+          }
+        ]
+      },
+      {
+        "type": "no_driver",
+        "net": "A10",
+        "message": "Net 'A10' has input pins but no output driver",
+        "pins": [
+          {
+            "component": "U1",
+            "pin_number": "20",
+            "pin_name": "A10",
+            "pin_type": "input"
+          },
+          {
+            "component": "J1",
+            "pin_number": "23",
+            "pin_name": "A10",
+            "pin_type": "passive"
+          }
+        ]
+      },
+      {
+        "type": "no_driver",
+        "net": "A11",
+        "message": "Net 'A11' has input pins but no output driver",
+        "pins": [
+          {
+            "component": "U1",
+            "pin_number": "21",
+            "pin_name": "A11",
+            "pin_type": "input"
+          },
+          {
+            "component": "J1",
+            "pin_number": "25",
+            "pin_name": "A11",
+            "pin_type": "passive"
+          }
+        ]
+      },
+      {
+        "type": "no_driver",
+        "net": "A9",
+        "message": "Net 'A9' has input pins but no output driver",
+        "pins": [
+          {
+            "component": "U1",
+            "pin_number": "22",
+            "pin_name": "A12",
+            "pin_type": "input"
+          },
+          {
+            "component": "J1",
+            "pin_number": "26",
+            "pin_name": "A9",
+            "pin_type": "passive"
+          }
+        ]
+      },
+      {
+        "type": "no_driver",
+        "net": "A8",
+        "message": "Net 'A8' has input pins but no output driver",
+        "pins": [
+          {
+            "component": "U1",
+            "pin_number": "23",
+            "pin_name": "A13",
+            "pin_type": "input"
+          },
+          {
+            "component": "J1",
+            "pin_number": "27",
+            "pin_name": "A8",
+            "pin_type": "passive"
+          }
+        ]
+      },
+      {
+        "type": "no_driver",
+        "net": "A13",
+        "message": "Net 'A13' has input pins but no output driver",
+        "pins": [
+          {
+            "component": "U1",
+            "pin_number": "24",
+            "pin_name": "A14",
+            "pin_type": "input"
+          },
+          {
+            "component": "J1",
+            "pin_number": "28",
+            "pin_name": "~{W}",
+            "pin_type": "passive"
+          }
+        ]
+      },
+      {
+        "type": "no_driver",
+        "net": "~{OE}",
+        "message": "Net '~{OE}' has input pins but no output driver",
+        "pins": [
+          {
+            "component": "U1",
+            "pin_number": "31",
+            "pin_name": "~{OE}",
+            "pin_type": "input"
+          },
+          {
+            "component": "J1",
+            "pin_number": "24",
+            "pin_name": "~{G}",
+            "pin_type": "passive"
+          }
+        ]
+      },
+      {
+        "type": "no_driver",
+        "net": "A15",
+        "message": "Net 'A15' has input pins but no output driver",
+        "pins": [
+          {
+            "component": "U1",
+            "pin_number": "32",
+            "pin_name": "A15",
+            "pin_type": "input"
+          },
+          {
+            "component": "J1",
+            "pin_number": "31",
+            "pin_name": "A15",
+            "pin_type": "passive"
+          }
+        ]
+      },
+      {
+        "type": "no_driver",
+        "net": "A16",
+        "message": "Net 'A16' has input pins but no output driver",
+        "pins": [
+          {
+            "component": "U1",
+            "pin_number": "33",
+            "pin_name": "A16",
+            "pin_type": "input"
+          },
+          {
+            "component": "J1",
+            "pin_number": "2",
+            "pin_name": "A16",
+            "pin_type": "passive"
+          }
+        ]
+      },
+      {
+        "type": "no_driver",
+        "net": "A17",
+        "message": "Net 'A17' has input pins but no output driver",
+        "pins": [
+          {
+            "component": "U1",
+            "pin_number": "34",
+            "pin_name": "A17",
+            "pin_type": "input"
+          },
+          {
+            "component": "JP1",
+            "pin_number": "1",
+            "pin_name": "A",
+            "pin_type": "passive"
+          },
+          {
+            "component": "TP1",
+            "pin_number": "1",
+            "pin_name": "1",
+            "pin_type": "passive"
+          }
+        ]
+      },
+      {
+        "type": "no_driver",
+        "net": "A18",
+        "message": "Net 'A18' has input pins but no output driver",
+        "pins": [
+          {
+            "component": "U1",
+            "pin_number": "35",
+            "pin_name": "A18",
+            "pin_type": "input"
+          },
+          {
+            "component": "JP2",
+            "pin_number": "1",
+            "pin_name": "A",
+            "pin_type": "passive"
+          },
+          {
+            "component": "TP2",
+            "pin_number": "1",
+            "pin_name": "1",
+            "pin_type": "passive"
+          }
+        ]
+      }
+    ],
+    "passive_warnings": []
+  },
+  "connectivity_issues": {
+    "unconnected_pins": [],
+    "single_pin_nets": [],
+    "single_pin_net_findings": [],
+    "multi_driver_nets": [],
+    "power_net_summary": {
+      "+5V": {
+        "pin_count": 7,
+        "components": [
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "J1",
+          "U1"
+        ]
+      },
+      "GND": {
+        "pin_count": 7,
+        "components": [
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "J1",
+          "U1"
+        ]
+      }
+    }
+  },
+  "labels": [
+    {
+      "name": "A14",
+      "type": "global_label",
+      "x": 132.08,
+      "y": 73.66,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A12",
+      "type": "global_label",
+      "x": 132.08,
+      "y": 76.2,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A7",
+      "type": "global_label",
+      "x": 132.08,
+      "y": 78.74,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A6",
+      "type": "global_label",
+      "x": 132.08,
+      "y": 81.28,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A5",
+      "type": "global_label",
+      "x": 132.08,
+      "y": 83.82,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "~{CE1}",
+      "type": "global_label",
+      "x": 132.08,
+      "y": 124.46,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "DQ3",
+      "type": "global_label",
+      "x": 172.72,
+      "y": 73.66,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "DQ0",
+      "type": "global_label",
+      "x": 172.72,
+      "y": 76.2,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "DQ1",
+      "type": "global_label",
+      "x": 172.72,
+      "y": 78.74,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "DQ2",
+      "type": "global_label",
+      "x": 172.72,
+      "y": 81.28,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "~{WE}",
+      "type": "global_label",
+      "x": 132.08,
+      "y": 129.54,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A4",
+      "type": "global_label",
+      "x": 132.08,
+      "y": 86.36,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A3",
+      "type": "global_label",
+      "x": 132.08,
+      "y": 88.9,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A2",
+      "type": "global_label",
+      "x": 132.08,
+      "y": 91.44,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A1",
+      "type": "global_label",
+      "x": 132.08,
+      "y": 93.98,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A0",
+      "type": "global_label",
+      "x": 132.08,
+      "y": 96.52,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A10",
+      "type": "global_label",
+      "x": 132.08,
+      "y": 99.06,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A11",
+      "type": "global_label",
+      "x": 132.08,
+      "y": 101.6,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A9",
+      "type": "global_label",
+      "x": 132.08,
+      "y": 104.14,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A8",
+      "type": "global_label",
+      "x": 132.08,
+      "y": 106.68,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A13",
+      "type": "global_label",
+      "x": 132.08,
+      "y": 109.22,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "DQ4",
+      "type": "global_label",
+      "x": 172.72,
+      "y": 83.82,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "DQ5",
+      "type": "global_label",
+      "x": 172.72,
+      "y": 86.36,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "DQ6",
+      "type": "global_label",
+      "x": 172.72,
+      "y": 88.9,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "DQ7",
+      "type": "global_label",
+      "x": 172.72,
+      "y": 91.44,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "~{OE}",
+      "type": "global_label",
+      "x": 132.08,
+      "y": 127.0,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A15",
+      "type": "global_label",
+      "x": 132.08,
+      "y": 111.76,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A16",
+      "type": "global_label",
+      "x": 132.08,
+      "y": 114.3,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A17",
+      "type": "global_label",
+      "x": 132.08,
+      "y": 116.84,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A18",
+      "type": "global_label",
+      "x": 132.08,
+      "y": 119.38,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "HOST_PIN1",
+      "type": "global_label",
+      "x": 55.88,
+      "y": 82.55,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A16",
+      "type": "global_label",
+      "x": 55.88,
+      "y": 85.09,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A14",
+      "type": "global_label",
+      "x": 55.88,
+      "y": 87.63,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A12",
+      "type": "global_label",
+      "x": 55.88,
+      "y": 90.17,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A7",
+      "type": "global_label",
+      "x": 55.88,
+      "y": 92.71,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A6",
+      "type": "global_label",
+      "x": 55.88,
+      "y": 95.25,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A5",
+      "type": "global_label",
+      "x": 55.88,
+      "y": 97.79,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A4",
+      "type": "global_label",
+      "x": 55.88,
+      "y": 100.33,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A3",
+      "type": "global_label",
+      "x": 55.88,
+      "y": 102.87,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A2",
+      "type": "global_label",
+      "x": 55.88,
+      "y": 105.41,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A1",
+      "type": "global_label",
+      "x": 55.88,
+      "y": 107.95,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A0",
+      "type": "global_label",
+      "x": 55.88,
+      "y": 110.49,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "DQ0",
+      "type": "global_label",
+      "x": 55.88,
+      "y": 113.03,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "DQ1",
+      "type": "global_label",
+      "x": 55.88,
+      "y": 115.57,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "DQ2",
+      "type": "global_label",
+      "x": 55.88,
+      "y": 118.11,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "DQ3",
+      "type": "global_label",
+      "x": 96.52,
+      "y": 120.65,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "DQ4",
+      "type": "global_label",
+      "x": 96.52,
+      "y": 118.11,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "DQ5",
+      "type": "global_label",
+      "x": 96.52,
+      "y": 115.57,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "DQ6",
+      "type": "global_label",
+      "x": 96.52,
+      "y": 113.03,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "DQ7",
+      "type": "global_label",
+      "x": 96.52,
+      "y": 110.49,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "~{CE1}",
+      "type": "global_label",
+      "x": 96.52,
+      "y": 107.95,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A10",
+      "type": "global_label",
+      "x": 96.52,
+      "y": 105.41,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "~{OE}",
+      "type": "global_label",
+      "x": 96.52,
+      "y": 102.87,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A11",
+      "type": "global_label",
+      "x": 96.52,
+      "y": 100.33,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A9",
+      "type": "global_label",
+      "x": 96.52,
+      "y": 97.79,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A8",
+      "type": "global_label",
+      "x": 96.52,
+      "y": 95.25,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A13",
+      "type": "global_label",
+      "x": 96.52,
+      "y": 92.71,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "~{WE}",
+      "type": "global_label",
+      "x": 96.52,
+      "y": 90.17,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "E2",
+      "type": "global_label",
+      "x": 96.52,
+      "y": 87.63,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A15",
+      "type": "global_label",
+      "x": 96.52,
+      "y": 85.09,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A17",
+      "type": "global_label",
+      "x": 66.04,
+      "y": 142.24,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "E2",
+      "type": "global_label",
+      "x": 86.36,
+      "y": 142.24,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A18",
+      "type": "global_label",
+      "x": 66.04,
+      "y": 149.86,
+      "angle": 180.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "HOST_PIN1",
+      "type": "global_label",
+      "x": 86.36,
+      "y": 149.86,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A17",
+      "type": "global_label",
+      "x": 121.92,
+      "y": 142.24,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    },
+    {
+      "name": "A18",
+      "type": "global_label",
+      "x": 121.92,
+      "y": 149.86,
+      "angle": 0.0,
+      "shape": "passive",
+      "_sheet": 0
+    }
+  ],
+  "no_connects": [],
+  "power_symbols": [
+    {
+      "net_name": "+5V",
+      "x": 152.4,
+      "y": 68.58,
+      "lib_id": "power:+5V",
+      "_sheet": 0,
+      "_power_scope": "global"
+    },
+    {
+      "net_name": "GND",
+      "x": 152.4,
+      "y": 134.62,
+      "lib_id": "power:GND",
+      "_sheet": 0,
+      "_power_scope": "global"
+    },
+    {
+      "net_name": "GND",
+      "x": 55.88,
+      "y": 120.65,
+      "lib_id": "power:GND",
+      "_sheet": 0,
+      "_power_scope": "global"
+    },
+    {
+      "net_name": "+5V",
+      "x": 96.52,
+      "y": 82.55,
+      "lib_id": "power:+5V",
+      "_sheet": 0,
+      "_power_scope": "global"
+    },
+    {
+      "net_name": "+5V",
+      "x": 203.2,
+      "y": 93.98,
+      "lib_id": "power:+5V",
+      "_sheet": 0,
+      "_power_scope": "global"
+    },
+    {
+      "net_name": "GND",
+      "x": 203.2,
+      "y": 109.22,
+      "lib_id": "power:GND",
+      "_sheet": 0,
+      "_power_scope": "global"
+    },
+    {
+      "net_name": "+5V",
+      "x": 215.9,
+      "y": 93.98,
+      "lib_id": "power:+5V",
+      "_sheet": 0,
+      "_power_scope": "global"
+    },
+    {
+      "net_name": "GND",
+      "x": 215.9,
+      "y": 109.22,
+      "lib_id": "power:GND",
+      "_sheet": 0,
+      "_power_scope": "global"
+    },
+    {
+      "net_name": "+5V",
+      "x": 228.6,
+      "y": 93.98,
+      "lib_id": "power:+5V",
+      "_sheet": 0,
+      "_power_scope": "global"
+    },
+    {
+      "net_name": "GND",
+      "x": 228.6,
+      "y": 109.22,
+      "lib_id": "power:GND",
+      "_sheet": 0,
+      "_power_scope": "global"
+    },
+    {
+      "net_name": "+5V",
+      "x": 241.3,
+      "y": 93.98,
+      "lib_id": "power:+5V",
+      "_sheet": 0,
+      "_power_scope": "global"
+    },
+    {
+      "net_name": "GND",
+      "x": 241.3,
+      "y": 109.22,
+      "lib_id": "power:GND",
+      "_sheet": 0,
+      "_power_scope": "global"
+    },
+    {
+      "net_name": "+5V",
+      "x": 190.5,
+      "y": 93.98,
+      "lib_id": "power:+5V",
+      "_sheet": 0,
+      "_power_scope": "global"
+    },
+    {
+      "net_name": "PWR_FLAG",
+      "x": 190.5,
+      "y": 96.52,
+      "lib_id": "power:PWR_FLAG",
+      "_sheet": 0,
+      "_power_scope": "global"
+    },
+    {
+      "net_name": "GND",
+      "x": 190.5,
+      "y": 109.22,
+      "lib_id": "power:GND",
+      "_sheet": 0,
+      "_power_scope": "global"
+    },
+    {
+      "net_name": "PWR_FLAG",
+      "x": 190.5,
+      "y": 106.68,
+      "lib_id": "power:PWR_FLAG",
+      "_sheet": 0,
+      "_power_scope": "global"
+    }
+  ],
+  "annotation_issues": {},
+  "label_shape_warnings": [],
+  "pwr_flag_warnings": [
+    {
+      "net": "GND",
+      "message": "Power rail 'GND' has power_in pins but no power_out or PWR_FLAG \u2014 ERC will flag this",
+      "pin_types": [
+        "passive",
+        "power_in"
+      ]
+    },
+    {
+      "net": "+5V",
+      "message": "Power rail '+5V' has power_in pins but no power_out or PWR_FLAG \u2014 ERC will flag this",
+      "pin_types": [
+        "passive",
+        "power_in"
+      ]
+    }
+  ],
+  "footprint_filter_warnings": [],
+  "sourcing_audit": {
+    "total_bom_components": 5,
+    "mpn_coverage": "5/5",
+    "missing_lcsc": [
+      "U1"
+    ],
+    "mpn_percent": 100.0
+  },
+  "ground_domains": {
+    "ground_nets": {
+      "GND": {
+        "domain": "signal",
+        "connections": 7,
+        "components": [
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "J1",
+          "U1"
+        ]
+      }
+    },
+    "multiple_domains": false
+  },
+  "bus_topology": {
+    "bus_wire_count": 0,
+    "bus_entry_count": 0,
+    "detected_bus_signals": [
+      {
+        "prefix": "A",
+        "width": 40,
+        "range": "A0..A18"
+      },
+      {
+        "prefix": "DQ",
+        "width": 16,
+        "range": "DQ0..DQ7"
+      }
+    ]
+  },
+  "wire_geometry": {
+    "total_wires": 78,
+    "total_length_mm": 381.0,
+    "avg_length_mm": 4.9
+  },
+  "simulation_readiness": {
+    "total_components": 8,
+    "likely_simulatable": 4,
+    "needs_model": 4,
+    "components_without_model": [
+      "J1",
+      "JP1",
+      "JP2",
+      "U1"
+    ],
+    "simulatable_percent": 50.0
+  },
+  "property_issues": {},
+  "placement_analysis": {
+    "bounding_box": {
+      "x_min": 76.2,
+      "y_min": 101.6,
+      "x_max": 241.3,
+      "y_max": 149.9,
+      "width_mm": 165.1,
+      "height_mm": 48.3
+    },
+    "clusters": [
+      {
+        "region": "row0_col0",
+        "component_count": 5,
+        "types": {
+          "connector": 1,
+          "jumper": 2,
+          "test_point": 2
+        },
+        "references": [
+          "J1",
+          "JP1",
+          "JP2",
+          "TP1",
+          "TP2"
+        ]
+      },
+      {
+        "region": "row0_col1",
+        "component_count": 1,
+        "types": {
+          "ic": 1
+        },
+        "references": [
+          "U1"
+        ]
+      },
+      {
+        "region": "row0_col3",
+        "component_count": 4,
+        "types": {
+          "capacitor": 4
+        },
+        "references": [
+          "C1",
+          "C2",
+          "C3",
+          "C4"
+        ]
+      }
+    ],
+    "grid_size": "1x4"
+  },
+  "hierarchical_labels": {
+    "hierarchical_label_count": 0,
+    "global_label_count": 66
+  },
+  "rail_voltages": {
+    "+5V": 5.0,
+    "GND": 0
+  },
+  "power_sequencing_validation": {
+    "power_tree": [],
+    "provenance": {
+      "evidence": "pseq_enable_chain",
+      "confidence": "heuristic",
+      "claimed_components": [],
+      "excluded_by": [],
+      "suppressed_candidates": []
+    }
+  },
+  "text_annotations": [
+    {
+      "type": "text",
+      "text": "BMDC3 2 MB RAM interposer: CY7C1049G (512K x 8, 36-SOJ) on the 32-SOJ site of U8..U11.\nNet names = host signal names. Address and data lines are permuted (see README table);\ncontrols and power are not. A17/A18 come from 68030 A19/A20 by wire (TP1/TP2); JP1/JP2 stay open\nunless the card is verified to drive A19/A20 on castellations 30/1. Firmware: patch_bmdc_ram.py --max 16M.",
+      "x": 55.88,
+      "y": 170.18,
+      "angle": 0.0
+    }
+  ],
+  "pdn_impedance": {
+    "rails": {
+      "+5V": {
+        "capacitors": [
+          {
+            "ref": "C1",
+            "value": "100nF",
+            "farads": 1.0000000000000001e-07,
+            "package": "0402",
+            "esr_ohm": 0.9487,
+            "esl_nH": 0.5,
+            "srf_hz": 22507908,
+            "srf_formatted": "22.51 MHz",
+            "type": "MLCC"
+          },
+          {
+            "ref": "C2",
+            "value": "100nF",
+            "farads": 1.0000000000000001e-07,
+            "package": "0402",
+            "esr_ohm": 0.9487,
+            "esl_nH": 0.5,
+            "srf_hz": 22507908,
+            "srf_formatted": "22.51 MHz",
+            "type": "MLCC"
+          },
+          {
+            "ref": "C3",
+            "value": "100nF",
+            "farads": 1.0000000000000001e-07,
+            "package": "0402",
+            "esr_ohm": 0.9487,
+            "esl_nH": 0.5,
+            "srf_hz": 22507908,
+            "srf_formatted": "22.51 MHz",
+            "type": "MLCC"
+          },
+          {
+            "ref": "C4",
+            "value": "100nF",
+            "farads": 1.0000000000000001e-07,
+            "package": "0402",
+            "esr_ohm": 0.9487,
+            "esl_nH": 0.5,
+            "srf_hz": 22507908,
+            "srf_formatted": "22.51 MHz",
+            "type": "MLCC"
+          }
+        ],
+        "cap_count": 4,
+        "total_capacitance_uF": 0.4,
+        "impedance_profile": [
+          {
+            "freq_hz": 1000,
+            "freq_formatted": "1.00 kHz",
+            "impedance_ohm": 397.887428
+          },
+          {
+            "freq_hz": 1259,
+            "freq_formatted": "1.26 kHz",
+            "impedance_ohm": 316.05325
+          },
+          {
+            "freq_hz": 1585,
+            "freq_formatted": "1.58 kHz",
+            "impedance_ohm": 251.050061
+          },
+          {
+            "freq_hz": 1995,
+            "freq_formatted": "2.00 kHz",
+            "impedance_ohm": 199.416204
+          },
+          {
+            "freq_hz": 2512,
+            "freq_formatted": "2.51 kHz",
+            "impedance_ohm": 158.401986
+          },
+          {
+            "freq_hz": 3162,
+            "freq_formatted": "3.16 kHz",
+            "impedance_ohm": 125.823251
+          },
+          {
+            "freq_hz": 3981,
+            "freq_formatted": "3.98 kHz",
+            "impedance_ohm": 99.945064
+          },
+          {
+            "freq_hz": 5012,
+            "freq_formatted": "5.01 kHz",
+            "impedance_ohm": 79.389315
+          },
+          {
+            "freq_hz": 6310,
+            "freq_formatted": "6.31 kHz",
+            "impedance_ohm": 63.061338
+          },
+          {
+            "freq_hz": 7943,
+            "freq_formatted": "7.94 kHz",
+            "impedance_ohm": 50.091606
+          },
+          {
+            "freq_hz": 10000,
+            "freq_formatted": "10.00 kHz",
+            "impedance_ohm": 39.789435
+          },
+          {
+            "freq_hz": 12589,
+            "freq_formatted": "12.59 kHz",
+            "impedance_ohm": 31.606196
+          },
+          {
+            "freq_hz": 15849,
+            "freq_formatted": "15.85 kHz",
+            "impedance_ohm": 25.106103
+          },
+          {
+            "freq_hz": 19953,
+            "freq_formatted": "19.95 kHz",
+            "impedance_ohm": 19.943001
+          },
+          {
+            "freq_hz": 25119,
+            "freq_formatted": "25.12 kHz",
+            "impedance_ohm": 15.841937
+          },
+          {
+            "freq_hz": 31623,
+            "freq_formatted": "31.62 kHz",
+            "impedance_ohm": 12.584513
+          },
+          {
+            "freq_hz": 39811,
+            "freq_formatted": "39.81 kHz",
+            "impedance_ohm": 9.997261
+          },
+          {
+            "freq_hz": 50119,
+            "freq_formatted": "50.12 kHz",
+            "impedance_ohm": 7.942399
+          },
+          {
+            "freq_hz": 63096,
+            "freq_formatted": "63.10 kHz",
+            "impedance_ohm": 6.310499
+          },
+          {
+            "freq_hz": 79433,
+            "freq_formatted": "79.43 kHz",
+            "impedance_ohm": 5.014655
+          },
+          {
+            "freq_hz": 100000,
+            "freq_formatted": "100.00 kHz",
+            "impedance_ohm": 3.985858
+          },
+          {
+            "freq_hz": 125893,
+            "freq_formatted": "125.89 kHz",
+            "impedance_ohm": 3.16932
+          },
+          {
+            "freq_hz": 158489,
+            "freq_formatted": "158.49 kHz",
+            "impedance_ohm": 2.521554
+          },
+          {
+            "freq_hz": 199526,
+            "freq_formatted": "199.53 kHz",
+            "impedance_ohm": 2.00806
+          },
+          {
+            "freq_hz": 251189,
+            "freq_formatted": "251.19 kHz",
+            "impedance_ohm": 1.601481
+          },
+          {
+            "freq_hz": 316228,
+            "freq_formatted": "316.23 kHz",
+            "impedance_ohm": 1.280145
+          },
+          {
+            "freq_hz": 398107,
+            "freq_formatted": "398.11 kHz",
+            "impedance_ohm": 1.0269
+          },
+          {
+            "freq_hz": 501187,
+            "freq_formatted": "501.19 kHz",
+            "impedance_ohm": 0.828184
+          },
+          {
+            "freq_hz": 630957,
+            "freq_formatted": "630.96 kHz",
+            "impedance_ohm": 0.673272
+          },
+          {
+            "freq_hz": 794328,
+            "freq_formatted": "794.33 kHz",
+            "impedance_ohm": 0.553659
+          },
+          {
+            "freq_hz": 1000000,
+            "freq_formatted": "1.00 MHz",
+            "impedance_ohm": 0.462539
+          },
+          {
+            "freq_hz": 1258925,
+            "freq_formatted": "1.26 MHz",
+            "impedance_ohm": 0.394357
+          },
+          {
+            "freq_hz": 1584893,
+            "freq_formatted": "1.58 MHz",
+            "impedance_ohm": 0.344463
+          },
+          {
+            "freq_hz": 1995262,
+            "freq_formatted": "2.00 MHz",
+            "impedance_ohm": 0.308863
+          },
+          {
+            "freq_hz": 2511886,
+            "freq_formatted": "2.51 MHz",
+            "impedance_ohm": 0.284116
+          },
+          {
+            "freq_hz": 3162278,
+            "freq_formatted": "3.16 MHz",
+            "impedance_ohm": 0.267329
+          },
+          {
+            "freq_hz": 3981072,
+            "freq_formatted": "3.98 MHz",
+            "impedance_ohm": 0.256175
+          },
+          {
+            "freq_hz": 5011872,
+            "freq_formatted": "5.01 MHz",
+            "impedance_ohm": 0.248888
+          },
+          {
+            "freq_hz": 6309573,
+            "freq_formatted": "6.31 MHz",
+            "impedance_ohm": 0.244189
+          },
+          {
+            "freq_hz": 7943282,
+            "freq_formatted": "7.94 MHz",
+            "impedance_ohm": 0.241195
+          },
+          {
+            "freq_hz": 10000000,
+            "freq_formatted": "10.00 MHz",
+            "impedance_ohm": 0.239315
+          },
+          {
+            "freq_hz": 12589254,
+            "freq_formatted": "12.59 MHz",
+            "impedance_ohm": 0.238167
+          },
+          {
+            "freq_hz": 15848932,
+            "freq_formatted": "15.85 MHz",
+            "impedance_ohm": 0.237512
+          },
+          {
+            "freq_hz": 19952623,
+            "freq_formatted": "19.95 MHz",
+            "impedance_ohm": 0.237213
+          },
+          {
+            "freq_hz": 25118864,
+            "freq_formatted": "25.12 MHz",
+            "impedance_ohm": 0.237207
+          },
+          {
+            "freq_hz": 31622777,
+            "freq_formatted": "31.62 MHz",
+            "impedance_ohm": 0.237491
+          },
+          {
+            "freq_hz": 39810717,
+            "freq_formatted": "39.81 MHz",
+            "impedance_ohm": 0.238127
+          },
+          {
+            "freq_hz": 50118723,
+            "freq_formatted": "50.12 MHz",
+            "impedance_ohm": 0.239248
+          },
+          {
+            "freq_hz": 63095734,
+            "freq_formatted": "63.10 MHz",
+            "impedance_ohm": 0.241086
+          },
+          {
+            "freq_hz": 79432823,
+            "freq_formatted": "79.43 MHz",
+            "impedance_ohm": 0.244017
+          },
+          {
+            "freq_hz": 100000000,
+            "freq_formatted": "100.00 MHz",
+            "impedance_ohm": 0.248619
+          },
+          {
+            "freq_hz": 125892541,
+            "freq_formatted": "125.89 MHz",
+            "impedance_ohm": 0.25576
+          },
+          {
+            "freq_hz": 158489319,
+            "freq_formatted": "158.49 MHz",
+            "impedance_ohm": 0.266698
+          },
+          {
+            "freq_hz": 199526231,
+            "freq_formatted": "199.53 MHz",
+            "impedance_ohm": 0.283175
+          },
+          {
+            "freq_hz": 251188643,
+            "freq_formatted": "251.19 MHz",
+            "impedance_ohm": 0.30749
+          },
+          {
+            "freq_hz": 316227766,
+            "freq_formatted": "316.23 MHz",
+            "impedance_ohm": 0.342511
+          },
+          {
+            "freq_hz": 398107171,
+            "freq_formatted": "398.11 MHz",
+            "impedance_ohm": 0.391653
+          },
+          {
+            "freq_hz": 501187234,
+            "freq_formatted": "501.19 MHz",
+            "impedance_ohm": 0.458883
+          },
+          {
+            "freq_hz": 630957344,
+            "freq_formatted": "630.96 MHz",
+            "impedance_ohm": 0.548817
+          },
+          {
+            "freq_hz": 794328235,
+            "freq_formatted": "794.33 MHz",
+            "impedance_ohm": 0.666958
+          },
+          {
+            "freq_hz": 1000000000,
+            "freq_formatted": "1.00 GHz",
+            "impedance_ohm": 0.820047
+          }
+        ],
+        "min_impedance": {
+          "freq_formatted": "25.12 MHz",
+          "impedance_ohm": 0.237207
+        }
+      }
+    },
+    "observations": [
+      "+5V: highest SRF is 22.51 MHz \u2014 consider adding small (100pF-1nF) MLCC for >100 MHz coverage"
+    ]
+  },
+  "power_budget": {
+    "rails": {
+      "+5V": {
+        "ic_count": 1,
+        "ics": [
+          {
+            "ref": "U1",
+            "value": "CY7C1049G-10VXI",
+            "estimated_mA": 10
+          }
+        ],
+        "estimated_load_mA": 10
+      }
+    }
+  },
+  "bom_optimization": {
+    "unique_value_counts": {
+      "resistor": 0,
+      "capacitor": 1
+    },
+    "total_unique_footprints": 5,
+    "single_use_passive_values": 0
+  },
+  "test_coverage": {
+    "test_points": [
+      {
+        "ref": "TP1",
+        "net": "A17",
+        "value": "A17 wire pad"
+      },
+      {
+        "ref": "TP2",
+        "net": "A18",
+        "value": "A18 wire pad"
+      }
+    ],
+    "test_point_count": 2,
+    "covered_nets": [
+      "A17",
+      "A18"
+    ],
+    "uncovered_key_nets": [
+      {
+        "net": "+5V",
+        "category": "power_rail"
+      }
+    ],
+    "observations": [
+      "2 test point(s) covering 2 net(s)",
+      "No debug connectors (SWD/JTAG/UART) identified",
+      "Key nets without test points: 1 power_rail"
+    ]
+  },
+  "assembly_complexity": {
+    "total_components": 10,
+    "smd_count": 10,
+    "tht_count": 0,
+    "complexity_score": 56,
+    "difficulty_breakdown": {
+      "hard": 4,
+      "medium": 6,
+      "easy": 0
+    },
+    "package_breakdown": {
+      "other_SMD": 6,
+      "0402": 4
+    },
+    "unique_footprints": 2,
+    "observations": [
+      "Moderate assembly complexity (score 56/100)",
+      "4 hard-to-solder component(s) (0201/0402/BGA/QFN)"
+    ]
+  },
+  "project_settings": {
+    "symbol_libs": [
+      {
+        "name": "bmdc_interposer",
+        "type": "KiCad",
+        "uri": "${KIPRJMOD}/bmdc_interposer.kicad_sym",
+        "descr": "project symbols"
+      }
+    ]
+  },
+  "bom_lock": {
+    "total_bom_components": 5,
+    "components_with_mpn": 5,
+    "missing_mpn": [],
+    "missing_mpn_count": 0,
+    "generic_values": [],
+    "lock_pct": 100,
+    "status": "pass"
+  },
+  "design_intent": {
+    "product_class": "prototype",
+    "ipc_class": 2,
+    "target_market": "hobby",
+    "expected_lifetime_years": 5,
+    "operating_temp_range": [
+      -10,
+      70
+    ],
+    "preferred_passive_size": "0603",
+    "test_coverage_target": 0.85,
+    "approved_manufacturers": [],
+    "confidence": 0.3,
+    "detection_signals": [],
+    "source": {
+      "ipc_class": "auto",
+      "product_class": "auto",
+      "target_market": "auto",
+      "expected_lifetime_years": "auto",
+      "operating_temp_range": "auto",
+      "preferred_passive_size": "auto",
+      "test_coverage_target": "auto",
+      "approved_manufacturers": "auto"
+    }
+  },
+  "audience_summary": {
+    "designer": {
+      "total_findings": 7,
+      "by_severity": {
+        "error": 0,
+        "warning": 1,
+        "info": 6
+      },
+      "by_category": {
+        "connectors": 1,
+        "decoupling": 1,
+        "decoupling_coverage": 1,
+        "protection": 1,
+        "power": 1,
+        "topology": 2
+      },
+      "top_issues": [
+        {
+          "detector": "audit_rail_sources",
+          "rule_id": "RS-001",
+          "severity": "warning",
+          "confidence": "deterministic",
+          "evidence_source": "topology",
+          "category": "power",
+          "summary": "+5V has no declared source",
+          "description": "Net +5V carries power_in pins but has no power_out pin, no PWR_FLAG, no regulator output mapping, and no bridged solder jumper path to a sourced net.",
+          "components": [],
+          "nets": [
+            "+5V"
+          ],
+          "pins": [
+            "#PWR01.1",
+            "#PWR04.1",
+            "#PWR05.1",
+            "#PWR11.1",
+            "#PWR12.1",
+            "#PWR13.1",
+            "#PWR14.1",
+            "U1.9"
+          ],
+          "source_path": "none",
+          "recommendation": "Add a PWR_FLAG to declare the rail as externally powered (e.g. from a connector) or trace the rail back to a regulator output. If the source lives on another sheet, promote the net name to a global label.",
+          "report_context": {
+            "section": "Power \u2014 Rail Sources",
+            "impact": "Rail has no source visible to the analyser; likely a wiring gap or missing PWR_FLAG.",
+            "standard_ref": ""
+          },
+          "provenance": {
+            "evidence": "rs_rail_audit",
+            "confidence": "deterministic",
+            "claimed_components": [],
+            "excluded_by": [],
+            "suppressed_candidates": []
+          },
+          "detection_id": "",
+          "stages": [
+            "schematic"
+          ]
+        }
+      ]
+    },
+    "reviewer": {
+      "total_findings": 1,
+      "by_category": {
+        "power": 1
+      },
+      "top_issues": [
+        {
+          "rule_id": "RS-001",
+          "severity": "warning",
+          "summary": "+5V has no declared source",
+          "recommendation": "Add a PWR_FLAG to declare the rail as externally powered (e.g. from a connector) or trace the rail back to a regulator output. If the source lives on another sheet, promote the net name to a global label.",
+          "category": "power"
+        }
+      ]
+    },
+    "manager": {
+      "risk_level": "low",
+      "blocker_count": 0,
+      "warning_count": 1,
+      "stage_readiness": {
+        "schematic": "needs_review",
+        "layout": "pass",
+        "pre_fab": "pass",
+        "bring_up": "pass"
+      },
+      "one_liner": "1 warning across 1 category."
+    }
+  }
+}

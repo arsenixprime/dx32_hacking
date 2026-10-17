@@ -1,0 +1,39 @@
+=== Design Analysis ===
+
+--- connectors ---
+  [1] INFO CG-AUD: Connector J1: 30:1 signal-to-ground ratio
+      Detail: J1: 30 signal pins per ground pin (recommended: ≤3 for EMI control)
+      Fix:    Add more ground pins (target ≤3 signal pins per ground).
+      Component: J1
+      Stages: schematic
+
+--- decoupling ---
+  [2] INFO DC-DET: Decoupling on +5V
+      Detail: Decoupling capacitors on power rail +5V
+      Stages: schematic, layout
+
+--- decoupling_coverage ---
+  [3] INFO DO-DET: Decoupling coverage on +5V
+      Detail: Decoupling frequency coverage for rail +5V
+      Stages: schematic
+
+--- power ---
+  [4] WARNING RS-001: +5V has no declared source
+      Detail: Net +5V carries power_in pins but has no power_out pin, no PWR_FLAG, no regulator output mapping, and no bridged solder jumper path to a sourced net.
+      Fix:    Add a PWR_FLAG to declare the rail as externally powered (e.g. from a connector) or trace the rail back to a regulator output. If the source lives on another sheet, promote the net name to a global label.
+      Stages: schematic
+
+--- protection ---
+  [5] INFO EP-AUD: ESD audit J1 (generic): none coverage
+      Detail: ESD protection audit for generic connector J1: none coverage.
+      Stages: schematic
+
+--- topology ---
+  [6] INFO SJ-DET: JP1 (SolderJumper_2_Open) — open by default, between A17 ↔ E2
+      Fix:    Open solder jumper is non-conducting until the pads are soldered. If either side is a power rail or required signal, the board won't function without the solder step.
+      Stages: schematic
+  [7] INFO SJ-DET: JP2 (SolderJumper_2_Open) — open by default, between A18 ↔ HOST_PIN1
+      Fix:    Open solder jumper is non-conducting until the pads are soldered. If either side is a power rail or required signal, the board won't function without the solder step.
+      Stages: schematic
+
+Total: 7 (0 errors, 1 warning, 6 info)

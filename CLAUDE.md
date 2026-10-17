@@ -54,6 +54,7 @@ long TX/RX with AUF. `dx32_proto.py` is the reference implementation of all of t
 | `HOMING_SEQUENCE.md`, `TOOL_CHANGE_STATE_MACHINE.md` | Tool changer behavior traced through the firmware |
 | `BMDC_RAM_UPGRADE.md` | Original SRAM part (MCM6226BBXJ20) pinout and SOJ package dimensions, firmware RAM-size probe, patch and adapter plan for more part-program memory |
 | `BMDC_RAM_INTERPOSER_PROMPT.md` | Prompt for a separate Claude Code/KiCad session: castellated 32-SOJ-site to 36-SOJ interposer PCB for the 2 MB upgrade (pinouts, net map, mechanical rules, deliverables) |
+| `hardware/bmdc_ram_interposer/` | The interposer KiCad 10 project built from that prompt (rev A, ERC/DRC clean, fab outputs in `fab/`). Fully generated: edit `tools/params.py`, run the generators listed in its README section 10, never hand-edit the `.kicad_pcb`. ROW_PITCH/host pad/CHIP_PITCH/END_CLEAR are unmeasured nominals that gate the order |
 | `MOTION_PLANNER.md`, `BMDC_PARAM_TABLE.md` | Velocity planners (trapezoid vs S-curve, parameter 010) and the firmware parameter table (number → 68030 address/type) |
 | `dx32_proto.py` | Python protocol library (pyserial) |
 | `test_auf.py`, `test_tlauf.py`, `test_sniff.py` | Bench scripts: poll a board, send pocket commands, sniff/decode the bus |

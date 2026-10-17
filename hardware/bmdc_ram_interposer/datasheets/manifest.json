@@ -1,0 +1,39 @@
+{
+  "schematic": "bmdc_ram_interposer.kicad_sch",
+  "last_sync": "2026-10-16T20:18:08.356470+00:00",
+  "parts": {
+    "CL05B104KO5NNNC": {
+      "file": "CL05B104KO5NNNC_CAP_CER_0.1UF_16V_Y5V_0402.pdf",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "description": "CAP CER 0.1UF 16V Y5V 0402",
+      "value": "100nF",
+      "datasheet_url": "//mm.digikey.com/Volume0/opasdata/d220001/medias/docus/609/CL05F104ZO5NNNC_Spec.pdf",
+      "downloaded_date": "2026-10-16T20:18:01.643388+00:00",
+      "source": "digikey",
+      "status": "ok",
+      "references": [
+        "C1",
+        "C2",
+        "C3",
+        "C4"
+      ],
+      "size_bytes": 1384887,
+      "verification": "verified"
+    },
+    "CY7C1049G-10VXI": {
+      "file": "CY7C1049G-10VXI_4-Mbit_(512K_x_8)_5_V_fast_SRAM_with_ECC_10_ns_36-SOJ_(Infineon_Cypress).pdf",
+      "manufacturer": "Infineon Technologies (Cypress)",
+      "description": "4-Mbit (512K x 8) 5 V fast SRAM with ECC, 10 ns, 36-SOJ (Infineon/Cypress)",
+      "value": "CY7C1049G-10VXI",
+      "datasheet_url": "https://www.infineon.com/dgdl/Infineon-CY7C1049G_and_CY7C1049GE_are_high-performance_CMOS_fast_static_RAM_devices_with_embedded_ECC-DataSheet-v07_00-EN.pdf?fileId=8ac78c8c7d0d8da4017d0ed7e2c15966",
+      "downloaded_date": "2026-10-16T20:18:07.634651+00:00",
+      "source": "schematic",
+      "status": "ok",
+      "references": [
+        "U1"
+      ],
+      "size_bytes": 552410,
+      "verification": "likely"
+    }
+  }
+}

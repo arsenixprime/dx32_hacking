@@ -101,6 +101,13 @@ A15-A18, 36 NC). No 5 V part rated 20 ns or faster exists in the 32-lead layout;
 
 ## Upgrade plan (castellated adapter, 2 MB)
 
+> **Status (2026-10-16):** the adapter is designed as `hardware/bmdc_ram_interposer/` (rev A, see its README).
+> The plan below is the original sketch; the implemented board follows the interposer prompt instead: pad rows taken
+> as 450 mil (11.43 mm) apart, board 11.83 x 27.6 mm with the caps, solder jumpers and wire pads in the strips beyond
+> the SRAM body ends, addresses/data permuted for routability (net tables in the interposer README). The row pitch,
+> host pad size, chip-to-chip pitch and end clearance are still unmeasured; the E2 tie and whether A19/A20 reach pads
+> 30/1 still need a meter check on the card (step 4 below and interposer README section 9, open items).
+
 1. **Adapter PCB** per chip: ~10.6-11.0 mm wide, >= 23 mm long, 16 castellations per long edge at
    1.27 mm pitch landing on the 400-mil pad rows (10.3 mm apart). It overhangs the 32-pad field
    by about 1 mm at each end, so measure the chip-to-chip gap on the board (needs >= 2.5 mm).
