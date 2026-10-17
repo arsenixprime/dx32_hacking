@@ -271,10 +271,24 @@ matter here:
 | G4 | 0x20b90 | arms P as dwell: P*100 ticks stored at 0x3fcc |
 | G61, G64, G98 | 0x20b46 | rejected (program error trap). This firmware has no Fanuc-style exact-stop/continuous mode codes |
 
-P word handler (0x1f7a4): after G4 it is a dwell. After G9 it is the corner
-tolerance in position units, stored as extended at 0x43a4; **P0 (or P
-omitted on a later G9) uses 12700 units = 0.005 in**, and 0x32e9 bit 5 marks it
-valid. Otherwise P is a cycle parameter (P1/P2/P3 slots via 0x32e5).
+P word handler (0x1f7a4): after G4 it is a dwell. If the G9 handler has armed it
+in the **same block** (0x32e9 bit 4, which the per-block clear at 0x23a30 resets
+after every block), P is the corner tolerance in position units, stored as
+extended at 0x43a4, and 0x32e9 bit 5 marks it valid; **P0 is replaced by the
+default 12700 units = 0.005 in**. Otherwise P is a cycle parameter (P1/P2/P3
+slots via 0x32e5).
+
+So the tolerance is only ever set by a block of the form `G9 Pn` or `G9 P0`.
+A bare `G9` does the opposite: its handler clears the valid bit, so the
+tolerance is unknown and the classifier below blends nothing (every corner of
+8 degrees or more drops to the 10 ipm corner speed, or to a full stop when the
+adjacent block is short). The interpreter reset routine 0x2349a (called from
+0x23384 and from the look-ahead's restart path at 0x1c752) also sets 0x32e0 bit 7
+and clears 0x32e9 bit 5, i.e. **a program starts in G9 mode with no valid
+tolerance** (CONFIRMED for the flag writes; exactly which events run 0x2349a is
+TENTATIVE). A program that wants blended corners must therefore say `G9 P0` (or
+`G9 P<tolerance>`) explicitly, once; a later bare `G9` turns blending back off
+until the next `G9 P`.
 
 ### How the flags reach the planners
 
@@ -322,10 +336,12 @@ Base blend size is 8890 units (0.0035 in), so the inserted polyline stays
 within roughly 0.004 to 0.01 in of the programmed corner. The corner speed
 for a blended corner is `2032 * (shorter adjacent block - 1778) / blend size`,
 capped at 12192 units/tick (72 ipm) and at the neighbouring block's
-limit at 0x45b4; an unblended corner gets 1693 units/tick (10 ipm). If the tolerance was
-never set valid (G9 without a P word), nothing is blended.
+limit at 0x45b4; an unblended corner gets 1693 units/tick (10 ipm). If the tolerance is
+not valid (0x32e9 bit 5 clear: no `G9 P` seen yet, or a bare `G9` since), the check at
+0x1e84a skips the blend for every corner of 8 degrees or more; corners under 8 degrees
+return early at 0x1e770 and pass through regardless.
 
-With the default P0 (0.005 in) every corner up to 96 degrees is blended, so
+With `G9 P0` (0.005 in) every corner up to 96 degrees is blended, so
 the practical effect of G9 is: feed moves flow through corners at a reduced
 corner speed instead of stopping, and the parameter-10 ramp shape governs the
 decel into and accel out of each corner. G8 restores stop-at-every-block.
