@@ -41,7 +41,7 @@ long TX/RX with AUF. `dx32_proto.py` is the reference implementation of all of t
 | Path | What it is |
 |------|------------|
 | `BMDC.BIN`, `B3T.EXE`, `BXX.EXE`, `MAINTPG.EXE` | Original binaries (firmware, board test, main UI, maintenance I/O viewer) |
-| `BMDCPRMS.SYS`, `BMDCPRMS.INI`, `MAINTPG1.DAT` | Machine parameter files and MAINTPG bit-definition data; used to confirm I/O bit names |
+| `BMDCPRMS.SYS`, `BMDCPRMS.INI`, `MAINTPG1.DAT` | Machine parameter files and MAINTPG bit-definition data; used to confirm I/O bit names. The INI is a per-model override table, explained line by line in `BMDCPRMS_INI.md` |
 | `decompiled/*.c` | Ghidra decompilation of each binary, one file per binary. **This is the primary RE source** — grep here rather than re-running Ghidra. `B3T.c` has real function names from CodeView symbols |
 | `decompiled/BMDC.asm` | Full Ghidra disassembly listing of the firmware. Use it whenever a `BMDC.c` function ends in `halt_baddata()` or looks truncated: the decompiler cannot model `FMOVECR` or packed-decimal (`fmove.p`) 68882 instructions and silently drops everything after them |
 | `decompiled/B3T_symbols.txt` | CodeView symbols from `B3T.EXE` (Ghidra address, kind, name, module). The DOS-side names of mailbox commands come from here |
