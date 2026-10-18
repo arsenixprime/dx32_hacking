@@ -67,8 +67,10 @@ Bit 0 of 0xbd9 is never set anywhere in this firmware, so in practice
 parameter 10 alone decides. The S-curve planner additionally falls back to the
 trapezoid for some motion modes: mode byte 0x10d9 equal to 0x0c, 0x0d, 0x0f or
 0x13, or mode 0 when the extended values at 0xdb0/0xdbc are nonzero, when
-0x10d8 bit 3 is set, or when 0x7784 bit 6 is set. These look like
-jog/handwheel, homing and special-cycle modes; they have not been named yet.
+0x10d8 bit 3 is set, or when 0x7784 bit 6 is set. The modes are named in the
+move-type table below (0xc rotary-coordinated, 0xd spindle orient, 0xf threading,
+0x13 drive-enable rapid); 0x10d8 bit 3 and 0x7784 bit 6 are the straight-through
+block and its mid-block cancellation, explained under "mcBit3 and 0x7784 bit 6".
 
 Register convention inside both planners: `D3` = current velocity
 (units/tick), `D2` = target velocity for this tick. The planner returns the new
@@ -230,27 +232,37 @@ table at 0x16d74 (`jsr ([A1],D1*4)` at 0x16ce8):
 | 0 | 0x17824 | G1 linear feed move (finalizer: motion code 1 -> type 0) |
 | 1 | 0x184f2 | linear variant, probably arcs are built on this; not confirmed |
 | 2 | 0x19126 | G0 rapid (finalizer: motion code 0 -> type 2, with traverse-rate feed) |
-| 3 | 0x1a1cc | homing move: feed = param 9, param word = axis mask (0 means all), per-axis switch tables |
-| 4 | 0x1963c | not identified |
+| 3 | 0x1a1cc | homing move: feed = param 9, param word = axis mask (0 means all), per-axis switch tables. Queued by the finalizer (0x2315a) and by mailbox homeAxes (0x28716) |
+| 4 | 0x1963c | queued only by the drive-enable sequencer (0xf204 in FUN_0000f15c, param word 0xc or 0x10); purpose not identified |
 | 5 | 0x1aa46 | **touch-probe move**: feed = param 14, arms the probe interrupt, after a hit continues param 15 then backs off param 16 |
 | 6 | 0x1ac3a | latch encoder positions into the position registers (set-zero / capture) |
 | 7 | 0x1af6c | encoder index-pulse seek on one axis (param = axis, bit 7 = direction), creeps at param 11; produced by G100 |
 | 8, 9 | 0x1888c, 0x1adc4 | not identified (9 restores positions with limit clamping) |
 | 10, 11 | 0x1abaa, 0x1ac06 | arm / disarm the probe interrupt |
 | 0xc | 0x191f4 | **G117/G118/G119 rotary-coordinated linear move** (see below) |
-| 0xd | 0x1b10e | spindle index search (orient) using param 36 resolution |
-| 0xe | 0x19ce8 | not identified |
+| 0xd | 0x1b10e | spindle index search (orient) using param 36 resolution. **Producer: the tool-change orient step 0x2f5d4** (called from the tool-change sequencer at 0x2e240, 0x2e540, 0x2e56e, 0x2e5fe, 0x2ed9e) writes 0xd straight into the pending block slot at 0x2f766 (`move.w #0xd,(2,A0)` with A0 = the next-block pointer 0x5bc, after 0xe2fa refreshed that slot from the 0x9d8 working block), then hands it to 0x30d26. Only when master configuration parameter 98 (0xaf58) bits 8-11 == 2. No G-code and no mailbox command can produce it |
+| 0xe | 0x19ce8 | **jog move**: queued by mailbox setJog (command 5, subcommand 2, at 0x28804) |
 | 0xf | 0x1945e | G33/G34 threading |
 | 0x10, 0x11 | 0x1990a, 0x19a74 | special moves (B3T doMove types 8, 9) |
 | 0x12 | 0x18c0a | G7 block |
-| 0x13 | 0x191ee | wraps the rapid executor; queued by the axis-enable path (0xed62) |
+| 0x13 | 0x191ee | wraps the rapid executor; queued only by the drive-enable sequencer (0xed62 in FUN_0000eb14 and 0xf070 in FUN_0000ee4e), each time with the continuation address written to 0x9fd2 first |
+
+Every queued block goes through 0x2b4d6 (type in the low word of D0, param in the
+high word; it sets mcValid and copies 0xaef8 bit 7 into byte 1 bit 2 of the entry)
+except the finalizer, which fills the build area 0x4088 directly, and the orient step
+above, which patches the type into an existing slot. The PC's doMove (mailbox 1)
+puts its type 0-9 in movQflags and the handler 0x27e20 maps it through the table at
+0x27e0c to mcMoveType 0, 1, 2, 2, 4, 5, 8, 9, 0x10, 0x11 (anything above 9 sets the
+error bit at dual-port +0x402), so the PC cannot queue types 3, 6, 7, 0xa-0xf, 0x12 or
+0x13 directly; probePoint (0x2b302) queues type 5 and homeAxes (0x28716) type 3.
 
 The S-curve planner (0x1ba5a) hands the block to the trapezoid when:
 
 * mcMoveType is 0xc (G117-119 rotary-coordinated), 0xd (spindle index search), 0xf (threading) or 0x13 (enable-path rapid);
 * the block is a **rapid** (type 0) and the 4th or 5th axis participates
   (direction cosines at 0xdb0 / 0xdbc nonzero), or header bit 3 (mcBit3) is set,
-  or machine flag 0x7784 bit 6 is set (toggled by the look-ahead at 0x17824).
+  or machine flag 0x7784 bit 6 is set (a straight-through block that lost its
+  no-decel permission mid-block, see "mcBit3 and 0x7784 bit 6" below).
 
 The trapezoid's end-of-block ramp is skipped for types 0xd (spindle index) and 3
 (homing move), and when mcBit3 is set. Everything else (G1/G2/G3, arcs, G12/13, canned-cycle feed
@@ -280,9 +292,13 @@ slots via 0x32e5).
 
 So the tolerance is only ever set by a block of the form `G9 Pn` or `G9 P0`.
 A bare `G9` does the opposite: its handler clears the valid bit, so the
-tolerance is unknown and the classifier below blends nothing (every corner of
-8 degrees or more drops to the 10 ipm corner speed, or to a full stop when the
-adjacent block is short). The interpreter reset routine 0x2349a (called from
+tolerance is unknown and the classifier below blends nothing. The finalizer
+still gives the block mcNoDecel (0x23086), but at load time the sequencer runs
+0x47b8c for every mcNoDecel block while the tolerance is invalid (gate at 0x47844):
+it keeps mcNoDecel only when this and the next block are plain G1 blocks whose
+directions agree within 4 degrees (cos > 0.99756 at 0x47c36), in which case it
+marks the block mcBit3 "straight through" (0x47c4a); at any larger corner it
+clears mcNoDecel (0x47c52) and the block decelerates to a stop at its end. The interpreter reset routine 0x2349a (called from
 0x23384 and from the look-ahead's restart path at 0x1c752) also sets 0x32e0 bit 7
 and clears 0x32e9 bit 5, i.e. **a program starts in G9 mode with no valid
 tolerance** (CONFIRMED for the flag writes; exactly which events run 0x2349a is
@@ -298,7 +314,14 @@ Block finalizer 0x22874, from 0x23064:
    mcNoDecel.
 2. If the G99 one-shot is set, set mcNoDecel unconditionally, and copy
    0x32e4 bit 5 into the block's "no end ramp at all" flag (0x425b bit 0, loaded
-   to 0x10e4).
+   to 0x10e4). **0x32e4 bit 5 = "this block has a C word"** (set by the C letter
+   handler at 0x1f216 / 0x1f090, cleared per block at 0x23a42). C-word blocks are
+   excluded from the look-ahead (0x1c832 sends them down the path that writes -1
+   to the stop-distance 0x3c6c at 0x1c84c, and 0x1cb10 then skips the corner
+   computation), so no look-ahead distance 0x1340 exists for them. mcNoDecel alone
+   would make the trapezoid ramp towards an undefined distance, hence for a G99
+   block that moves C the firmware disables the end ramp outright instead.
+   CONFIRMED.
 3. mcNoDecel is then cleared again if the block is a rapid (0x32f1 == 0), a
    zero-length linear move, single-block / hold conditions (0x3c40, 0xaefa bit 5,
    0x7784 bit 1), or a cycle condition.
@@ -332,14 +355,26 @@ directions (radians). Tolerance = 0x43a4.
 | 64..96 deg | P > 5080 (0.002 in) | blend with 12 sub-segments (0.83..0.16), blend size x3 |
 | otherwise | | no blend: the block ends with a full stop (exact stop) |
 
-Base blend size is 8890 units (0.0035 in), so the inserted polyline stays
-within roughly 0.004 to 0.01 in of the programmed corner. The corner speed
+**P is only ever compared, never used in arithmetic.** The tolerance at 0x43a4 is
+read in exactly two places in the image (0x1e7aa and 0x1e7d8, the two threshold
+tests above) and written only by the P handler. The blend geometry comes from
+constants: base blend size 8890 units (0.0035 in) times 2 or 3 by angle class, a
+fixed sub-segment count and scale list per class, and the corner-speed formula
+below with the class index. So P is a two-step permission switch: P <= 0.001 in
+blends only corners under 32 degrees, 0.001 < P <= 0.002 in adds the 32-64 degree
+class, P > 0.002 in (including the P0 default of 0.005 in) adds the 64-96 degree
+class. P0.1 blends no more loosely than P0.003, and the deviation at a blended
+corner is set by the 0.0035 in base size and class multiplier, not by P.
+The inserted polyline therefore stays within roughly 0.004 to 0.01 in of the
+programmed corner regardless of the P value. The corner speed
 for a blended corner is `2032 * (shorter adjacent block - 1778) / blend size`,
 capped at 12192 units/tick (72 ipm) and at the neighbouring block's
 limit at 0x45b4; an unblended corner gets 1693 units/tick (10 ipm). If the tolerance is
 not valid (0x32e9 bit 5 clear: no `G9 P` seen yet, or a bare `G9` since), the check at
 0x1e84a skips the blend for every corner of 8 degrees or more; corners under 8 degrees
-return early at 0x1e770 and pass through regardless.
+return early at 0x1e770 and pass through regardless. Whatever corner speed this
+computes is moot without a valid tolerance, because 0x47b8c then strips mcNoDecel
+from every junction over 4 degrees (see the bare-G9 note above).
 
 With `G9 P0` (0.005 in) every corner up to 96 degrees is blended, so
 the practical effect of G9 is: feed moves flow through corners at a reduced
@@ -348,8 +383,38 @@ decel into and accel out of each corner. G8 restores stop-at-every-block.
 G99 forces one boundary to be crossed without any deceleration, regardless of
 geometry, and is the only way to get a true no-decel junction for rapids.
 
-Open items: the meaning of 0x32e4 bit 5 (makes G99 remove the end ramp
-entirely), the producers of move types 0xd and 0x13, and 0x7784 bit 6.
+### mcBit3 and 0x7784 bit 6
+
+**mcBit3 (MOVCMD bit 11, 0x10d8 bit 3 once loaded) = "straight-through block":
+do not ramp down at the end, the next block continues in the same direction.**
+It is never set by the parser or the finalizer (no writer of 0x408a bit 3). Its
+only producer is the load-time check 0x47b8c (0x47c4a), which runs for mcNoDecel
+blocks when no `G9 P` tolerance is valid and marks blocks whose successor is a
+plain G1 within 4 degrees. The G1 executor re-validates it at block start
+(0x17996): 0x17e8e computes the angle to the next block (0x5bc) and clears both
+mcBit3 and mcNoDecel if it is 0.1498 rad (8.6 degrees) or more, and 0x18330
+clears both if the next block is too short to absorb the velocity. While an
+mcBit3 block runs, the loop at 0x17ad8 keeps extending the per-tick target and
+0x17cc6 ends the block wherever motion is when the next block takes over. The
+trapezoid skips its end ramp for mcBit3 blocks and the S-curve defers to the
+trapezoid for them; a C-axis delta clears mcBit3 (0x178da).
+
+**0x7784 bit 6 = "an mcBit3 block lost its no-decel permission mid-block".**
+Each tick of the G1 executor (0x17ca6) tests `mcNoDecel clear && mcBit3 set`; that
+can only become true when something clears mcNoDecel in the running block, which
+is the hold path 0x16dd4 (called from the interpolator at 0x16ab6, 0x16ada,
+0x16b12) and the block sequencer at 0xe822. The executor then sets 0x7784 bit 6,
+clears mcBit3 and restarts the block at 0x17a44. From there the planner select at
+0x1bad4 picks the trapezoid (the S-curve cannot re-plan a block in flight) and,
+with mcBit3 gone, the trapezoid performs a normal end ramp, so the block stops at
+its end. The bit is cleared when the block finishes (0x17cc6) and at the start of
+every G1 block (0x17a3e). CONFIRMED.
+
+Open items: the purpose of move types 4, 8 and 9, the meaning of 0x3c48 (cycle
+code), the 0x7780 mode values (0 at 0x2c1d0, 1 = hold at 0x16de0, 2 at 0xea9c,
+3 at 0x289b6, 4 at 0xe168, and 5 which 0x30d26 and 0xe322 require for the
+tool-change block path), and exactly which events run the interpreter reset
+0x2349a.
 
 ## Feedrate: how F is scaled and used in combined 4-axis (C) moves
 
