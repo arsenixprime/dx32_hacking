@@ -146,6 +146,44 @@ spindle DAC and reads it back, a match meaning BMDC3 (type 3); otherwise it asks
 on that prompt. BXX and MAINTPG display a "Board Type:" field; where they read it from has not
 been traced (TENTATIVE: a setup file, since the firmware never writes the class to dual-port).
 
+## A BMDC-4B with the PWMINT fitted
+
+![BMDC-4B with the PWMINT daughterboard plugged in](images/bmdc4b_with_pwmint.png)
+
+The BMDC4 ships with the PWMINT for many applications. This BMDC-4B (silkscreen at the lower
+left of the ISA edge, label 230508) carries it as the black daughterboard in the middle of the
+card, plugged into pin headers on the main board. Points visible in the photo:
+
+- the daughterboard's FPGA is labelled "SUPER PWM", with a "CLK" oscillator, "SMmode" jumper
+  block (JP8/JP9), five resistor networks, three support ICs (U1-U3) and two transistors (Q1/Q2)
+  for the enable/fault lines;
+- the host CPU sits under the large heatsink at the left, consistent with the 68040 setup the
+  firmware applies to class 4 (`CACR`, transparent-translation registers, FPU software package);
+- the ADM5180 RS422 transceivers and the SCN2681 UART are on the right, the same AUF/TLAUF serial
+  hardware as a BMDC3;
+- the 32-pin SOJ SRAMs are the row of sockets along the top edge.
+
+So the register block at 0x01300040..0x01300054 is decoded on the BMDC-4B and routed to those
+headers; the "address decoding" caveat in the next section is resolved for this board revision.
+
+## A BMDC3 for comparison
+
+![BMDC3S rev C without the PWMINT](images/bmdc3s_rev_c.png)
+
+This is a BMDC3S rev C (silkscreen "BMDC3S REV C, FAB 31944356, ASM 31944357" at the lower
+centre), shown in the same orientation as the BMDC-4B above: ISA edge at the bottom, bracket
+with the D-sub connector at the right. Points worth comparing:
+
+- the two long pin headers across the middle of the card, one under the yellow caution label
+  and one at the right next to the red header, are where the PWMINT daughterboard plugs in; on
+  this analog machine they are empty, so the axis DACs drive the amplifiers directly;
+- the 68030 and 68882 run without a heatsink, the 68040 on the BMDC-4B needs one;
+- the Maxim MAX161 ADC (right of centre, "MAXIM" package) is the eight-channel byte-wide
+  converter that the class 3 tick phase reads at 0x013000c0, one channel per tick;
+- the four 32-pin SOJ SRAM sites along the top edge are the 512 KB described in
+  `BMDC_RAM_UPGRADE.md`;
+- the same ADM5180 RS422 transceivers and SCN2681 UART as the BMDC-4B sit near the bracket.
+
 ## Can a TC22 (PWMINT) run on a BMDC4?
 
 Nothing in the firmware prevents it:
@@ -162,8 +200,9 @@ Nothing in the firmware prevents it:
 What does change, and must be dealt with outside the firmware:
 
 1. **Address decoding of the PWMINT.** The PWMINT lives at 0x01300040..0x01300054 behind the
-   BMDC's PAL decode. Whether the BMDC4's PALs decode that block and bring it to the same
-   connector is a hardware question this repo cannot answer (no schematics).
+   BMDC's PAL decode. The BMDC-4B photographed above has the PWMINT plugged into on-board
+   headers, so that revision decodes the block; the only remaining question is whether a given
+   BMDC4 and PWMINT pair were built for each other (header position and pinout).
 2. **Spindle output moves.** On a BMDC4 the spindle analog command is DAC 5 at 0x01300110,
    14-bit around 0x2000, not the 16-bit DAC at 0x01300180 (which must be absent, or halt
    0xa3). The spindle drive wiring and parameters 69/71 need to follow.
