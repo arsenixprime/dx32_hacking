@@ -167,6 +167,83 @@ of parameter 141), skipped when the master-parameter nibble at 0xaf58 bits 16-19
 - **Force PWM without the card:** not possible; the status reads at 0x11d9c/0x10090 would alarm
   on the first drive-enable pass.
 
+## Tuning parameters: analog versus PWM
+
+The servo loop is one code path. Both modes run the same stages on the same parameters and
+none of these stages tests 0xafc4:
+
+| Stage | Site | Parameters |
+|-------|------|------------|
+| Lead compensation and velocity feed-forward (0x27f0) | 0x11918 | 146-149 lead-comp interval, 60-63 axis velocity gain |
+| Proportional and differential error term (0x2ad0) | 0x114bc | 119-122 following error gain, 114-117 differential following error gain |
+| Integral term | 0x11512 | 77 and 79 integral gains, 80 integral magnitude limiter, 81 integral loss; the accumulator is the "DAC offset" slots 237-240 (0x278c) |
+| Four-stage digital filter | 0x11802 | 142-145 "PWM digital filter constants" (see below) |
+| Output shift | 0x115b8 | 65-68 axis servo gain |
+
+The parameter file's comments calling 114-123 and 142-145 "for the PWM drive system" are
+misleading: the firmware applies them on an analog board as well. What differs:
+
+- **Servo gain scaling.** On an analog BMDC3 the shift count is the servo gain parameter plus 2
+  (0x11578), one quarter of the output per count of filtered error. A BMDC4 and any PWMINT board
+  use the parameter as written.
+- **Output span.** Analog is 12 bits around 0x800 (14 bits around 0x2000 on a BMDC4); PWM is
+  11 bits around 0x400. Together with the shift, a given gain value is a different volts (or
+  duty) per count on each hardware.
+- **PWM-only block.** Parameters 124-127, 130-141 feed only the clamp window (0x17244) and the
+  load integrator (0x17390), both skipped when the flag is zero. On an analog board they are
+  loaded into memory and never read.
+- **Built-in defaults.** The two tables at 0x1c2d0 (analog) and 0x1c3b0 (PWM) differ, for
+  example acceleration 847 versus 400 and deceleration 974 versus 350, and the analog table
+  appears shifted by one slot from parameter 9 onward. They matter only until BXX pushes
+  `BMDCPRMS.SYS`, which overwrites them.
+
+A parameter file tuned on a PWMINT machine is therefore numerically the wrong set for the same
+card running analog: the P, I, D, feed-forward and filter values carry over, the servo gain has
+to be re-scaled for the extra shift and the 12-bit span, and the PWM-only block becomes dead
+weight.
+
+## The four-stage digital filter (0x11802, CONFIRMED)
+
+Runs every tick in both modes, on the summed error term in 0x2ad0 (P + D + integral + velocity
+feed-forward) before the servo-gain shift, for X, Y, Z and C with one set of constants. The
+history is four longs per axis at 0x2ae0, 0x2af0, 0x2b00 and 0x2b10, holding the last four
+**unfiltered** inputs; the filter output is written back into 0x2ad0 but is not fed into the
+history. It is therefore a 5-tap FIR, not a recursive filter:
+
+```
+y[n] = x[n] - ( K1*(x[n-1]>>8) + K2*(x[n-2]>>8) + K3*(x[n-3]>>8) + K4*(x[n-4]>>8) )
+K1..K4 = parameters 142..145 (0x2ac0..0x2acc)
+```
+
+Details that matter for tuning:
+
+- The history value is arithmetic-shifted right by 8 **before** the multiply, so each tap is
+  K/256 in gain but with 256-unit resolution: an error term below 256 contributes nothing
+  (or exactly -K for small negatives, because `asr` rounds toward minus infinity). The filter
+  is inactive for small following errors.
+- The constants are multipliers, not shift amounts as the parameter file comment says.
+- Positive K subtracts a fraction of the recent past, which lowers DC gain slightly and adds a
+  small phase lead; negative K would average in the past and smooth. With the file's values
+  K = 8, 2, 3, 4 the sum of the taps is 17/256, so DC gain is 0.934 and the response at the
+  250 Hz tick rate is:
+
+| Hz | gain | phase (deg) |
+|----|------|-------------|
+| 0 | 0.934 | -0.0 |
+| 5 | 0.937 | +1.1 |
+| 10 | 0.947 | +2.0 |
+| 25 | 0.990 | +2.7 |
+| 50 | 1.001 | +0.7 |
+| 62.5 | 0.992 | +1.1 |
+| 100 | 1.032 | +0.7 |
+| 125 | 1.020 | -0.0 |
+
+  In other words, with these constants it is a 6.6 % trim of the error gain with a few degrees of
+  lead around 10-50 Hz, not a smoothing filter. Setting all four to 0 removes it exactly.
+- 0x2ac0..0x2acc have no built-in default (not in either default table) and are only ever read
+  here, so a parameter file that omits 142-145 leaves whatever was in RAM at power-up (zero after
+  a cold start).
+
 ## Open items
 
 - The meaning of PWMINT status bits 8-11 versus 4-7 (both are "must be set"; one is probably
