@@ -168,8 +168,7 @@ Driven by `FUN_00012328` at 0x12328. Uses function pointer table.
 | 0x00000000-0x0007FFFF (or 0x000FFFFF) | Main RAM, sized at boot (see below). Firmware image 0x0-0x4BFF9, stacks at 0x4D000/0x4D100/0x4D200, MDI/block text buffer 0x4E000-0x53FFF, part-program buffer 0x4E000 up to the RAM top (0xAFA8) |
 | 0x01200000-0x01200818 | Dual-port RAM (shared with ISA host) |
 | 0x01300004-0x0130001C | Encoder/counter inputs (up to 9 axes) |
-| 0x01300040-0x0130004C | Motor DAC outputs (4 channels, alternate bank) |
-| 0x01300050-0x01300054 | Digital output control |
+| 0x01300040-0x01300054 | PWMINT accessory card (X/Y/Z/C duty commands, status read, enable/disable strobes); see `BMDC_AXIS_OUTPUTS.md` |
 | 0x01300080-0x013000BC | SCN2681 UART registers |
 | 0x013000C0          | ADC reads |
 | 0x01300100-0x0130011C | Motor DAC outputs (4 channels, primary bank) |
