@@ -1,9 +1,9 @@
 # Split cord grip for a 3/4" knockout — two cables with pre-terminated right-angle connectors
 
-Status: **DESIGNED, NOT YET PRINTED/FITTED.** A v1 nut was printed and found to have no bore
-(generator bug, fixed in v2 — see "Lessons" below). Nothing from v3 has been printed. Every
-dimension below is the model; the two gating measurements (knockout diameter, nut-over-connector)
-are still unverified on the real parts.
+Status: **v3 PRINTED, BEING FITTED.** The halves, nut and grommet have been printed; the pocket
+measured 0.375" as modelled and the grommet 0.40" (too tall — fixed in v3.1, grommet only). A v1
+nut had been printed earlier with no bore (generator bug, fixed in v2 — see "Lessons" below). The
+knockout diameter and nut-over-connector fit are not yet recorded here.
 
 ![renders](render.png)
 
@@ -49,9 +49,12 @@ Geometry (v3, as generated):
 - Guide slot through the skirt and flange end walls: convex hull of Ø7.95 and Ø11.1 circles
   (cable + 1.6 mm), 18.8 × 11.1 mm, 1 mm fillets at both exits for chafe. Leaves 2.86 mm of skirt
   wall at the slot ends — the script refuses to build below 2.0.
-- Grommet 26.8 × 17.5 × 10 mm, bores Ø5.7 (small) and Ø8.8 (large), 2.0 mm web between them,
-  0.5 mm chamfers on all bore edges. Pocket is 0.25 mm smaller per side and 0.5 mm shorter
-  (designed squeeze; the script reports the interference volume, ~293 mm³).
+- Grommet 26.8 × 17.5 × **9.0** mm, bores Ø5.7 (small) and Ø8.8 (large), 2.0 mm web between
+  them, 0.5 mm chamfers on all bore edges. Pocket is 26.3 × 17.0 × 9.5: 0.25 mm radial squeeze
+  per side (that is what seals and grips) and **0.5 mm axial clearance** — v3 had 0.5 mm axial
+  *interference* and the printed grommet came out 0.40" tall for a 0.375" pocket (TPU also
+  prints ~0.15 mm tall), which only fought the halves closing. Fixed 2026-11-04; the halves are
+  unchanged, only the grommet needs reprinting.
 - Nut: thread clearance 0.3 mm radial and on both flanks. **Nut bore (minor + clearance) is
   Ø25.1 mm — every connector must pass through this, not the Ø28.2 panel hole.**
 - Thread fit is checked in 2D on the generating cross-sections (exact for this construction).
@@ -102,6 +105,7 @@ Parameters most likely to need touching after the first print:
 |---|---|---|
 | `HOLE_D` | 28.2 | measured knockout differs (1.050" → 26.7) |
 | `CABLES[i]["bore"]` | 5.7 / 8.8 | grommet bores print under/over size |
+| `GROMMET_AXIAL_CLR` | 0.5 | grommet still binds axially in the pocket (TPU printing tall) |
 | `BOLT_TAP_D` | 2.5 | tap tears PETG instead of cutting → 2.6–2.7 |
 | `RECESS_D` | 6.3 | collars won't drop in |
 | `THREAD_CLR` | 0.3 | nut binds / too sloppy |
@@ -131,4 +135,6 @@ Parameters most likely to need touching after the first print:
 - v2: twistExtrude threads; halves made distinct (A clearance + counterbore, B tap-drill);
   centering collars added; square flange (a hex has no flat face where the bolts land).
 - v3 (2026-11-03): two cables (0.25" + 0.375") through one oblong grommet; layout computed
-  from the `CABLES` list; flange 50 × 38.
+  from the `CABLES` list; flange 50 × 38. Halves and nut printed.
+- v3.1 (2026-11-04): grommet shortened to 9.0 mm (0.5 mm axial clearance in the 9.5 mm pocket)
+  after the first print measured 0.40" tall against a 0.375" pocket. Halves unchanged.

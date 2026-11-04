@@ -48,10 +48,13 @@ CABLES = [
 ]
 GROMMET_WEB   = 2.0    # rubber between adjacent cable bores (measured bore-to-bore)
 GROMMET_WALL  = 4.0    # rubber from the largest bore to the grommet's outer surface
-GROMMET_L     = 10.0   # axial length
+POCKET_L      = 9.5    # pocket length inside the flange (axial)
+GROMMET_AXIAL_CLR = 0.5   # grommet is this much SHORTER than the pocket.  The seal and grip
+                          # come from the radial squeeze; axial pre-load only fights the halves
+                          # closing, and FDM TPU prints ~0.15 mm tall on top of that.
+GROMMET_L     = POCKET_L - GROMMET_AXIAL_CLR   # 9.0
 GROMMET_BORE_CHAMFER = 0.5
 POCKET_RADIAL_INTERF = 0.25   # per side; pocket outline = grommet outline inset by this
-POCKET_AXIAL_INTERF  = 0.5    # pocket length = GROMMET_L - this
 SKIRT_CABLE_CLR = 1.6  # diametral clearance of the skirt's guide slot around each cable
 
 # --- Panel -------------------------------------------------------------------
@@ -128,8 +131,8 @@ def compute_layout():
         xs=xs, span=span,
         grommet_r=r_g, grommet_len=span + 2 * r_g,
         pocket_r=r_p, pocket_len=span + 2 * r_p,
-        pocket_L=GROMMET_L - POCKET_AXIAL_INTERF,
-        pocket_z0=(FLANGE_T - (GROMMET_L - POCKET_AXIAL_INTERF)) / 2,
+        pocket_L=POCKET_L,
+        pocket_z0=(FLANGE_T - POCKET_L) / 2,
         slot_r=slot_r, slot_len=slot_len, slot_w=slot_w,
         bolt_x=bolt_x, flange_x=flange_x,
         body_L=FLANGE_T + SKIRT_L,
@@ -514,7 +517,7 @@ def main():
         print(f"  nut/skirt min radial gap   {gap:7.3f} mm  (want >= {gap_min:.2f})  {'ok' if ok else 'FAIL'}")
         all_ok &= ok
     v_panel = panel.intersect(body).val().Volume()
-    v_grom = grommet.translate((0, 0, LAY["pocket_z0"])).intersect(body).val().Volume()
+    v_grom = grommet.translate((0, 0, LAY["pocket_z0"] + GROMMET_AXIAL_CLR / 2)).intersect(body).val().Volume()
     v_cables = sum(c.intersect(body).val().Volume() for c in cables)
     collar_placed = (collar.rotate((0, 0, 0), (1, 0, 0), -90)      # axis -> +Y
                      .translate((LAY["bolt_x"], -COLLAR_L / 2, BOLT_Z)))
@@ -554,7 +557,7 @@ def main():
         asm = cq.Assembly(name="split_grommet")
         asm.add(half_a, name="body_half_A", color=cq.Color(0.75, 0.75, 0.75))
         asm.add(half_b, name="body_half_B", color=cq.Color(0.6, 0.6, 0.6))
-        asm.add(grommet, name="grommet", loc=cq.Location(cq.Vector(0, 0, LAY["pocket_z0"])),
+        asm.add(grommet, name="grommet", loc=cq.Location(cq.Vector(0, 0, LAY["pocket_z0"] + GROMMET_AXIAL_CLR / 2)),
                 color=cq.Color(0.2, 0.6, 0.5))
         asm.add(nut_placed, name="nut", color=cq.Color(0.5, 0.5, 0.5))
         for i, sx in enumerate((+1, -1)):
