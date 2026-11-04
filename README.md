@@ -43,6 +43,10 @@ The AUF Board has:
 * [BMDC_PROBE_INTERNALS.md](BMDC_PROBE_INTERNALS.md) — How touch probing works across BXX and the firmware: the PROBE ON/OFF toggle (parameter 7 plus armProbe), the overlay PROBEPT primitive, the firmware probe cycle and position latch, how SET X computes and stores work zero (the four offset copies and per-block zeros), where tool changes pass through, and the loader behaviour. Research notes for auto probe-mode and auto-zero features; nothing implemented.
 * [hardware/bmdc_ram_interposer/](hardware/bmdc_ram_interposer/README.md) — The interposer itself, rev A (KiCad 10): generated 4-layer castellated board (11.83 × 27.6 mm, 32 castellations at 1.27 mm, short-pad SOJ-36 on top, four 0402 caps, JP1/JP2 solder jumpers and A17/A18 wire pads), ERC/DRC/schematic-parity clean, with gerbers/drill/CPL/BOM for JLCPCB, 3D renders, STEP, datasheets and kicad-happy analyzer reports. Everything is regenerated from `tools/params.py`; the row pitch, host pad size, chip-to-chip pitch and end clearance are still nominal and must be measured on the card before ordering.
 
+## Mechanical Parts
+
+* [mechanical/](mechanical/README.md) — Printed/machined hardware for the retrofit, one CadQuery generator per part with a README stating what has actually been built. Currently: [yaskawa_cord_grip/](mechanical/yaskawa_cord_grip/README.md), a split clamshell cord grip for a 3/4" knockout that passes a 0.25" and a 0.375" cable with right-angle connectors on both ends (designed, not yet printed).
+
 ## Decompiled Sources
 
 * `decompiled/BMDC.c`, `decompiled/BXX.c`, `decompiled/B3T.c`, `decompiled/MAINTPG.c` — Ghidra decompilation of each binary, one file per binary. Grep here first rather than re-running Ghidra. `B3T.c` has real function names from the CodeView symbols.
